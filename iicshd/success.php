@@ -294,7 +294,6 @@ if ($studSuccess == TRUE) {
                                                 //Recipients
                                                 $mail->setFrom('noreply.iicshd@gmail.com', 'IICS Help Desk');
                                                 $mail->addAddress($_SESSION['studemail']);
-                                                $mail->addAddress('jc_dizon16@outlook.com');
                                                 $mail->addReplyTo('noreply.iicshd@gmail.com', 'IICS Help Desk'); // Add a recipient
 
                                                 $mail->isHTML(true);                                  // Set email format to HTML
