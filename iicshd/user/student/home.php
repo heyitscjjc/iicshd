@@ -176,7 +176,7 @@ if (isset($_POST['unpinPost'])) {
 
                     <li class="nav-item">
                         <a class="nav-link" style="color:white;" href="consultations.php">
-                            <span data-feather="info"></span>
+                            <span data-feather="external-link"></span>
                             Ask Me Anything
                         </a>
                     </li>
