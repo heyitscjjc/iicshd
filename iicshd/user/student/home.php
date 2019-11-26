@@ -148,6 +148,7 @@ if (isset($_POST['unpinPost'])) {
                         </a>
                     </li>
 
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" style="color:white;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             <span data-feather="calendar"></span>
@@ -167,6 +168,13 @@ if (isset($_POST['unpinPost'])) {
                                 Room Schedule
                             </a>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white;" href="consultations.php">
+                            <span data-feather="info"></span>
+                            Ask Me Anything
+                        </a>
                     </li>
 
                 </ul>
