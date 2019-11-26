@@ -204,6 +204,10 @@ if (isset($_POST['delete'])) {
                                 <span data-feather="book-open"></span>
                                 Room Schedule
                             </a>
+							<a class="dropdown-item" href="eschedule.php">
+                                <span data-feather="book-open"></span>
+                                Exam Schedule
+                            </a>
                         </div>
                     </li>
                 </ul>

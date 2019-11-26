@@ -57,6 +57,7 @@ if (!isset($_SESSION['user_name'])) {
     </head>
 
     <body>
+
         <!--NEW NAVBAR-->
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -89,7 +90,7 @@ if (!isset($_SESSION['user_name'])) {
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link"  style="color:white;" href="queue.php">
+                        <a class="nav-link" style="color:white;" href="queue.php">
                             <span data-feather="users"></span>
                             Queue
                         </a>
@@ -104,15 +105,15 @@ if (!isset($_SESSION['user_name'])) {
                                 <span data-feather="book-open"></span>
                                 Faculty Schedule
                             </a>
-                            <a class="dropdown-item active" href="cschedule.php">
+                            <a class="dropdown-item" href="cschedule.php">
                                 <span data-feather="book-open"></span>
                                 Class Schedule
                             </a>
-                            <a class="dropdown-item" href="rschedule.php">
+							<a class="dropdown-item" href="rschedule.php">
                                 <span data-feather="book-open"></span>
-                                Room Schedule
+                                 Room Schedule
                             </a>
-							<a class="dropdown-item" href="eschedule.php">
+                            <a class="dropdown-item active" href="eschedule.php">
                                 <span data-feather="book-open"></span>
                                 Exam Schedule
                             </a>
@@ -140,20 +141,20 @@ if (!isset($_SESSION['user_name'])) {
                     </li>
                 </ul>
 
-<!--                <ul class="navbar-nav px-1">
-                    <li class="nav-item text-nowrap">
-                    <li class="nav-item dropdown">
-                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="fas fa-envelope"></span>
-                            Notifications
-                        </button>
-                        <div class="dropdown-menu" style="white-space: normal;">
-                            <?php
+                <!--                <ul class="navbar-nav px-1">
+                                    <li class="nav-item text-nowrap">
+                                    <li class="nav-item dropdown">
+                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fas fa-envelope"></span>
+                                            Notifications
+                                        </button>
+                                        <div class="dropdown-menu" style="white-space: normal;">
+                <?php
 //                            $notifquery = "SELECT notif.notifno, notif.notiftitle, notif.notifdesc, notif.notifaudience, notif.notifdate, users.userno 
 //                                                    FROM notif 
 //                                                INNER JOIN users 
 //                                                ON users.userno = notif.notifaudience 
-//                                                WHERE notif.notifaudience = '" . $_SESSION['userno'] . "' 
+//                                                WHERE notif.notifaudience = '".$_SESSION['userno']."' 
 //                                                UNION ALL 
 //                                            SELECT notif.notifno, notif.notiftitle, notif.notifdesc, notif.notifaudience, notif.notifdate, notif.notifno as userno 
 //                                                    FROM notif 
@@ -196,15 +197,16 @@ if (!isset($_SESSION['user_name'])) {
 //                                                No new notifications.
 //                                            </a>';
 //                            }
-                            ?>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="notifications.php" style="color: blue; width: 300px; white-space: normal;">
-                                <center>View All Notifications</center>
-                            </a>
-                        </div>
-                    </li>
-                    </li>
-                </ul>-->
+                ?>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="notifications.php" style="color: blue; width: 300px; white-space: normal;">
+                                                <center>View All Notifications</center>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    </li>
+                                </ul>-->
+
 
                 <ul class="navbar-nav px-3">
                     <li class="nav-item text-nowrap">
@@ -236,11 +238,12 @@ if (!isset($_SESSION['user_name'])) {
         </nav>
 
 
+
         <div class="container-fluid">
 
             <main role="main" class="col-md-12 ml-sm-auto">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Class Schedule</h1>
+                    <h1 class="h2">Exam Schedule</h1>
                 </div>
 
                 <nav>
@@ -254,7 +257,7 @@ if (!isset($_SESSION['user_name'])) {
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <?php
-                        $query = mysqli_query($conn, "SELECT * FROM schedule WHERE schedname = 'CS Class Schedule'");
+                        $query = mysqli_query($conn, "SELECT * FROM schedule WHERE schedname = 'CS Exam Schedule'");
                         if ($query->num_rows > 0) {
                             while ($row = $query->fetch_assoc()) {
                                 $schedlink = $row['schedlink'];
@@ -270,7 +273,7 @@ if (!isset($_SESSION['user_name'])) {
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <?php
-                        $query = mysqli_query($conn, "SELECT * FROM schedule WHERE schedname = 'IS Class Schedule'");
+                        $query = mysqli_query($conn, "SELECT * FROM schedule WHERE schedname = 'IS Exam Schedule'");
                         if ($query->num_rows > 0) {
                             while ($row = $query->fetch_assoc()) {
                                 $schedlink = $row['schedlink'];
@@ -286,7 +289,7 @@ if (!isset($_SESSION['user_name'])) {
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <?php
-                        $query = mysqli_query($conn, "SELECT * FROM schedule WHERE schedname = 'IT Class Schedule'");
+                        $query = mysqli_query($conn, "SELECT * FROM schedule WHERE schedname = 'IT Exam Schedule'");
                         if ($query->num_rows > 0) {
                             while ($row = $query->fetch_assoc()) {
                                 $schedlink = $row['schedlink'];
