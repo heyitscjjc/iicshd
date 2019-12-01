@@ -107,6 +107,24 @@ if (isset($_POST['login'])) {
                         exit();
                     }
                 }
+				if ($_SESSION['role'] == "organizati") {
+                    if ($_SESSION['resetpass'] == 1) {
+                        header("location:/iicshd/reset.php");
+                        exit();
+                    } else {
+
+                        $passaction = 'Login';
+
+                        $passval = "Logged in successfully.";
+                        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+                        $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
+                        $logpass->execute();
+                        $logpass->close();
+                        
+                        header("location:/iicshd/user/organization/home.php");
+                        exit();
+                    }
+                }
             }
         }
     } else {
@@ -258,6 +276,9 @@ if (isset($_POST["resetlogin"])) {
                     exit();
                 } elseif ($_SESSION['role'] == "faculty") {
                     header("location:/iicshd/user/faculty/home.php");
+                    exit();
+                } elseif ($_SESSION['role'] == "organizati") {
+                    header("location:/iicshd/user/organization/home.php");
                     exit();
                 }
             } else {

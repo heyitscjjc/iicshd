@@ -4,6 +4,9 @@ include '../../include/controller.php';
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
     header("location:/iicshd/user/admin/home.php");
 }
+if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
+    header("location:/iicshd/user/faculty/home.php");
+}
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "student") {
     header("location:/iicshd/user/student/home.php");
 }
@@ -15,7 +18,6 @@ if (isset($_SESSION['user_name'])) {
         $_SESSION['last_time'] = time();
     }
 }
-
 
 if (!isset($_SESSION['user_name'])) {
     header("location:/iicshd/login.php");
@@ -299,15 +301,6 @@ if (isset($_POST['deletepost'])) {
                                         <label for="description">Description</label>
                                         <textarea rows="2" class="form-control" name="pDesc" required ></textarea>
                                     </div>
-									
-									<div class = "form-group">
-									<select name="anndept" required>
-											<option value="1">ALL</option>
-											<option value="2">CS</option>
-											<option value="3">IS</option>
-											<option value="4">IT</option>
-									</select>
-									</div>
 									
 									<div class="form-group">
                                         <button style="float:right;" type="submit" name="postAnnouncement" class="btn btn-success">

@@ -6,6 +6,10 @@ if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
     header("location:/iicshd/user/faculty/home.php");
 }
+if (isset($_SESSION['user_name']) && $_SESSION['role'] == "organizati") {
+    header("location:/iicshd/user/organization/home.php");
+}
+
 if (isset($_SESSION['user_name'])) {
 
     if ((time() - $_SESSION['last_time']) > 2000) {

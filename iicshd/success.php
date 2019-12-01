@@ -16,6 +16,9 @@ if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "student") {
     header("location:/iicshd/user/student/home.php");
 }
+if (isset($_SESSION['user_name']) && $_SESSION['role'] == "organizati") {
+    header("location:/iicshd/user/organization/home.php");
+}
 if (isset($_SESSION['user_name'])) {
 
     if ((time() - $_SESSION['last_time']) > 2000) {
@@ -43,14 +46,15 @@ $mail->Port = 587;                                    // TCP port to connect to
 
 $studSuccess = $_SESSION['studSuccess'];
 
-$vcode = $vcodeErr = $studrole = $emprole = "";
+$vcode = $vcodeErr = $studrole = $emprole = $orgrole = "";
 
 
 $studnum = $studfname = $studmname = $studlname = $studsection = $studemail = $studpass = $studconfpass = $studsecq = $studsecans = $studrole = $forgot = $hidden = "";
 $empnum = $empfname = $empmname = $emplname = $empsection = $empemail = $emppass = $empconfpass = $empsecq = $empsecans = $emprole = $forgot = $hidden = "";
+$orgname = $orgfname = $orgmname = $orglname = $orgsection = $orgemail = $orgpass = $orgconfpass = $orgsecq = $orgsecans = $orgrole = $forgot = $hidden = "";
 
 
-if ($studSuccess == TRUE) {
+if ($studSuccess == '1') {
 
     $role = $_SESSION['studrole'];
     $vcode = $_SESSION['vcode'];
@@ -85,9 +89,18 @@ if ($studSuccess == TRUE) {
 
                     if ($inputv == $checkv) {
 
-
+//                        $studnum = $_SESSION['studnum'];
+//                        $studfname = $_SESSION['studfname'];
+//                        $studmname = $_SESSION['studmname'];
+//                        $studlname = $_SESSION['studlname'];
+//                        $studemail = $_SESSION['studemail'];
+//                        $hashedPwd = $_SESSION['studpass'];
+//                        $forgot = $_SESSION['studforgot'];
                         $studrole = $role;
-
+//                        $studsection = $_SESSION['studsection'];
+//                        $studsecq = $_SESSION['studsecq'];
+//                        $hashedSecAns = $_SESSION['studseca'];
+//                        $hidden = $_SESSION['studhidden'];
 
 
                         $verified = "1";
@@ -132,7 +145,8 @@ if ($studSuccess == TRUE) {
             }
         }
     }
-} elseif ($studSuccess == FALSE) {
+}
+ elseif ($studSuccess == '2') {
 
     $role = $_SESSION['emprole'];
     $vcode = $_SESSION['vcode'];
@@ -222,8 +236,100 @@ if ($studSuccess == TRUE) {
             }
         }
     }
-} else {
-    header("Location: index.php");
+} 
+elseif ($studSuccess == '3') {
+    
+    $role = $_SESSION['orgrole'];
+    $vcode = $_SESSION['vcode'];
+
+    $orgname = $_SESSION['orgname'];
+    $orgfname = $_SESSION['orgfname'];
+    $orgmname = $_SESSION['orgmname'];
+    $orglname = $_SESSION['orglname'];
+    $orgemail = $_SESSION['orgemail'];
+    $hashedPwd = $_SESSION['orgpass'];
+    $forgot = $_SESSION['orgforgot'];
+    $orgsection = $_SESSION['orgsection'];
+    $orgsecq = $_SESSION['orgsecq'];
+    $hashedSecAns = $_SESSION['orgseca'];
+    $hidden = $_SESSION['orghidden'];
+
+    if (isset($_POST['verify'])) {
+
+        if ($role == "organization") {
+
+            $inputv = $_POST['inputv'];
+            $inputnum = $_SESSION['orgname'];
+
+            $checker = $conn->prepare("SELECT * FROM users_temp WHERE userid = ? AND  HIDDEN = 0");
+            $checker->bind_param("s", $inputnum);
+            $checker->execute();
+            $result = $checker->get_result();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $checkv = $row['vcode'];
+
+                    if ($inputv == $checkv) {
+
+//                        $empnum = $_SESSION['empnum'];
+//                        $empfname = $_SESSION['empfname'];
+//                        $empmname = $_SESSION['empmname'];
+//                        $emplname = $_SESSION['emplname'];
+//                        $empemail = $_SESSION['empemail'];
+//                        $hashedPwd = $_SESSION['emppass'];
+//                        $forgot = $_SESSION['empforgot'];
+                        $orgrole = $role;
+//                        $empsection = $_SESSION['empsection'];
+//                        $empsecq = $_SESSION['empsecq'];
+//                        $hashedSecAns = $_SESSION['empseca'];
+//                        $hidden = $_SESSION['emphidden'];
+
+
+                        $verified = "1";
+                        $hashedv = password_hash($inputv, PASSWORD_DEFAULT);
+                        //insert the user into the database
+
+                        $sqladd = $conn->prepare("INSERT INTO users VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?)");
+                        $sqladd->bind_param("ssssssissisisi", $orgname, $orgfname, $orgmname, $orglname, $orgemail, $hashedPwd, $forgot, $orgrole, $orgsection, $orgsecq, $hashedSecAns, $hidden, $hashedv, $verified);
+                        $sqladd->execute();
+                        $sqladd->close();
+
+                        if ($sqladd == TRUE) {
+
+                            $sqldelete = $conn->prepare("DELETE FROM users_temp WHERE userid = ?");
+                            $sqldelete->bind_param("s", $inputnum);
+                            $sqldelete->execute();
+                            $sqldelete->close();
+
+                            $_SESSION['studSuccess'] = 1;
+                            header("Location: verified.php");
+                            exit();
+                        } else {
+                            $vcodeErr = '<div class="alert alert-danger">
+                        Register error!
+                        </div>';
+                        }
+                    } else {
+                        $_SESSION['counter'] = 0;
+
+//                        while ($_SESSION['counter'] <= 2) {
+//                            $_SESSION['counter'] ++;
+//                            header("Location: success.php");
+//                        }
+                        if ($_SESSION['counter'] <= 2) {
+                            $_SESSION['counter'] ++;
+                            $_GET['codefail'] = 'success';
+                            header("Location: success.php?codefail=success");
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+else {
+header("Location: index.php");
 }
 ?>
 
@@ -274,7 +380,7 @@ if ($studSuccess == TRUE) {
                             ?>
 
 
-                            <?php $_SESSION['param'] = '';?>
+                            <?php $_SESSION['param'] = ''; echo $vcode;?>
                             <div class="alert alert-success">
                                 We have sent an email to
                                 <b><i>
@@ -333,8 +439,7 @@ if ($studSuccess == TRUE) {
                                         }
                                         ?>
                                     </i></b> 
-                                Please check your <b>Spam</b> folder if you can't locate the email. 
-                                <br>Didn't receive it? Click here
+                                Please check your <b>Spam</b> folder if you can't locate the email.
                             </div>
                             <div class="alert alert-secondary">
                                 <p>Input the <b>Verification Code</b> below to confirm your credentials.</p>
