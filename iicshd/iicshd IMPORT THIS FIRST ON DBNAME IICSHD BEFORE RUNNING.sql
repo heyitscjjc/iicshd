@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2019 at 03:47 PM
+-- Generation Time: Dec 01, 2019 at 06:17 AM
 -- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,7 +43,7 @@ CREATE TABLE `announcements` (
 --
 
 INSERT INTO `announcements` (`annno`, `anntitle`, `anndesc`, `anndate`, `userno`, `hidden`, `pin`) VALUES
-(1, 'Test Announcement', 'This is an announcement made by the Admin.', '2019-03-05 05:33:30.1', 1, 0, 1),
+(1, 'Test Announcement', 'This is an announcement made by the Admin.', '2019-11-26 10:26:59.2', 1, 0, 0),
 (2, 'This is a test announcement with notifications', 'Testing', '2019-03-03 16:53:54.9', 1, 1, 0),
 (3, 'Test Announcement', 'New', '2019-03-03 16:54:04.2', 1, 1, 0),
 (4, 'Test', 'Announcement', '2019-03-03 16:54:00.6', 1, 1, 0),
@@ -104,7 +104,9 @@ INSERT INTO `announcements` (`annno`, `anntitle`, `anndesc`, `anndate`, `userno`
 (59, '123', '123', '2019-03-07 07:46:26.0', 1, 0, 0),
 (60, '321', '312', '2019-03-07 07:50:37.0', 1, 0, 0),
 (61, '321', '312', '2019-03-07 08:14:00.0', 1, 0, 0),
-(62, 'asdf', 'sample', '2019-03-09 04:28:17.0', 1, 0, 0);
+(62, 'asdf', 'sample', '2019-11-26 10:27:02.3', 1, 0, 1),
+(63, 'TEST', 'TEST JC JC', '2019-11-26 10:29:50.0', 1, 0, 0),
+(64, 'CJJCCJCJCJCJCJ', 'EOWKEWOEKW', '2019-11-26 10:30:12.0', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -259,7 +261,7 @@ INSERT INTO `doclogs` (`docno`, `docdatesubmit`, `userno`, `doctitle`, `docdesc`
 (4, '2019-03-08 12:09:06.8', 3, 'Test Submission', 'Submitted Document', 'Received by Office', '2019-03-08 12:09:06.0', 0),
 (5, '2019-03-08 12:09:13.9', 3, 'Test', 'Submission', 'Not Received', '2019-03-08 12:09:13.0', 0),
 (6, '2019-03-08 12:09:18.2', 3, 'Test', 'Submission', 'Not Received', '2019-03-08 12:09:18.0', 0),
-(7, '2019-03-13 15:47:44.0', 3, 'Petition Form', 'Sample', 'Submitted', '0000-00-00 00:00:00.0', 0),
+(7, '2019-11-30 14:21:22.9', 3, 'Petition Form', 'Sample', 'Not Received', '2019-11-30 14:21:22.0', 0),
 (8, '2019-03-14 08:30:16.0', 3, 'Petition Form', '', 'Submitted', '0000-00-00 00:00:00.0', 0),
 (9, '2019-05-03 12:18:13.0', 3, 'Endorsement Letter', 'Sample', 'Received by Office', '2019-05-03 12:18:13.0', 0);
 
@@ -277,6 +279,7 @@ CREATE TABLE `documents` (
   `docdesc` varchar(250) NOT NULL,
   `docstatus` varchar(60) NOT NULL,
   `docdatechange` timestamp(1) NOT NULL DEFAULT CURRENT_TIMESTAMP(1),
+  `docDir` varchar(250) NOT NULL,
   `hidden` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -284,16 +287,8 @@ CREATE TABLE `documents` (
 -- Dumping data for table `documents`
 --
 
-INSERT INTO `documents` (`docno`, `docdatesubmit`, `userno`, `doctitle`, `docdesc`, `docstatus`, `docdatechange`, `hidden`) VALUES
-(1, '2019-03-08 11:42:38.5', 3, '123', '321', 'Received by Student', '2019-03-08 11:42:38.0', 0),
-(2, '2019-03-09 08:26:35.8', 3, 'Sample Document', 'Petition Paper', 'Received by Student', '2019-03-08 08:26:35.0', 0),
-(3, '2019-03-08 12:08:46.6', 3, 'Test Submission', 'Submitted Document', 'Received by Office', '2019-03-08 12:08:46.0', 0),
-(4, '2019-03-08 12:09:06.7', 3, 'Test Submission', 'Submitted Document', 'Received by Office', '2019-03-08 12:09:06.0', 0),
-(5, '2019-03-08 12:09:13.8', 3, 'Test', 'Submission', 'Not Received', '2019-03-08 12:09:13.0', 0),
-(6, '2019-03-08 12:09:18.1', 3, 'Test', 'Submission', 'Not Received', '2019-03-08 12:09:18.0', 0),
-(7, '2019-03-13 15:47:44.0', 3, 'Petition Form', 'Sample', 'Submitted', '0000-00-00 00:00:00.0', 0),
-(8, '2019-03-14 08:30:16.0', 3, 'Petition Form', '', 'Submitted', '0000-00-00 00:00:00.0', 0),
-(9, '2019-05-03 12:18:12.9', 3, 'Endorsement Letter', 'Sample', 'Received by Office', '2019-05-03 12:18:12.0', 0);
+INSERT INTO `documents` (`docno`, `docdatesubmit`, `userno`, `doctitle`, `docdesc`, `docstatus`, `docdatechange`, `docDir`, `hidden`) VALUES
+(27, '2019-12-01 04:04:11.0', 12, 'Reg form', 'For OJT 2', 'Not yet received.', '2019-12-01 04:04:11.0', 'uploads/submittedDocs/DIZON_REG_FORM.pdf', 0);
 
 -- --------------------------------------------------------
 
@@ -560,7 +555,26 @@ INSERT INTO `notif` (`notifno`, `userno`, `notiftitle`, `notifdesc`, `notifaudie
 (221, 3, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-05-03 20:53:42.0', 1),
 (222, 1, 'Queue Status', 'Now Serving Queue Ticket No. 52', '3', '2019-05-03 20:53:47.0', 1),
 (223, 3, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-05-03 20:58:40.0', 1),
-(224, 1, 'Queue Status', 'Now Serving Queue Ticket No. 53', '3', '2019-05-03 20:58:48.0', 1);
+(224, 1, 'Queue Status', 'Now Serving Queue Ticket No. 53', '3', '2019-05-03 20:58:48.0', 1),
+(225, 1, 'New Announcement Posted', 'TEST posted by Admin  Account', 'all', '2019-11-26 18:29:50.0', 1),
+(226, 1, 'New Announcement Posted', 'CJJCCJCJCJCJCJ posted by Admin  Account', 'all', '2019-11-26 18:30:12.0', 1),
+(227, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:19:21.0', 1),
+(228, 1, 'Queue Status', 'Now Serving Queue Ticket No. 54', '10', '2019-11-30 22:19:28.0', 1),
+(229, 1, 'Document Status Updated', 'Document Title: Petition Form / Status: Not Received', '3', '2019-11-30 22:21:23.0', 1),
+(230, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:37:42.0', 1),
+(231, 1, 'Queue Status', 'Now Serving Queue Ticket No. 55', '10', '2019-11-30 22:37:54.0', 1),
+(232, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:40:31.0', 1),
+(233, 1, 'Queue Status', 'Now Serving Queue Ticket No. 56', '10', '2019-11-30 22:40:38.0', 1),
+(234, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:45:04.0', 1),
+(235, 1, 'Queue Status', 'Now Serving Queue Ticket No. 57', '10', '2019-11-30 22:45:10.0', 1),
+(236, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:46:10.0', 1),
+(237, 1, 'Queue Status', 'Now Serving Queue Ticket No. 58', '10', '2019-11-30 22:46:19.0', 1),
+(238, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:47:52.0', 1),
+(239, 1, 'Queue Status', 'Now Serving Queue Ticket No. 1', '10', '2019-11-30 22:48:11.0', 1),
+(240, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:48:54.0', 1),
+(241, 1, 'Queue Status', 'Now Serving Queue Ticket No. 2', '10', '2019-11-30 22:49:48.0', 1),
+(242, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:50:14.0', 1),
+(243, 1, 'Document Status Updated', 'Document Title: Sample Test Document / Status: On-Process', '12', '2019-12-01 10:49:21.0', 1);
 
 -- --------------------------------------------------------
 
@@ -579,7 +593,7 @@ CREATE TABLE `qtoggle` (
 --
 
 INSERT INTO `qtoggle` (`qtogno`, `qtoggle`, `qadmin`) VALUES
-(1, 1, 1);
+(1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -602,59 +616,9 @@ CREATE TABLE `queue` (
 --
 
 INSERT INTO `queue` (`qno`, `userno`, `qtype`, `qtitle`, `qdesc`, `qdate`, `qstatus`) VALUES
-(1, 3, 'Document Inquiry', '', '', '2019-03-07 06:25:28', 'Done'),
-(2, 3, 'Enrollment Concern', '', '', '2019-03-07 06:27:24', 'Done'),
-(3, 3, 'Document Inquiry', '', '', '2019-03-07 06:44:00', 'Done'),
-(4, 3, 'Document Inquiry', '', '', '2019-03-07 06:52:18', 'Done'),
-(5, 2, 'Enrollment Concern', '', '', '2019-03-07 06:52:23', 'Done'),
-(6, 2, 'Document Inquiry', '', '', '2019-03-07 06:58:48', 'Done'),
-(7, 3, 'Document Inquiry', '', '', '2019-03-07 06:58:51', 'Done'),
-(8, 3, 'Enrollment Concern', '', '', '2019-03-07 07:01:52', 'Done'),
-(9, 2, 'Document Inquiry', '', '', '2019-03-07 07:01:55', 'Done'),
-(10, 2, 'Document Inquiry', '', '', '2019-03-07 07:03:46', 'Done'),
-(11, 3, 'Document Inquiry', '', '', '2019-03-07 07:03:49', 'Done'),
-(12, 3, 'Document Inquiry', '', '', '2019-03-07 07:07:45', 'Done'),
-(13, 2, 'Enrollment Concern', '', '', '2019-03-07 07:07:50', 'No-Show'),
-(14, 3, 'Document Inquiry', '', '', '2019-03-07 07:24:50', 'Done'),
-(15, 3, 'Document Inquiry', '', '', '2019-03-07 07:25:46', 'Done'),
-(16, 2, 'Enrollment Concern', '', '', '2019-03-07 07:28:16', 'Done'),
-(17, 2, 'Document Inquiry', '', '', '2019-03-07 07:28:36', 'Done'),
-(18, 2, 'Document Inquiry', '', '', '2019-03-07 07:29:09', 'Done'),
-(19, 2, 'Document Inquiry', '', '', '2019-03-07 07:30:19', 'Done'),
-(20, 2, 'Document Inquiry', '', '', '2019-03-07 07:32:17', 'Done'),
-(21, 2, 'Document Inquiry', '', '', '2019-03-07 07:34:25', 'Done'),
-(22, 2, 'Enrollment Concern', '', '', '2019-03-07 07:36:12', 'Done'),
-(23, 3, 'Document Inquiry', '', '', '2019-03-07 07:36:17', 'Done'),
-(24, 3, 'Document Inquiry', '', '', '2019-03-07 07:39:50', 'Done'),
-(25, 3, 'Document Inquiry', '', '', '2019-03-07 07:40:41', 'Done'),
-(26, 3, 'Document Inquiry', '', '', '2019-03-07 07:40:58', 'Done'),
-(27, 3, 'Document Inquiry', '', '', '2019-03-07 07:51:16', 'Done'),
-(28, 3, 'Document Inquiry', '', '', '2019-03-07 08:03:52', 'Done'),
-(29, 3, 'Document Inquiry', '', '', '2019-03-07 08:06:13', 'Done'),
-(30, 3, 'Enrollment Concern', '', '', '2019-03-07 11:07:16', 'Done'),
-(31, 3, 'Document Inquiry', '', '', '2019-03-07 11:15:56', 'Done'),
-(32, 2, 'Document Inquiry', '', '', '2019-03-07 11:16:33', 'Done'),
-(33, 3, 'Document Inquiry', '', '', '2019-03-07 11:16:57', 'Done'),
-(34, 3, 'Document Inquiry', '', '', '2019-03-08 06:08:29', 'Done'),
-(35, 2, 'Document Inquiry', '', '', '2019-03-08 06:11:34', 'Done'),
-(36, 3, 'Document Inquiry', '', '', '2019-03-08 06:24:12', 'Done'),
-(37, 2, 'Document Inquiry', '', '', '2019-03-08 06:37:38', 'Done'),
-(38, 2, 'Document Inquiry', '', '', '2019-03-08 06:48:44', 'No-Show'),
-(39, 2, 'Document Inquiry', '', '', '2019-03-08 06:54:17', 'Done'),
-(40, 2, 'Document Inquiry', '', '', '2019-03-08 07:08:45', 'Done'),
-(41, 3, 'Document Submission', 'Test Submission', 'Submitted Document', '2019-03-08 11:55:00', 'Done'),
-(42, 3, 'Document Submission', 'Test Submission', 'Submitted Document', '2019-03-08 11:55:16', 'Done'),
-(43, 3, 'Document Submission', 'Test', 'Submission', '2019-03-08 12:00:32', 'Done'),
-(44, 3, 'Document Submission', 'Test', 'Submission', '2019-03-08 12:08:09', 'Done'),
-(45, 3, 'Document Inquiry', '', '', '2019-03-13 15:47:15', 'Done'),
-(46, 3, 'Document Submission', 'Petition Form', 'Sample', '2019-03-13 15:47:44', 'Done'),
-(47, 3, 'Other', 'Petition Form', '', '2019-03-14 08:30:16', 'Done'),
-(48, 3, 'Other', NULL, 'Sample', '2019-05-03 11:01:45', 'Done'),
-(49, 3, 'Document Submission', 'Endorsement Letter', 'Sample', '2019-05-03 12:17:45', 'Done'),
-(50, 3, 'Document Inquiry', NULL, '', '2019-05-03 12:24:21', 'Done'),
-(51, 3, 'Enrollment Concern', NULL, '', '2019-05-03 12:35:01', 'Done'),
-(52, 3, 'Document Inquiry', NULL, '', '2019-05-03 12:54:21', 'Done'),
-(53, 3, 'Document Inquiry', NULL, '', '2019-05-03 12:58:59', 'Done');
+(1, 10, 'Enrollment Concern', NULL, '', '2019-11-30 14:48:44', 'No-Show'),
+(2, 10, 'Enrollment Concern', NULL, '', '2019-11-30 14:50:01', 'No-Show'),
+(3, 10, 'Enrollment Concern', NULL, '', '2019-11-30 14:50:14', 'Waiting');
 
 -- --------------------------------------------------------
 
@@ -829,7 +793,22 @@ INSERT INTO `queuelogs` (`qno`, `userno`, `qtype`, `qtitle`, `qdesc`, `qremarks`
 (149, 3, 'Document Inquiry', NULL, '', '', '2019-05-03 12:53:42', 'Waiting'),
 (150, 3, 'Document Inquiry', '', '', 'Done', '2019-05-02 16:00:00', 'Done'),
 (151, 3, 'Document Inquiry', NULL, '', '', '2019-05-03 12:58:40', 'Waiting'),
-(152, 3, 'Document Inquiry', '', '', 'TESTING', '2019-05-03 12:59:00', 'Done');
+(152, 3, 'Document Inquiry', '', '', 'TESTING', '2019-05-03 12:59:00', 'Done'),
+(153, 10, 'Document Inquiry', NULL, '', '', '2019-11-30 14:19:21', 'Waiting'),
+(154, 10, 'Document Inquiry', '', '', 'test', '2019-11-30 14:19:53', 'Done'),
+(155, 10, 'Document Inquiry', NULL, '', '', '2019-11-30 14:37:42', 'Waiting'),
+(156, 10, 'Document Inquiry', NULL, '', 'No-Show', '2019-11-30 14:40:18', 'No-Show'),
+(157, 10, 'Document Inquiry', NULL, '', '', '2019-11-30 14:40:31', 'Waiting'),
+(158, 10, 'Document Inquiry', NULL, '', 'No-Show', '2019-11-30 14:40:55', 'No-Show'),
+(159, 10, 'Enrollment Concern', NULL, '', '', '2019-11-30 14:45:03', 'Waiting'),
+(160, 10, 'Enrollment Concern', NULL, '', 'No-Show', '2019-11-30 14:45:54', 'No-Show'),
+(161, 10, 'Enrollment Concern', NULL, '', '', '2019-11-30 14:46:10', 'Waiting'),
+(162, 10, 'Enrollment Concern', NULL, '', 'No-Show', '2019-11-30 14:47:20', 'No-Show'),
+(163, 10, 'Enrollment Concern', NULL, '', '', '2019-11-30 14:47:52', 'Waiting'),
+(164, 10, 'Enrollment Concern', NULL, '', 'No-Show', '2019-11-30 14:48:44', 'No-Show'),
+(165, 10, 'Enrollment Concern', NULL, '', '', '2019-11-30 14:48:54', 'Waiting'),
+(166, 10, 'Enrollment Concern', NULL, '', 'No-Show', '2019-11-30 14:50:01', 'No-Show'),
+(167, 10, 'Enrollment Concern', NULL, '', '', '2019-11-30 14:50:14', 'Waiting');
 
 -- --------------------------------------------------------
 
@@ -851,12 +830,15 @@ INSERT INTO `schedule` (`schedno`, `schedname`, `schedlink`) VALUES
 (1, 'CS Faculty Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTvnJYMr_GxnctfzGYWhfJHZeRvLgklo8ZQEofJi9I1dhA5mvORuOLH4jZPbdMQK2zHiO46D-MOJM5J/pubhtml'),
 (2, 'CS Class Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsehwaVAw1SGX1Or-UFO7NB0ZsRagSIA4LI3w963vL15CHbeGonfNwboHn87uFcsTN91X8jL3mdPK/pubhtml'),
 (3, 'CS Room Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVznQuQx2HCM64TgYqkvwwasPFGn4jY6tfwy4L-kf_7hOSEJLlqRGHCo93MOI8p8-yl4tuD3z09gbB/pubhtml'),
-(4, 'IS Faculty Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqNMXeqZx9ZNHMxaB2ET9yxjV0p8XdrVm-HLPkKmaa_KYSt63CjvpmK_MTdH4aUt4Y95B52ZKmcSsw/pubhtml'),
-(5, 'IS Class Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTY0Gm1js0gJ0vKbSaTDloax_NfwSCBBIIOcLfqu5T9UzUUNtItt9iwE_fyrZfM-5uPf-TNEahqTCEP/pubhtml'),
-(6, 'IS Room Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVznQuQx2HCM64TgYqkvwwasPFGn4jY6tfwy4L-kf_7hOSEJLlqRGHCo93MOI8p8-yl4tuD3z09gbB/pubhtml'),
-(7, 'IT Faculty Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTzKNt6idi-6zbU1Xy5M5G9HRPrKB3d7SIU0yTgg_0UX5E3Ey0kF7r-NH1IdWj5Z9yWInl0lF7qlzYn/pubhtml'),
-(8, 'IT Class Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSLEkDs0pDX8Rs6s0O29o8QkPrxdS6x9qTv1qiKjEXWfbVMIWKQVm0uLBeq9coi9rUP4lHeIZpvFLBa/pubhtml'),
-(9, 'IT Room Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVznQuQx2HCM64TgYqkvwwasPFGn4jY6tfwy4L-kf_7hOSEJLlqRGHCo93MOI8p8-yl4tuD3z09gbB/pubhtml');
+(4, 'CS Exam Schedule', 'https://docs.google.com/spreadsheets/d/1eOEVm9EIQWb8nOAbiE3nvZPObZ0nUWHOUXklLS3x-jo/edit?ts=5d959d48#gid=252821764'),
+(5, 'IS Faculty Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqNMXeqZx9ZNHMxaB2ET9yxjV0p8XdrVm-HLPkKmaa_KYSt63CjvpmK_MTdH4aUt4Y95B52ZKmcSsw/pubhtml'),
+(6, 'IS Class Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTY0Gm1js0gJ0vKbSaTDloax_NfwSCBBIIOcLfqu5T9UzUUNtItt9iwE_fyrZfM-5uPf-TNEahqTCEP/pubhtml'),
+(7, 'IS Room Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVznQuQx2HCM64TgYqkvwwasPFGn4jY6tfwy4L-kf_7hOSEJLlqRGHCo93MOI8p8-yl4tuD3z09gbB/pubhtml'),
+(8, 'IS Exam Schedule', 'https://docs.google.com/spreadsheets/d/1eOEVm9EIQWb8nOAbiE3nvZPObZ0nUWHOUXklLS3x-jo/edit?ts=5d959d48#gid=741387929'),
+(9, 'IT Faculty Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTzKNt6idi-6zbU1Xy5M5G9HRPrKB3d7SIU0yTgg_0UX5E3Ey0kF7r-NH1IdWj5Z9yWInl0lF7qlzYn/pubhtml'),
+(10, 'IT Class Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSLEkDs0pDX8Rs6s0O29o8QkPrxdS6x9qTv1qiKjEXWfbVMIWKQVm0uLBeq9coi9rUP4lHeIZpvFLBa/pubhtml'),
+(11, 'IT Room Schedule', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVznQuQx2HCM64TgYqkvwwasPFGn4jY6tfwy4L-kf_7hOSEJLlqRGHCo93MOI8p8-yl4tuD3z09gbB/pubhtml'),
+(12, 'IT Exam Schedule', 'https://docs.google.com/spreadsheets/d/1eOEVm9EIQWb8nOAbiE3nvZPObZ0nUWHOUXklLS3x-jo/edit?ts=5d959d48#gid=141333251');
 
 -- --------------------------------------------------------
 
@@ -1637,7 +1619,63 @@ INSERT INTO `updatelogs` (`ULOGNO`, `ULOGACT`, `ULOGUSER`, `ULOGTIME`, `ULOGNEW`
 (681, 'Get Queue Ticket', 'Ralph Angelo Cruz Vicente', '2019-05-03 12:58:40.0', 'Queue Ticket No. 53 / Document Inquiry'),
 (682, 'Queue Control', 'Admin  Account', '2019-05-03 12:59:00.0', 'Queue No. 0053 listed as Done.'),
 (683, 'Login', 'Ralph Angelo Cruz Vicente', '2019-05-03 13:35:35.0', 'Logged in successfully.'),
-(684, 'Login', 'Faculty  Account', '2019-05-03 13:42:59.0', 'Logged in successfully.');
+(684, 'Login', 'Faculty  Account', '2019-05-03 13:42:59.0', 'Logged in successfully.'),
+(685, 'Login', 'Jospeh Christian Bautista Dizon', '2019-11-26 08:50:55.0', 'Logged in successfully.'),
+(686, 'Login', 'Admin  Account', '2019-11-26 08:59:54.0', 'Logged in successfully.'),
+(687, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-26 09:03:12.0', 'Logged in successfully.'),
+(688, 'Login', 'Admin  Account', '2019-11-26 09:09:37.0', 'Logged in successfully.'),
+(689, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-26 09:20:19.0', 'Logged in successfully.'),
+(690, 'Login', 'Faculty  Account 2', '2019-11-26 09:40:58.0', 'Logged in successfully.'),
+(691, 'Login', 'Admin  Account', '2019-11-26 09:56:51.0', 'Logged in successfully.'),
+(692, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-26 10:12:25.0', 'Logged in successfully.'),
+(693, 'Login', 'Admin  Account', '2019-11-26 10:13:42.0', 'Logged in successfully.'),
+(694, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-26 10:25:12.0', 'Logged in successfully.'),
+(695, 'Login', 'Admin  Account', '2019-11-26 10:29:41.0', 'Logged in successfully.'),
+(696, 'Post Announcement', 'Admin  Account', '2019-11-26 10:29:50.0', 'Announcement posted successfully.'),
+(697, 'Post Announcement', 'Admin  Account', '2019-11-26 10:30:12.0', 'Announcement posted successfully.'),
+(698, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-26 10:30:37.0', 'Logged in successfully.'),
+(699, 'Login', 'Admin  Account', '2019-11-26 10:53:39.0', 'Logged in successfully.'),
+(700, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-26 10:58:09.0', 'Logged in successfully.'),
+(701, 'Login', 'Admin  Account', '2019-11-26 11:46:12.0', 'Logged in successfully.'),
+(702, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-26 15:28:53.0', 'Logged in successfully.'),
+(703, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-27 07:33:42.0', 'Logged in successfully.'),
+(704, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-27 07:35:04.0', 'Logged in successfully.'),
+(705, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-27 14:10:16.0', 'Logged in successfully.'),
+(706, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:16:51.0', 'Logged in successfully.'),
+(707, 'Login', 'Admin  Account', '2019-11-30 14:18:11.0', 'Logged in successfully.'),
+(708, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:18:59.0', 'Logged in successfully.'),
+(709, 'Get Queue Ticket', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:19:21.0', 'Queue Ticket No. 1 / Document Inquiry'),
+(710, 'Queue Control', 'Admin  Account', '2019-11-30 14:19:53.0', 'Queue No. 0054 listed as Done.'),
+(711, 'Queue Control', 'Admin  Account', '2019-11-30 14:19:57.0', 'Admin is available.'),
+(712, 'Queue Control', 'Admin  Account', '2019-11-30 14:20:04.0', 'Closed queue successfully.'),
+(713, 'Queue Control', 'Admin  Account', '2019-11-30 14:20:09.0', 'Opened queue successfully.'),
+(714, 'Update Document Status', 'Admin  Account', '2019-11-30 14:21:22.0', 'Document No. 0007 changed status to Not Received'),
+(715, 'Get Queue Ticket', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:37:42.0', 'Queue Ticket No. 55 / Document Inquiry'),
+(716, 'Queue Control', 'Admin  Account', '2019-11-30 14:40:18.0', 'Queue No. 0055 listed as No-Show.'),
+(717, 'Get Queue Ticket', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:40:31.0', 'Queue Ticket No. 56 / Document Inquiry'),
+(718, 'Queue Control', 'Admin  Account', '2019-11-30 14:40:55.0', 'Queue No. 0056 listed as No-Show.'),
+(719, 'Get Queue Ticket', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:45:04.0', 'Queue Ticket No. 57 / Enrollment Concern'),
+(720, 'Queue Control', 'Admin  Account', '2019-11-30 14:45:54.0', 'Queue No. 0057 listed as No-Show.'),
+(721, 'Get Queue Ticket', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:46:10.0', 'Queue Ticket No. 58 / Enrollment Concern'),
+(722, 'Queue Control', 'Admin  Account', '2019-11-30 14:47:20.0', 'Queue No. 0058 listed as No-Show.'),
+(723, 'Get Queue Ticket', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:47:52.0', 'Queue Ticket No. 1 / Enrollment Concern'),
+(724, 'Queue Control', 'Admin  Account', '2019-11-30 14:48:44.0', 'Queue No. 0001 listed as No-Show.'),
+(725, 'Get Queue Ticket', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:48:54.0', 'Queue Ticket No. 2 / Enrollment Concern'),
+(726, 'Queue Control', 'Admin  Account', '2019-11-30 14:49:57.0', 'Closed queue successfully.'),
+(727, 'Queue Control', 'Admin  Account', '2019-11-30 14:49:58.0', 'Opened queue successfully.'),
+(728, 'Queue Control', 'Admin  Account', '2019-11-30 14:50:01.0', 'Queue No. 0002 listed as No-Show.'),
+(729, 'Get Queue Ticket', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 14:50:14.0', 'Queue Ticket No. 3 / Enrollment Concern'),
+(730, 'Login', 'Joseph Christian Bautista Dizon', '2019-11-30 15:34:12.0', 'Logged in successfully.'),
+(731, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 15:41:57.0', 'Logged in successfully.'),
+(732, 'Login', 'Admin  Account', '2019-11-30 16:28:02.0', 'Logged in successfully.'),
+(733, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-11-30 16:32:35.0', 'Logged in successfully.'),
+(734, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-12-01 01:12:40.0', 'Logged in successfully.'),
+(735, 'Login', 'Admin  Account', '2019-12-01 01:14:12.0', 'Logged in successfully.'),
+(736, 'Login', 'Admin  Account', '2019-12-01 02:48:53.0', 'Logged in successfully.'),
+(737, 'Update Document Status', 'Admin  Account', '2019-12-01 02:49:21.0', 'Document No. 0013 changed status to On-Process'),
+(738, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-12-01 03:38:25.0', 'Logged in successfully.'),
+(739, 'Login', 'Admin  Account', '2019-12-01 04:51:26.0', 'Logged in successfully.'),
+(740, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-12-01 05:12:11.0', 'Logged in successfully.');
 
 -- --------------------------------------------------------
 
@@ -1675,7 +1713,8 @@ INSERT INTO `users` (`userno`, `userid`, `fname`, `mname`, `lname`, `email`, `pa
 (4, '1998123123', 'Faculty', NULL, 'Account', 'faculty@ust.edu.ph', '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 'faculty', 'itchair', 1, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 0, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 1),
 (5, 'testadmin', 'Test', '', 'Admin', 'testadmin@ust.edu.ph', '$2y$10$bxyin98.mkqiS10wynA/F.1rSKaingUyvviMUf/DP83a9UG9YEbjC', 0, 'admin', 'Admin', 1, '$2y$10$erQZNbWVDpym0Yx5FL7AFeG28lAlmjtBcHfY0rIucQsCwhCdHTsIG', 0, 0, 'admin', 1),
 (6, '2015081508', 'Sean', 'Puzon', 'Sasot', 'seanmichael.sasot.iics@ust.edu.ph', '$2y$10$/8ENmgmQQ1qqJbKL8bJPquFIFdG8jQQhoaAbckFqkBeTBnX3N4sX.', 0, 'student', '1', 1, '$2y$10$1/q.p9GaQQxlM1.ObuXrSOwjDOxRCAjmz2bKkLR4ULm3TGya5BErm', 0, 0, '$2y$10$jTjDYHIYoXRbYYvUYC/74.Xhlxxcgle27g3W2JXHPPiL4OkPaIkm2', 1),
-(7, '1998123124', 'Faculty', NULL, 'Account 2', 'faculty@ust.edu.ph', '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 'faculty', 'swdb', 1, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 0, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 1);
+(7, '1998123124', 'Faculty', NULL, 'Account 2', 'faculty@ust.edu.ph', '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 'faculty', 'swdb', 1, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 0, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 1),
+(12, '2015084963', 'Joseph Christian', 'BAUTISTA', 'Dizon', 'josephchristian.dizon.iics@ust.edu.ph', '$2y$10$nvAYh6.harOdgYwNTgOoe.xWC23QtaXF9ynmFjzbQGwV4btiltyLC', 0, 'student', '4IS-B', 1, '$2y$10$MWgI5KzpIDw8UQ8KaImgY.ir6K3IgUiQOYjLK6lZshKhulHGpG3JC', 0, 0, '$2y$10$WQ8S2yrbKj6oudepIaxwEuGwFNzoL/WaQ57ycyj8xwYLEHwH9Ad0m', 1);
 
 -- --------------------------------------------------------
 
@@ -1839,7 +1878,7 @@ ALTER TABLE `users_temp`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `annno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `annno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `consultations`
@@ -1869,7 +1908,7 @@ ALTER TABLE `doclogs`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `docno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `docno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `files`
@@ -1881,25 +1920,25 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT for table `notif`
 --
 ALTER TABLE `notif`
-  MODIFY `notifno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225;
+  MODIFY `notifno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
 
 --
 -- AUTO_INCREMENT for table `queue`
 --
 ALTER TABLE `queue`
-  MODIFY `qno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `qno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `queuelogs`
 --
 ALTER TABLE `queuelogs`
-  MODIFY `qno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `qno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `schedno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `schedno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `secq`
@@ -1917,13 +1956,13 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `updatelogs`
 --
 ALTER TABLE `updatelogs`
-  MODIFY `ULOGNO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=685;
+  MODIFY `ULOGNO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=741;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `userno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users_temp`
