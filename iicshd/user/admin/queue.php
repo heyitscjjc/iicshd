@@ -316,7 +316,7 @@ if (isset($_POST['qNoShow'])) {
     $userQ = $conn->prepare("UPDATE users SET inqueue=? WHERE userno=?");
     $userQ->bind_param("ii", $inqueue, $qnumdone);
 
-    $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES ('', ?, ?, ?, ?, NOW(), ?)");
+    $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES ('', ?, ?, ?, ?, 'No-Show', NOW(), ?)");
     $insertQ->bind_param("issss", $qnumdone, $qtype, $qtitle, $qdesc, $qstatus);
 
     if ($nextQuery == TRUE) {

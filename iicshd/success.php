@@ -85,18 +85,9 @@ if ($studSuccess == TRUE) {
 
                     if ($inputv == $checkv) {
 
-//                        $studnum = $_SESSION['studnum'];
-//                        $studfname = $_SESSION['studfname'];
-//                        $studmname = $_SESSION['studmname'];
-//                        $studlname = $_SESSION['studlname'];
-//                        $studemail = $_SESSION['studemail'];
-//                        $hashedPwd = $_SESSION['studpass'];
-//                        $forgot = $_SESSION['studforgot'];
+
                         $studrole = $role;
-//                        $studsection = $_SESSION['studsection'];
-//                        $studsecq = $_SESSION['studsecq'];
-//                        $hashedSecAns = $_SESSION['studseca'];
-//                        $hidden = $_SESSION['studhidden'];
+
 
 
                         $verified = "1";
@@ -283,7 +274,7 @@ if ($studSuccess == TRUE) {
                             ?>
 
 
-                            <?php $_SESSION['param'] = ''; echo $vcode;?>
+                            <?php $_SESSION['param'] = '';?>
                             <div class="alert alert-success">
                                 We have sent an email to
                                 <b><i>
@@ -342,7 +333,8 @@ if ($studSuccess == TRUE) {
                                         }
                                         ?>
                                     </i></b> 
-                                Please check your <b>Spam</b> folder if you can't locate the email.
+                                Please check your <b>Spam</b> folder if you can't locate the email. 
+                                <br>Didn't receive it? Click here
                             </div>
                             <div class="alert alert-secondary">
                                 <p>Input the <b>Verification Code</b> below to confirm your credentials.</p>

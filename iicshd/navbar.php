@@ -73,7 +73,7 @@ if($_SESSION['role'] == 'student'){
                 </li>
 
                 <li class='nav-item'>
-                    <a class='nav-link' style='color:white;' href='assisthelper.php'>
+                    <a class='nav-link' style='color:white;' href='https://assistant-chat-us-south.watsonplatform.net/web/public/a2ca822f-0910-4719-9716-04613441c9e8' target='_blank'>
                         <span data-feather='external-link'></span>
                         Ask Me Anything
                     </a>

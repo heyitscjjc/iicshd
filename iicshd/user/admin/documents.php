@@ -110,6 +110,7 @@ if (isset($_POST['updatedoc2'])) {
 <!doctype html>
 <html lang="en">
     <head>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -151,10 +152,21 @@ if (isset($_POST['updatedoc2'])) {
 
     <?php 
         include '../../navbar.php';
+            //DOWNLOAD FILE
+    if(isset($_GET['downloadDocuNo'])){
+        $docNo = $_GET['downloadDocuNo'];
+        $query="SELECT * FROM `documents` WHERE `docno` = '$docNo'";
+        $selectedFile = $conn->query($query);
+        if($selectedFile->num_rows == 1){
+            while ($row = $selectedFile->fetch_assoc()){
+                $fileName = $row['docDir'];
+            }
+        }
+        echo "<script type='text/javascript'>location.href = '../../". $fileName ."';location.target='_blank';</script>";
+    }
     ?>
 
         <div class="container-fluid">
-
             <main role="main" class="col-md-12 ml-sm-auto">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Documents</h1>
@@ -176,11 +188,10 @@ if (isset($_POST['updatedoc2'])) {
                             <div class="table-responsive">
 
                                 <table id="data_table" class="table table-striped table-responsive-lg">
-
                                     <thead>
                                         <tr>
                                             <th>Edit</th>
-                                            <th>Document #</th>
+                                            <th>Document#</th>
                                             <th>Date Submitted</th>
                                             <th>Submitted By</th>
                                             <th>Type</th>
@@ -190,7 +201,6 @@ if (isset($_POST['updatedoc2'])) {
                                     </thead>
 
                                     <tbody>
-
                                         <?php
                                         $newsubquery = mysqli_query($conn, "SELECT LPAD(documents.docno,4,0), documents.docdatesubmit, users.userno, users.fname, users.mname, users.lname, documents.doctitle,"
                                                 . "documents.docdesc, documents.docstatus FROM documents INNER JOIN users WHERE documents.userno = users.userno AND documents.docstatus = 'Submitted' AND documents.hidden = '0'");
@@ -371,7 +381,7 @@ if (isset($_POST['updatedoc2'])) {
 
                         <thead>
                             <tr>
-                                <th>Edit</th>
+                                <th>Edit/Download</th>
                                 <th>Document #</th>
                                 <th>Date Submitted</th>
                                 <th>Date Modified</th>
@@ -405,7 +415,8 @@ if (isset($_POST['updatedoc2'])) {
                                         echo '<td> - </td>';
                                     } else {
                                         echo
-                                        "<td>" . "<a href='#edit2" . $docid . "'data-toggle='modal'><button type='button' class='btn btn-dark btn-sm' title='Edit'><span class='fas fa-edit' aria-hidden='true'></span></button></a>" . "</td>";
+                                        "<td>" . "<a href='#edit2" . $docid . "'data-toggle='modal'><button type='button' class='btn btn-dark btn-sm' title='Edit'><span class='fas fa-edit' aria-hidden='true'></span></button></a> ";
+                                        echo "<a href='documents.php?downloadDocuNo=" . $docid . "<button type='button' class='btn btn-dark btn-sm' title='Download Document'><span data-feather='arrow-down-circle'></span></button></a>". "</td>";
                                     } echo
                                     "<td>" . $docid . "</td>"
                                     . "<td>" . date("m/d/Y h:iA", strtotime($docdatesubmit)) . "</td>"

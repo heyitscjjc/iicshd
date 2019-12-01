@@ -1,6 +1,5 @@
 <?php
 include '../../include/controller.php';
-
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
     header("location:/iicshd/user/admin/home.php");
 }
@@ -20,36 +19,41 @@ if (!isset($_SESSION['user_name'])) {
     header("location:/iicshd/login.php");
 }
 
-//if (isset($_POST['submitDoc'])) {
-//    $dTitle = clean($_POST["dTitle"]);
-//    $dDesc = clean($_POST["dDesc"]);
-//    $dStatus = "Submitted";
-//
-//    $submitSql = $conn->prepare("INSERT INTO documents VALUES ('', NOW(), ?, ?, ?, ?, '0', '0')");
-//    $submitSql->bind_param("isss", $_SESSION['userno'], $dTitle, $dDesc, $dStatus);
-//    $submitSql2 = $conn->prepare("INSERT INTO doclogs VALUES ('', NOW(), ?, ?, ?, ?, '0', '0')");
-//    $submitSql2->bind_param("isss", $_SESSION['userno'], $dTitle, $dDesc, $dStatus);
-//
-//
-//    if ($submitSql == TRUE) {
-//
-//        $submitSql->execute();
-//        $submitSql->close();
-//
-//        if ($submitSql2 == TRUE) {
-//            $submitSql2->execute();
-//            $submitSql2->close();
-//        }
-//
-//
-//        header("Location: documents.php");
-//        exit;
-//    } else {
-//        $postFailed = '<div class="alert alert-danger">
-//                        Submit Failed!
-//                        </div>';
-//    }
-//}
+
+if(isset($_POST['submitDoc'])){
+    $userNo = $_SESSION['userno'];
+    $docTitle = $_POST['docTitle'];
+    $docDesc = $_POST['docDesc'];
+    $docType = $_POST['docType'];
+    $docStatus = "Not yet received.";
+    $hidden = 0;
+    $date = date("Y-m-d H:i:s");
+    $errors= array();
+    $file_name = $_FILES['submittingDoc']['name'];
+    $file_size =$_FILES['submittingDoc']['size'];
+    $file_tmp =$_FILES['submittingDoc']['tmp_name'];
+    $file_type=$_FILES['submittingDoc']['type'];
+    @$file_ext=strtolower(end(explode('.',$_FILES['submittingDoc']['name'])));
+    $expensions= array("pdf");
+    if(in_array($file_ext,$expensions)=== false){
+      $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+    }
+
+    if($file_size > 2097152){
+       $errors[]='File size must be excately 2 MB';
+    }
+
+    if(empty($errors)==true){
+       move_uploaded_file($file_tmp,"../../uploads/submittedDocs/".$file_name);
+       $docDir = "uploads/submittedDocs/" . $file_name;
+       $query="INSERT INTO documents VALUES ('', '$date', '$userNo', '$docTitle', '$docDesc', '$docStatus', '$date', '$docDir', '$hidden')";
+       $conn->query($query);
+    }else{
+        print_r($errors);
+    }
+    header("location:/iicshd/user/student/documents.php?documentUploaded");
+}
+
 
 if (isset($_POST['receiveRel'])) {
     $recDoc = $_POST['recDoc'];
@@ -96,7 +100,9 @@ if (isset($_POST['receiveRel'])) {
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../img/favicon.png">
-
+        <link rel="shortcut icon" href="img/favicon.png">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
         <title>IICS Help Desk</title>
 
         <!-- Bootstrap core CSS -->
@@ -131,6 +137,9 @@ if (isset($_POST['receiveRel'])) {
 
     <?php 
         include '../../navbar.php';
+        if(isset($_GET['documentUploaded'])){
+            echo "<p style='background-color: #f1c40f; padding: 10px;'>File has been submitted to the IICS Admin. Tracking Details can be seen below.</p>";
+        }
     ?>
 
         <div class="container-fluid">
@@ -139,6 +148,52 @@ if (isset($_POST['receiveRel'])) {
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Documents</h1>
                 </div>
+
+
+                <div class="accordion" id="accordionExample">
+
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn bg-dark text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="fas fa-plus-circle"></span> Submit a document
+                                </button>
+                            </h5>
+                        </div>
+                        <form method="POST" enctype="multipart/form-data">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <h2>Submit Document</h2>
+                                        <p>Fill up the following.</p>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id = "docTitle" placeholder="Document Title" value="" name="docTitle" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea requried class="form-control" placeholder="Document Description" name="docDesc"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <select required class="form-control" name="docType">
+                                                    <option class="hidden" value="" selected disabled>Document Type
+                                                        <option value='1'>Petition Form</option>
+                                                        <option value='2'>Endorsement Letter</option>
+                                                        <option value='3'>Reply Slips</option>
+                                                        <option value='4'>Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <p>For compatibility reasons, only upload your file as Portable File Document (.pdf)</p>
+                                            Upload a file: <input accept="*.pdf" type="file" name="submittingDoc"><br><br>
+                                        </div>
+                                        <div class="form-group">
+                                        <button class='btnRegister' name ='submitDoc' type='submit'>Submit to IICS Admin</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
 
                 <div class="accordion" id="accordionExample">
 
@@ -210,9 +265,6 @@ if (isset($_POST['receiveRel'])) {
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
 
 
@@ -575,4 +627,5 @@ $thisDate = date("m/d/Y");
         </script>
 
     </body>
+
 </html>

@@ -1,11 +1,11 @@
 <?php
-    include '../../include/controller.php';
+include '../../include/controller.php';
 
+if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
+    header("location:/iicshd/user/admin/home.php");
+}
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
     header("location:/iicshd/user/faculty/home.php");
-}
-if (isset($_SESSION['user_name']) && $_SESSION['role'] == "student") {
-    header("location:/iicshd/user/student/home.php");
 }
 if (isset($_SESSION['user_name'])) {
 
@@ -19,6 +19,52 @@ if (isset($_SESSION['user_name'])) {
 if (!isset($_SESSION['user_name'])) {
     header("location:/iicshd/login.php");
 }
+
+if (isset($_GET['pin'])) {
+    $pin = $_GET['pin'];
+} else {
+    $pin = '';
+}
+if (isset($_GET['unpin'])) {
+    $unpin = $_GET['unpin'];
+} else {
+    $unpin = '';
+}
+
+
+if (isset($_POST['pinPost'])) {
+    $annno = $_POST['pin_annno'];
+
+    $editquery = $conn->prepare("UPDATE announcements SET pin='1' WHERE annno=?");
+    $editquery->bind_param("i", $annno);
+    $editquery->execute();
+    $editquery->close();
+
+    if ($editquery == TRUE) {
+
+        header("location: home.php?pin=success");
+        exit;
+    } else {
+        echo "Pin failed.";
+    }
+}
+
+if (isset($_POST['unpinPost'])) {
+    $annno = $_POST['unpin_annno'];
+
+    $editquery = $conn->prepare("UPDATE announcements SET pin='0' WHERE annno=?");
+    $editquery->bind_param("i", $annno);
+    $editquery->execute();
+    $editquery->close();
+
+    if ($editquery == TRUE) {
+
+        header("location: home.php?unpin=success");
+        exit;
+    } else {
+        echo "Unpin failed.";
+    }
+}
 ?>
 
 <!doctype html>
@@ -30,7 +76,7 @@ if (!isset($_SESSION['user_name'])) {
         <meta name="author" content="">
         <link rel="icon" href="../../img/favicon.png">
 
-        <title>IICS Help Desk - Admin</title>
+        <title>IICS Help Desk</title>
 
         <!-- Bootstrap core CSS -->
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -56,61 +102,14 @@ if (!isset($_SESSION['user_name'])) {
     </head>
 
     <body>
-
+    
     <?php 
         include '../../navbar.php';
+        echo "<p style='background-color: #f1c40f; padding: 10px;'>NEW: Type in your inquiry and let it answered by the assistant helper. Check it now by clicking on the 'Ask me Anything' in the navigation bar.</p>"
     ?>
 
         <div class="container-fluid">
-
-            <main role="main" class="col-md-12 ml-sm-auto">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Notifications</h1>
-                </div>
-
-                <?php
-                $notifquery = "SELECT notif.notifno, notif.notiftitle, notif.notifdesc, notif.notifaudience, notif.notifdate, users.userno 
-                                                    FROM notif 
-                                                INNER JOIN users 
-                                                ON users.userno = notif.notifaudience 
-                                                WHERE notif.notifaudience = '" . $_SESSION['userno'] . "' 
-                                                UNION ALL 
-                                            SELECT notif.notifno, notif.notiftitle, notif.notifdesc, notif.notifaudience, notif.notifdate, notif.notifno as userno 
-                                                    FROM notif 
-                                                WHERE notif.notifaudience = 'all' 
-                                                UNION ALL
-                                            SELECT notif.notifno, notif.notiftitle, notif.notifdesc, notif.notifaudience, notif.notifdate, notif.notifno as userno 
-                                                    FROM notif 
-                                                    WHERE notif.notifaudience = 'admin' 
-                                            ORDER BY notifno DESC";
-                $notifresult = $conn->query($notifquery);
-                if ($notifresult->num_rows > 0) {
-                    while ($row = $notifresult->fetch_assoc()) {
-                        $notiftitle = $row['notiftitle'];
-                        $notifdesc = $row['notifdesc'];
-                        $notifdate = $row['notifdate'];
-                        echo '
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <span><strong> ' . $notiftitle . ' </strong></span><br>
-                                                </div>
-                                                    <div class="card-body">
-                                                        ' . $notifdesc . ' <br>
-                                                    </div>
-                                                <div class="card-footer">
-                                                    <span style="font-size: 12px; font-style:italic;">Date: ' . date("m/d/Y h:iA", strtotime($notifdate)) . ' </span><br>
-                                                </div>
-                                            </div>
-                                            <br>';
-                    }
-                } else {
-                    echo '<h5>No new notifications.</h5>';
-                }
-                ?>
-
-                <br><br><br>
-
-            </main>
+        <iframe src="https://assistant-chat-us-south.watsonplatform.net/web/public/67b3c7f3-1c99-487b-99a3-53e98923c8b2"></iframe>
         </div>
 
         <div class="container-fluid header">
@@ -118,7 +117,6 @@ if (!isset($_SESSION['user_name'])) {
                 IICS Help Desk © 2019
             </div>
         </div>
-
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -134,13 +132,14 @@ if (!isset($_SESSION['user_name'])) {
             feather.replace()
         </script>
 
+        <!-- Graphs -->
         <script>
             $(document).ready(function () {
 
                 function load_unseen_notification(view = '')
                 {
                     $.ajax({
-                        url: "../../include/fetch1.php",
+                        url: "../../include/fetch2.php",
                         method: "POST",
                         data: {view: view},
                         dataType: "json",
