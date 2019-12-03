@@ -6,8 +6,8 @@ if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
     header("location:/iicshd/user/faculty/home.php");
 }
-if (isset($_SESSION['user_name']) && $_SESSION['role'] == "organizati") {
-    header("location:/iicshd/user/organization/home.php");
+if (isset($_SESSION['user_name']) && $_SESSION['role'] == "student") {
+    header("location:/iicshd/user/student/home.php");
 }
 
 if (isset($_SESSION['user_name'])) {
@@ -57,7 +57,7 @@ if(isset($_POST['submitDoc'])){
     }else{
         print_r($errors);
     }
-    header("location:/iicshd/user/student/documents.php?documentUploaded");
+    header("location:/iicshd/user/organization/documents.php?documentUploaded");
 }
 
 
