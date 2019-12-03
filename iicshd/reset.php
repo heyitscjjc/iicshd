@@ -44,7 +44,6 @@ if (isset($_SESSION['resetpass']) && $_SESSION['resetpass'] == 0) {
         <br>
         <!-- form start -->
         <div align="center" class="container">
-
             <center><img src="img/logo3_3.png"></center>
             <div align="center" class="container-fluid card card-container">
                 <h6 style="text-align: center;"><p>Your password was reset. <br> Please input a new password.</p></h6>  
