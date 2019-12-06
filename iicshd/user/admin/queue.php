@@ -221,7 +221,7 @@ if (isset($_POST['qNext'])) {
     $docstatus = "Submitted";
     $hidden = "0";
     $qremarks = $_POST['remarks'];
-
+    $docDir = "Submitted at IICS Office";
     $nextQuery = $conn->prepare("UPDATE queue SET qstatus=? WHERE qno=?");
     $nextQuery->bind_param("si", $qstatus, $qqdone);
     $nextQuery->execute();
@@ -233,8 +233,8 @@ if (isset($_POST['qNext'])) {
     $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES ('', ?, ?, ?, ?, ?, NOW(), ?)");
     $insertQ->bind_param("isssss", $qnumdone, $qtype, $qtitle, $qdesc, $qremarks, $qstatus);
 
-    $submitDoc = $conn->prepare("INSERT INTO documents VALUES ('', NOW(), ?, ?, ?, ?, '0', ?)");
-    $submitDoc->bind_param("isssi", $qnumdone, $qtitle, $qdesc, $docstatus, $hidden);
+    $submitDoc = $conn->prepare("INSERT INTO documents VALUES ('', NOW(), ?, ?, ?, ?, ?,'0', ?)");
+    $submitDoc->bind_param("issssi", $qnumdone, $qtitle, $qdesc, $docstatus, $docDir, $hidden);
 
     $submitSql2 = $conn->prepare("INSERT INTO doclogs VALUES ('', NOW(), ?, ?, ?, ?, '0', ?)");
     $submitSql2->bind_param("isssi", $qnumdone, $qtitle, $qdesc, $docstatus, $hidden);

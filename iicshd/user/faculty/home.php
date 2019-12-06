@@ -301,7 +301,7 @@ if (isset($_POST['deletepost'])) {
                                     </div>
 									
 									<div class = "form-group">
-									<select name="anndept" required>
+									<select class="form-control" name="anndept" required>
 											<option value="1">ALL</option>
 											<option value="2">CS</option>
 											<option value="3">IS</option>
