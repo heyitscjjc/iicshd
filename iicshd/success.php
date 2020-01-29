@@ -380,7 +380,7 @@ header("Location: index.php");
                             ?>
 
 
-                            <?php $_SESSION['param'] = ''; echo $vcode;?>
+                            <?php $_SESSION['param'] = ''; ?>
                             <div class="alert alert-success">
                                 We have sent an email to
                                 <b><i>

@@ -1,6 +1,6 @@
 <?php
 include '../../include/controller.php';
-
+$_SESSION['previousMessages'] = array();
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
     header("location:/iicshd/user/admin/home.php");
 }

@@ -154,53 +154,7 @@ if (isset($_POST['receiveRel'])) {
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Documents</h1>
                 </div>
-				
-                <div class="accordion" id="accordionExample">
-
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                                <button class="btn bg-dark text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
-                                    <span class="fas fa-plus-circle"></span> Submit a document
-                                </button>
-                            </h5>
-                        </div>
-                        <form method="POST" enctype="multipart/form-data">
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <h2>Submit Document</h2>
-										
-                                        <p>Fill up the following.</p>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id = "docTitle" placeholder="Document Title" value="" name="docTitle" required/>
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea requried class="form-control" placeholder="Document Description" name="docDesc"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <select required class="form-control" name="docType">
-                                                    <option class="hidden" value="" selected disabled>Document Type
-                                                        <option value='1'>Petition Form</option>
-                                                        <option value='2'>Endorsement Letter</option>
-                                                        <option value='3'>Reply Slips</option>
-                                                        <option value='4'>Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <p>For compatibility reasons, only upload your file as Portable File Document (.pdf)</p>
-                                            Upload a file: <input accept="*.pdf" type="file" name="submittingDoc"><br><br>
-                                        </div>
-                                        <div class="form-group">
-                                        <button class='btnRegister' name ='submitDoc' type='submit'>Submit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-
+		
                 <div class="accordion" id="accordionExample">
 
                     <div class="card">
