@@ -10,9 +10,7 @@ if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "student") {
     header("location:/iicshd/user/student/home.php");
 }
-if (isset($_SESSION['user_name']) && $_SESSION['role'] == "organization") {
-    header("location:/iicshd/user/student/home.php");
-}
+
 if (isset($_SESSION['user_name'])) {
 
     if ((time() - $_SESSION['last_time']) > 2000) {
@@ -311,131 +309,6 @@ if (isset($_POST['empRegister'])) {
 }
 
 //register org
-if (isset($_POST['orgRegister'])) {
-    $orgname = clean($_POST["orgname"]);
-    $orgfname = clean($_POST["orgfname"]);
-    $orgmname = clean($_POST["orgmname"]);
-    $orglname = clean($_POST["orglname"]);
-    $orgemail = $_POST["orgemail"];
-    $orgpass = $_POST["orgpass"];
-    $orgconfpass = $_POST["orgconfpass"];
-    $orgsecq = clean($_POST["orgsecq"]);
-    $orgsecans = $_POST["orgsecans"];
-    $orgsection = "Organization";
-    $orgrole = "organization";
-    $forgot = $hidden = $verified = "0";
-    $vcode = RandomString(5);
-
-    //checker
-    $echeck = $conn->prepare("SELECT userid from users where userid=?");
-    $echeck->bind_param("s", $orgname);
-    $echeck->execute();
-    $resultecheck = $echeck->get_result();
-    $echeck->close();
-
-    $emailcheck = $conn->prepare("SELECT email from users where email=?");
-    $emailcheck->bind_param("s", $orgemail);
-    $emailcheck->execute();
-    $resultemailcheck = $emailcheck->get_result();
-    $emailcheck->close();
-
-    $updateBool = TRUE;
-
-    //validators
-	/*
-	if (!preg_match("/^[a-zA-Z\ ]*$/", $orgname)) {
-        $orgnumErr2 = '<div class="alert alert-warning">
-                       Input must contain letters only.
-    </div>';
-        $updateBool = FALSE;
-  }
-    if (!preg_match("/^[a-zA-Z\ ]*$/", $orgfname)) {
-        $orgfirstErr2 = '<div class="alert alert-warning">
-                        Input must contain letters only.
-    </div>';
-        $updateBool = FALSE;
-    }
-    if (!preg_match("/^[a-zA-Z\. ]*$/", $orgmname)) {
-        $orgmidErr2 = '<div class="alert alert-warning">
-                       Input must contain a letter and a period (.)
-    </div>';
-        $updateBool = FALSE;
-    }
-    if (!preg_match("/^[a-zA-Z\ ]*$/", $orglname)) {
-        $orglastErr2 = '<div class="alert alert-warning">
-                        Input must contain letters only.
-                        </div>';
-        $updateBool = FALSE;
-    }
-    if (!preg_match("/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ust)\.edu\.ph*$/", $orgemail)) {
-        $orgemailErr2 = '<div class="alert alert-warning">
-                        Please use your <em>ust.edu.ph</em> email address.
-                        </div>';
-        $updateBool = FALSE;
-    }
-    if ($resultecheck->num_rows > 0) {
-        $orgnumErr2 = '<div class="alert alert-danger">
-                        This user already has an account.
-                        </div>';
-        $updateBool = FALSE;
-    }
-    if ($resultemailcheck->num_rows > 0) {
-        $orgnumErr3 = '<div class="alert alert-danger">
-                        This email is already in use.
-                        </div>';
-        $updateBool = FALSE;
-    }
-    if (!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $orgpass)) {
-        $orgpasswordErr2 = '<div class="alert alert-warning">
-                        Password must be atleast 8 characters long and must be a combination of uppercase letters, lowercase letters and numbers.
-                        </div>';
-        $updateBool = FALSE;
-    }
-    if ($emppass != $orgconfpass) {
-        $orgconfirmErr2 = '<div class="alert alert-warning">
-                        Password does not match the confirm password.
-                        </div>';
-        $updateBool = FALSE;
-    }
-	*/
-
-    if ($updateBool == TRUE) {
-
-        //protect password
-        $hashedPwd = password_hash($orgpass, PASSWORD_DEFAULT);
-        $hashedSecAns = password_hash($orgsecans, PASSWORD_DEFAULT);
-        //insert the user into the database
-
-        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?)");
-        $sqladd->bind_param("ssssssissisisi", $orgname, $orgfname, $orgmname, $orglname, $orgemail, $hashedPwd, $forgot, $orgrole, $orgsection, $orgsecq, $hashedSecAns, $hidden, $vcode, $verified);
-        $sqladd->execute();
-        $sqladd->close();
-
-        $_SESSION['orgname'] = $orgname;
-        $_SESSION['orgfname'] = $orgfname;
-        $_SESSION['orgmname'] = $orgmname;
-        $_SESSION['orglname'] = $orglname;
-        $_SESSION['orgrole'] = $orgrole;
-        $_SESSION['vcode'] = $vcode;
-        $_SESSION['orgemail'] = $orgemail;
-        $_SESSION['orgpass'] = $hashedPwd;
-        $_SESSION['orgforgot'] = $forgot;
-        $_SESSION['orgsection'] = $orgsection;
-        $_SESSION['orgsecq'] = $orgsecq;
-        $_SESSION['orgseca'] = $hashedSecAns;
-        $_SESSION['orghidden'] = $hidden;
-        $_SESSION['orgverified'] = $verified;
-
-        $studSuccess = '3';
-
-        $_SESSION['studSuccess'] = $studSuccess;
-        header("Location: success.php");
-        exit;
-    } else {
-        $_SESSION['tab'] = '3';
-    }
-}
-
 
 if (isset($_SESSION['tab'])) {
     $tabparam = $_SESSION['tab'];
@@ -444,9 +317,6 @@ if (isset($_SESSION['tab'])) {
     }
     if ($tabparam == '2') {
         $tab2 = "id='defaultOpen'";
-    }
-	if ($tabparam == '3') {
-        $tab3 = "id='defaultOpen'";
     }
 } else {
     $tab1 = "id='defaultOpen'";
@@ -490,7 +360,6 @@ if (isset($_SESSION['tab'])) {
                     <div class="tab">
                         <button class="tablinks active" onclick="openTab(event, 'Student')" <?php echo $tab1; ?>>Student</button>
                         <button class="tablinks active" onclick="openTab(event, 'Faculty')" <?php echo $tab2; ?>>Faculty</button>
-						<button class="tablinks active" onclick="openTab(event, 'Organization')" <?php echo $tab3; ?>>Organization</button>
                     </div>
 
                     <?php $_SESSION['tab'] = '1'; ?>
@@ -680,72 +549,7 @@ if (isset($_SESSION['tab'])) {
                         <br>
                     </div>
 
-					<div class="tabcontent" id="Organization">
-                        <p style="padding-top: 1px;"></p>
-                        <h3>Register as Organization</h3><hr>
-
-                        <div class="alert alert-danger">Fields with <em>asterisk (*)</em> are <b>required.</b></div>
-
-                        <form id="organization-register" action="" method="POST">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Organization Name (Acronym) *" value="<?php echo $orgname; ?>" name="orgname" required/>
-                                      
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Organization Name (Full) *" value="<?php echo $orgfname; ?>" name="orgfname" required/>
-                                        
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="E-mail (ust.edu.ph) *" value="<?php echo $orgemail; ?>" name="orgemail" required/>
-                                      
-                                    </div>  
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" id="orgpass" placeholder="Password *" value="" name="orgpass" required/>
-                                        
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control"  placeholder="Confirm Password *" value="" name="orgconfpass" required/>
-                                        
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control" name="orgsecq" required>
-                                            <option class="hidden" value="" selected disabled>Security Question: *</option>
-                                            <?php
-                                            $sql2 = "SELECT * FROM secq";
-                                            $result2 = mysqli_query($conn, $sql2);
-                                            if ($result2->num_rows > 0) {
-                                                while ($row = $result2->fetch_assoc()) {
-                                                    $secqno = $row['secqno'];
-                                                    $secq = $row['secq'];
-
-                                                    echo "<option value='" . $secqno . "'> " . $secq . "</option>";
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" onfocusout="setAttribute('type', 'password');" onfocus="setAttribute('type', 'text');" class="form-control" placeholder="Answer *" value="" name="orgsecans" required />
-                                    </div>
-                                    <div class="custom-control custom-checkbox form-group">
-                                        <input type="checkbox" class="custom-control-input" name="customCheck2" id="customCheck3" required>
-                                        <label class="custom-control-label" for="customCheck3">
-                                            I agree to the <a href="https://www.privacy.gov.ph/data-privacy-act/" target="_blank">R.A. 10173 (Data Privacy Act of 2012)</a> and I hereby confirm that the information given in this form is true, complete and accurate.
-                                        </label>
-                                    </div>
-                                    <br>
-                                    <input type="submit" class="btnRegister" name="orgRegister" value="Register"/><br><br>
-                                    <div align="right" style="font-size: 14px;"><a href="index.php">Already have an account? Log-In</a></div>
-                                </div>
-                            </div>
-                        </form>
-                        <br>
-                    </div>
-                </div>
+					</div>
             </div>
 
         </div>

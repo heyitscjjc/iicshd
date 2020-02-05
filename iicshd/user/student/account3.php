@@ -7,9 +7,7 @@ if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
     header("location:/iicshd/user/faculty/home.php");
 }
-if (isset($_SESSION['user_name']) && $_SESSION['role'] == "organizati") {
-    header("location:/iicshd/user/organization/home.php");
-}
+
 if (isset($_SESSION['user_name'])) {
 
     if ((time() - $_SESSION['last_time']) > 2000) {
@@ -156,12 +154,11 @@ if (isset($_POST['updatePass'])) {
 
         <!--NEW NAVBAR-->
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand">
-                <img src = "../../img/logosolo.png"></img>       
-                <span class="mb-0 h6" style="color:white;">IICS Help Desk</span> 
-            </a>
-
+        <?php 
+        include '../../navbar.php';
+       
+    ?>
+           
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

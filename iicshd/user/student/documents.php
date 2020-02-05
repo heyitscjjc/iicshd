@@ -6,9 +6,7 @@ if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
     header("location:/iicshd/user/faculty/home.php");
 }
-if (isset($_SESSION['user_name']) && $_SESSION['role'] == "organizati") {
-    header("location:/iicshd/user/organization/home.php");
-}
+
 
 if (isset($_SESSION['user_name'])) {
 
@@ -143,9 +141,6 @@ if (isset($_POST['receiveRel'])) {
 
     <?php 
         include '../../navbar.php';
-        if(isset($_GET['documentUploaded'])){
-            echo "<p style='background-color: #f1c40f; padding: 10px;'>File has been submitted to the IICS Admin. Tracking Details can be seen below.</p>";
-        }
     ?>
 
         <div class="container-fluid">
