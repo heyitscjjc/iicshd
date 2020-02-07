@@ -47,7 +47,7 @@ $studSuccess = $_SESSION['studSuccess'];
 $vcode = $vcodeErr = $studrole = $emprole = $orgrole = "";
 
 
-$studnum = $studfname = $studmname = $studlname = $studsection = $studemail = $studpass = $studconfpass = $studsecq = $studsecans = $studrole = $forgot = $hidden = "";
+$studnum = $studfname = $studmname = $studlname = $studsection = $studemail = $studpass = $studconfpass = $studsecq = $studsecans = $studrole = $forgot = $hidden = $studdept = "";
 $empnum = $empfname = $empmname = $emplname = $empsection = $empemail = $emppass = $empconfpass = $empsecq = $empsecans = $emprole = $forgot = $hidden = "";
 $orgname = $orgfname = $orgmname = $orglname = $orgsection = $orgemail = $orgpass = $orgconfpass = $orgsecq = $orgsecans = $orgrole = $forgot = $hidden = "";
 
@@ -68,7 +68,8 @@ if ($studSuccess == '1') {
     $studsecq = $_SESSION['studsecq'];
     $hashedSecAns = $_SESSION['studseca'];
     $hidden = $_SESSION['studhidden'];
-
+	$studdept = $_SESSION['studdept'];
+	
     if (isset($_POST['verify'])) {
 
         if ($role == "student") {
@@ -105,8 +106,8 @@ if ($studSuccess == '1') {
                         $hashedv = password_hash($inputv, PASSWORD_DEFAULT);
                         //insert the user into the database
 
-                        $sqladd = $conn->prepare("INSERT INTO users VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?)");
-                        $sqladd->bind_param("ssssssissisisi", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsection, $studsecq, $hashedSecAns, $hidden, $hashedv, $verified);
+                        $sqladd = $conn->prepare("INSERT INTO users VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
+                        $sqladd->bind_param("ssssssissisisii", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsection, $studsecq, $hashedSecAns, $hidden, $hashedv, $verified, $studdept); //16
                         $sqladd->execute();
                         $sqladd->close();
 
@@ -197,7 +198,7 @@ if ($studSuccess == '1') {
                         $hashedv = password_hash($inputv, PASSWORD_DEFAULT);
                         //insert the user into the database
 
-                        $sqladd = $conn->prepare("INSERT INTO users VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?)");
+                        $sqladd = $conn->prepare("INSERT INTO users VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
                         $sqladd->bind_param("ssssssissisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsection, $empsecq, $hashedSecAns, $hidden, $hashedv, $verified);
                         $sqladd->execute();
                         $sqladd->close();
@@ -281,6 +282,7 @@ header("Location: index.php");
                             <span class="fas fa-2x fa-user-check"></span>
                             <center><h4>Almost Done!</h4></center>
                             <?php
+							echo $vcode;
                             if ($codefail == TRUE) {
                                 echo "<div class='alert alert-danger'> Wrong verification code. Please check your <b>Spam</b> folder if you can't locate the email.</div>";
                             } else {

@@ -18,6 +18,8 @@ if (isset($_SESSION['user_name'])) {
     }
 }
 
+$studdept = $_SESSION['dept'];
+
 if (!isset($_SESSION['user_name'])) {
     header("location:/iicshd/login.php");
 }
@@ -221,7 +223,7 @@ if (isset($_POST['unpinPost'])) {
 
 
                 <?php
-                $announceSelect = "SELECT announcements.annno, announcements.anntitle, announcements.anndesc, announcements.anndate, announcements.userno, users.fname, users.mname, users.lname FROM announcements LEFT JOIN users ON users.userno = announcements.userno WHERE announcements.hidden = '0' ORDER BY announcements.annno DESC";
+                $announceSelect = "SELECT announcements.annno, announcements.anntitle, announcements.anndesc, announcements.anndate, announcements.userno, users.fname, users.mname, users.lname FROM announcements LEFT JOIN users ON users.userno = announcements.userno WHERE announcements.deptno = '". $studdept ."' OR announcements.deptno = '0' ORDER BY announcements.annno DESC";
                 $result = $conn->query($announceSelect);
 
                 if ($result->num_rows > 0) {

@@ -22,8 +22,8 @@ if (isset($_SESSION['user_name'])) {
 
 unset($_SESSION['fromMain']);
 
-$studnum = $studfname = $studmname = $studlname = $studsection = $studemail = $studpass = $studconfpass = $studsecq = $studsecans = $studrole = $forgot = $hidden = "";
-$empnum = $empfname = $empmname = $emplname = $empsection = $empemail = $emppass = $empconfpass = $empsecq = $empsecans = $emprole = $forgot = $hidden = "";
+$studnum = $studfname = $studmname = $studlname = $studsection = $studemail = $studpass = $studconfpass = $studsecq = $studsecans = $studrole = $forgot = $hidden = $studdept = "";
+$empnum = $empfname = $empmname = $emplname = $empsection = $empemail = $emppass = $empconfpass = $empsecq = $empsecans = $emprole = $forgot = $hidden =  "";
 $orgname = $orgfname = $orgmname = $orglname = $orgsection = $orgemail = $orgpass = $orgconfpass = $orgsecq = $orgsecans = $orgrole = $forgot = $hidden = "";
 
 $tab1 = $tab2 = $tab3 = $studnumErr = $orgnameErr2 =  $empnumErr2 = $emailErr3 = $empnumErr3 = $numErr = $numErr2 = $firstErr = $firstErr2 = $midErr = $midErr2 = $lastErr = $lastErr2 = $emailErr = $emailErr2 = $confirmErr = $confirmErr2 = $passwordErr = $passwordErr2 = "";
@@ -53,9 +53,11 @@ if (isset($_POST['studRegister'])) {
     $studconfpass = $_POST["studconfpass"];
     $studsecq = clean($_POST["studsecq"]);
     $studsecans = $_POST["studsecans"];
+	$studdept = clean($_POST["studdept"]);
     $studrole = "student";
     $forgot = $hidden = $verified = "0";
     $vcode = RandomString(5);
+	
 
     //checker
     $pcheck = $conn->prepare("SELECT userid from users where userid=?");
@@ -135,8 +137,8 @@ if (isset($_POST['studRegister'])) {
         $hashedSecAns = password_hash($studsecans, PASSWORD_DEFAULT);
         //insert the user into the database
 
-        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?)");
-        $sqladd->bind_param("ssssssissisisi", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsection, $studsecq, $hashedSecAns, $hidden, $vcode, $verified);
+        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
+        $sqladd->bind_param("ssssssissisisii", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsection, $studsecq, $hashedSecAns, $hidden, $vcode, $verified, $studdept);
         $sqladd->execute();
         $sqladd->close();
 
@@ -163,6 +165,7 @@ if (isset($_POST['studRegister'])) {
         $_SESSION['studseca'] = $hashedSecAns;
         $_SESSION['studhidden'] = $hidden;
         $_SESSION['studverified'] = $verified;
+		$_SESSION['studdept'] = $studdept;
 
         $studSuccess = '1';
 
@@ -391,6 +394,23 @@ if (isset($_SESSION['tab'])) {
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Last Name *" value="<?php echo $studlname; ?>" name="studlname" required/>
                                         <?php echo $lastErr; ?>
+                                    </div>
+									<div class="form-group">
+                                        <select required class="form-control" name="studdept">
+                                            <option class="hidden" value="" selected disabled>Department: *</option>
+                                            <?php
+                                            $prof = mysqli_query($conn, "SELECT * from dept WHERE hidden = '0'");
+                                            if ($prof->num_rows > 0) {
+                                                while ($row = $prof->fetch_assoc()) {
+                                                    $deptno = $row['deptno'];
+                                                    $deptname = $row['deptname'];
+                                                    echo "<option value='" . $deptno . "'>" . $deptname . "</option>";
+                                                }
+                                            } else {
+                                                echo"<option value=''></option>";
+                                            }
+                                            ?> 
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <select required class="form-control" name="studsection">
