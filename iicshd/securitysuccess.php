@@ -109,7 +109,7 @@ unset($_SESSION['seq']);
                             <br>
                             <div class="alert alert-success">
                                 We have sent an email to <em><b><?php echo $_SESSION['requser']; ?></b></em> containing your temporary password.
-                                Please check your <b>Spam</b> folder if you can't locate the email.
+                                Please check your <b>Spam</b> folder if you can't locate the email. Do not close this tab while waiting for the email. It may take a while for it to show up.
                                 <?php $_SESSION['param'] = ''; ?>
                             </div>
 

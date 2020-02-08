@@ -824,6 +824,14 @@ if (isset($_POST['getQueueNum'])) {
 
                 });
             </script>
+            <script>
+                $(document).ready(function() {
 
+                if(window.location.href.indexOf('#getQueue') != -1) {
+                    $('#getQueue').modal('show');
+                }
+
+                });
+            </script>
     </body>
 </html>
