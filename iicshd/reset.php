@@ -9,9 +9,7 @@ if (isset($_SESSION['resetpass']) && $_SESSION['resetpass'] == 0) {
     } elseif (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
         header("location:/iicshd/user/faculty/home.php");
     }
-	if (isset($_SESSION['user_name']) && $_SESSION['role'] == "organization") {
-    header("location:/iicshd/user/organization/home.php");
-}}
+}
 
 
 ?>

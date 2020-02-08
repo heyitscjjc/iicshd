@@ -6,6 +6,28 @@ require '../../include/PHPMailer/src/SMTP.php';
 require '../../include/PHPMailer/src/Exception.php';
 require '../../include/PHPMailer/src/PHPMailer.php';
 
+if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
+    header("location:/iicshd/user/admin/home.php");
+}
+if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
+    header("location:/iicshd/user/faculty/home.php");
+}
+
+
+if (isset($_SESSION['user_name'])) {
+
+    if ((time() - $_SESSION['last_time']) > 2000) {
+        header("Location:../../logout.php");
+    } else {
+        $_SESSION['last_time'] = time();
+    }
+}
+
+if (!isset($_SESSION['user_name'])) {
+    header("location:/iicshd/login.php");
+}
+
+
 $mail = new PHPMailer;
 
 $mail->isSMTP();                                      // Set mailer to use SMTP
@@ -156,9 +178,8 @@ function sendMessage(){
 </head>
 <body>
 <?php 
-    include '../../navbar.php';
-
-?>
+        include '../../navbar.php';
+    ?>
 <main>
 
 </main>

@@ -10,7 +10,7 @@ $thisDate = date("Y-m-d");
 $date_time = date("Y-m-d h:i:sa");
 
 //initial variables
-$userid = $password = $email = $success = $fail = $passwordErr = $registerSuccess = $usernameErr = $usernameErr2 = $seq = $answerErr = "";
+$userid = $password = $email = $success = $fail = $passwordErr = $registerSuccess = $usernameErr = $usernameErr2 = $seq = $answerErr = $dept = "";
 $confirmErr = $resetpasswordErr = "";
 $updateBool = true;
 
@@ -49,6 +49,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['lname'] = $row['lname'];
                 $_SESSION['userno'] = $row['userno'];
                 $_SESSION['section'] = $row['section'];
+				$_SESSION['dept'] = $row['deptno'];
                 $_SESSION['last_time'] = time();
                 $_SESSION['resetpass'] = $row['forgotpass'];
 

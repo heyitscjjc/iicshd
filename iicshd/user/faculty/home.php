@@ -37,13 +37,20 @@ if (isset($_GET['delete'])) {
     $delete = '';
 }
 
+	$dept = "";
+
 //create announcement
 if (isset($_POST['postAnnouncement'])) {
     $pTitle = clean($_POST["pTitle"]);
     $pDesc = clean($_POST["pDesc"]);
+	$dept = clean($_POST["dept"]);
+	
+	
+	
 
-    $announceSql = $conn->prepare("INSERT INTO announcements VALUES ('', ?, ?, NOW(), ?, '0', '0')");
-    $announceSql->bind_param("ssi", $pTitle, $pDesc, $_SESSION['userno']);
+
+    $announceSql = $conn->prepare("INSERT INTO announcements VALUES ('', ?, ?, NOW(), ?, '0', '0', ?)");
+    $announceSql->bind_param("ssii", $pTitle, $pDesc, $_SESSION['userno'], $dept);
 
     if ($announceSql == TRUE) {
 
@@ -300,14 +307,23 @@ if (isset($_POST['deletepost'])) {
                                         <textarea rows="2" class="form-control" name="pDesc" required ></textarea>
                                     </div>
 									
-									<div class = "form-group">
-									<select class="form-control" name="anndept" required>
-											<option value="1">ALL</option>
-											<option value="2">CS</option>
-											<option value="3">IS</option>
-											<option value="4">IT</option>
-									</select>
-									</div>
+									<div class="form-group">
+                                        <select required class="form-control" name="dept">
+                                            <option class="hidden" value="" selected disabled>Department: *</option>
+                                            <?php
+                                            $prof = mysqli_query($conn, "SELECT * from dept");
+                                            if ($prof->num_rows > 0) {
+                                                while ($row = $prof->fetch_assoc()) {
+                                                    $deptno = $row['deptno'];
+                                                    $deptname = $row['deptname'];
+                                                    echo "<option value='" . $deptno . "'>" . $deptname . "</option>";
+                                                }
+                                            } else {
+                                                echo"<option value=''></option>";
+                                            }
+                                            ?> 
+                                        </select>
+                                    </div>
 									
 									<div class="form-group">
                                         <button style="float:right;" type="submit" name="postAnnouncement" class="btn btn-success">
