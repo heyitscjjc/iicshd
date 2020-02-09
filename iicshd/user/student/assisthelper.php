@@ -50,6 +50,7 @@ $mail->Port = 587;
         $_REQUEST['query']="goodbye";
         array_push($_SESSION['previousMessages'], "You: " .  "None");
         try {
+            $conversation = implode(',', $_SESSION['previousMessages']);
             //Recipients
             $mail->setFrom('noreply.iicshd@gmail.com', 'IICS Help Desk');
             $mail->addAddress($_SESSION['studemail']);
@@ -60,15 +61,13 @@ $mail->Port = 587;
             $mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
                     . '<p>Nice talking with you.</p>'
                     . '<p>Here is our conversation earlier. You can use this as a reference in the future.</p>'
+                    . $conversation
                     . '<hr></body></html>';
 
             $mail->send();
         } catch (Exception $ex) {
             echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
-    }
-    if(isset($_POST['btnGetTicket'])){
-        header("location:/iicshd/user/student/queue.php#getQueue");
     }
 #chatbot function
 function sendMessage(){
@@ -202,11 +201,6 @@ function sendMessage(){
         <?php
             if(strpos($_SESSION['repliedMessage'], "Anything else")){
                 echo "<button class='btn' name='btnNone'>None</button>";
-            }
-        ?>
-        <?php
-            if(strpos($_SESSION['repliedMessage'], "ticket")){
-                echo "<button class='btn' name='btnGetTicket'>Get a ticket</button>";
             }
         ?>
         <br><br><input type="text" id="query" name="query" class="form-control" placeholder="Send a message...">
