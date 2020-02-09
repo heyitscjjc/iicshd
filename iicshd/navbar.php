@@ -130,10 +130,10 @@ else if($_SESSION['role'] == 'faculty'){
 
         <ul class='navbar-nav mr-auto'>
 
-            <li class='nav-item active'>
+            <li class='nav-item'>
                 <a class='nav-link' style='color:white;' href='home.php'>
                     <span data-feather='home'></span>
-                    Home <span class='sr-only'>(current)</span>
+                    Home <span class='sr-only'></span>
                 </a>
             </li>
 
@@ -216,10 +216,10 @@ echo "        <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
 
     <ul class='navbar-nav mr-auto'>
 
-        <li class='nav-item active'>
-            <a class='nav-link active' href='home.php'>
+        <li class='nav-item'>
+            <a class='nav-link' style='color:white;' href='home.php'>
                 <span data-feather='home'></span>
-                Home <span class='sr-only'>(current)</span>
+                Home <span class='sr-only'></span>
             </a>
         </li>
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2019 at 06:17 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.2
+-- Generation Time: Feb 09, 2020 at 09:15 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,81 +32,86 @@ CREATE TABLE `announcements` (
   `annno` int(11) NOT NULL,
   `anntitle` varchar(60) NOT NULL,
   `anndesc` varchar(250) NOT NULL,
-  `anndate` timestamp(1) NOT NULL DEFAULT CURRENT_TIMESTAMP(1) ON UPDATE CURRENT_TIMESTAMP(1),
+  `anndate` timestamp(1) NOT NULL DEFAULT current_timestamp(1) ON UPDATE current_timestamp(1),
   `userno` int(11) NOT NULL,
   `hidden` int(1) NOT NULL,
-  `pin` int(1) NOT NULL DEFAULT '0'
+  `pin` int(1) NOT NULL DEFAULT 0,
+  `deptno` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `announcements`
 --
 
-INSERT INTO `announcements` (`annno`, `anntitle`, `anndesc`, `anndate`, `userno`, `hidden`, `pin`) VALUES
-(1, 'Test Announcement', 'This is an announcement made by the Admin.', '2019-11-26 10:26:59.2', 1, 0, 0),
-(2, 'This is a test announcement with notifications', 'Testing', '2019-03-03 16:53:54.9', 1, 1, 0),
-(3, 'Test Announcement', 'New', '2019-03-03 16:54:04.2', 1, 1, 0),
-(4, 'Test', 'Announcement', '2019-03-03 16:54:00.6', 1, 1, 0),
-(5, 'Test', 'Testing Announcement', '2019-03-03 16:54:07.9', 1, 1, 0),
-(6, 'Test', 'ANnouncement', '2019-03-06 04:03:21.8', 1, 0, 0),
-(7, 'Test', 'Announcement', '2019-03-06 16:11:15.0', 1, 0, 0),
-(8, 'Test', 'Test', '2019-03-06 16:13:46.0', 1, 0, 0),
-(9, 'Test', 'Test', '2019-03-06 16:17:10.0', 1, 0, 0),
-(10, 'Testing', 'Testing', '2019-03-06 16:19:36.0', 1, 0, 0),
-(11, 'Test', 'Test', '2019-03-06 16:22:28.0', 1, 0, 0),
-(12, 'Test', 'Test', '2019-03-06 16:24:52.0', 1, 0, 0),
-(13, 'Test', 'Test', '2019-03-06 16:30:04.0', 1, 0, 0),
-(14, 'Test', 'Test', '2019-03-06 16:42:12.0', 1, 0, 0),
-(15, 'Test', 'Test', '2019-03-06 16:45:55.0', 1, 0, 0),
-(16, 'test', 'Test', '2019-03-06 16:48:14.0', 1, 0, 0),
-(17, 'Test', 'Test', '2019-03-06 16:49:16.0', 1, 0, 0),
-(18, 'Testing', 'Testing', '2019-03-06 16:50:40.0', 1, 0, 0),
-(19, 'test', 'test', '2019-03-06 16:51:04.0', 1, 0, 0),
-(20, 'Test', 'Test', '2019-03-06 16:54:51.0', 1, 0, 0),
-(21, 'Test', 'Test', '2019-03-06 16:55:39.0', 1, 0, 0),
-(22, 'q123', '123', '2019-03-07 04:24:34.0', 1, 0, 0),
-(23, '123', '123', '2019-03-07 04:27:39.0', 1, 0, 0),
-(24, '123', '123', '2019-03-07 04:28:11.0', 1, 0, 0),
-(25, '123', '123', '2019-03-07 04:30:05.0', 1, 0, 0),
-(26, '123', '123', '2019-03-07 04:38:44.0', 1, 0, 0),
-(27, '123', '123', '2019-03-07 04:42:02.0', 1, 0, 0),
-(28, '123', '123', '2019-03-07 04:53:31.0', 1, 0, 0),
-(29, '123', '123', '2019-03-07 05:04:26.0', 1, 0, 0),
-(30, '123', '123', '2019-03-07 05:08:30.0', 1, 0, 0),
-(31, '123', '123', '2019-03-07 05:08:52.0', 1, 0, 0),
-(32, '123', '123', '2019-03-07 05:09:05.0', 1, 0, 0),
-(33, '213', '123', '2019-03-07 05:09:20.0', 1, 0, 0),
-(34, '123', '123', '2019-03-07 05:09:57.0', 1, 0, 0),
-(35, '123', '123', '2019-03-07 05:10:24.0', 1, 0, 0),
-(36, '123', '123', '2019-03-07 05:12:46.0', 1, 0, 0),
-(37, '123', '123', '2019-03-07 05:13:25.0', 1, 0, 0),
-(38, '123', '123', '2019-03-07 05:14:31.0', 1, 0, 0),
-(39, '123', '123', '2019-03-07 05:16:05.0', 1, 0, 0),
-(40, '123', '123', '2019-03-07 05:16:48.0', 1, 0, 0),
-(41, '123', '123', '2019-03-07 05:18:19.0', 1, 0, 0),
-(42, '312', '312', '2019-03-07 05:18:32.0', 1, 0, 0),
-(43, '312', '312', '2019-03-07 05:18:32.0', 1, 0, 0),
-(44, '123', '123', '2019-03-07 05:21:24.0', 1, 0, 0),
-(45, '123', '123', '2019-03-07 05:23:17.0', 1, 0, 0),
-(46, '123', '123', '2019-03-07 05:28:19.0', 1, 0, 0),
-(47, '123', '123', '2019-03-07 05:29:02.0', 1, 0, 0),
-(48, '123', '123', '2019-03-07 05:31:26.0', 1, 0, 0),
-(49, 'New', '123', '2019-03-07 05:32:22.0', 1, 0, 0),
-(50, 'Test', 'New', '2019-03-07 05:37:05.0', 1, 0, 0),
-(51, 'Sample', '123', '2019-03-07 05:37:53.0', 1, 0, 0),
-(52, '123', '123', '2019-03-07 05:41:41.0', 1, 0, 0),
-(53, '123', '312', '2019-03-07 05:54:38.0', 1, 0, 0),
-(54, '3213', '3123', '2019-03-07 05:54:41.0', 1, 0, 0),
-(55, '432', '23412', '2019-03-07 05:54:45.0', 1, 0, 0),
-(56, '123', '123', '2019-03-07 05:55:54.0', 1, 0, 0),
-(57, '67576', '54', '2019-03-07 05:56:09.0', 1, 0, 0),
-(58, '3123', '123', '2019-03-07 07:17:22.0', 1, 0, 0),
-(59, '123', '123', '2019-03-07 07:46:26.0', 1, 0, 0),
-(60, '321', '312', '2019-03-07 07:50:37.0', 1, 0, 0),
-(61, '321', '312', '2019-03-07 08:14:00.0', 1, 0, 0),
-(62, 'asdf', 'sample', '2019-11-26 10:27:02.3', 1, 0, 1),
-(63, 'TEST', 'TEST JC JC', '2019-11-26 10:29:50.0', 1, 0, 0),
-(64, 'CJJCCJCJCJCJCJ', 'EOWKEWOEKW', '2019-11-26 10:30:12.0', 1, 0, 0);
+INSERT INTO `announcements` (`annno`, `anntitle`, `anndesc`, `anndate`, `userno`, `hidden`, `pin`, `deptno`) VALUES
+(1, 'Test Announcement', 'This is an announcement made by the Admin.', '2019-11-26 10:26:59.2', 1, 0, 0, 0),
+(2, 'This is a test announcement with notifications', 'Testing', '2019-03-03 16:53:54.9', 1, 1, 0, 0),
+(3, 'Test Announcement', 'New', '2019-03-03 16:54:04.2', 1, 1, 0, 0),
+(4, 'Test', 'Announcement', '2019-03-03 16:54:00.6', 1, 1, 0, 0),
+(5, 'Test', 'Testing Announcement', '2019-03-03 16:54:07.9', 1, 1, 0, 0),
+(6, 'Test', 'ANnouncement', '2019-03-06 04:03:21.8', 1, 0, 0, 0),
+(7, 'Test', 'Announcement', '2019-03-06 16:11:15.0', 1, 0, 0, 0),
+(8, 'Test', 'Test', '2019-03-06 16:13:46.0', 1, 0, 0, 0),
+(9, 'Test', 'Test', '2019-03-06 16:17:10.0', 1, 0, 0, 0),
+(10, 'Testing', 'Testing', '2019-03-06 16:19:36.0', 1, 0, 0, 0),
+(11, 'Test', 'Test', '2019-03-06 16:22:28.0', 1, 0, 0, 0),
+(12, 'Test', 'Test', '2019-03-06 16:24:52.0', 1, 0, 0, 0),
+(13, 'Test', 'Test', '2019-03-06 16:30:04.0', 1, 0, 0, 0),
+(14, 'Test', 'Test', '2019-03-06 16:42:12.0', 1, 0, 0, 0),
+(15, 'Test', 'Test', '2019-03-06 16:45:55.0', 1, 0, 0, 0),
+(16, 'test', 'Test', '2019-03-06 16:48:14.0', 1, 0, 0, 0),
+(17, 'Test', 'Test', '2019-03-06 16:49:16.0', 1, 0, 0, 0),
+(18, 'Testing', 'Testing', '2019-03-06 16:50:40.0', 1, 0, 0, 0),
+(19, 'test', 'test', '2019-03-06 16:51:04.0', 1, 0, 0, 0),
+(20, 'Test', 'Test', '2019-03-06 16:54:51.0', 1, 0, 0, 0),
+(21, 'Test', 'Test', '2019-03-06 16:55:39.0', 1, 0, 0, 0),
+(22, 'q123', '123', '2019-03-07 04:24:34.0', 1, 0, 0, 0),
+(23, '123', '123', '2019-03-07 04:27:39.0', 1, 0, 0, 0),
+(24, '123', '123', '2019-03-07 04:28:11.0', 1, 0, 0, 0),
+(25, '123', '123', '2019-03-07 04:30:05.0', 1, 0, 0, 0),
+(26, '123', '123', '2019-03-07 04:38:44.0', 1, 0, 0, 0),
+(27, '123', '123', '2019-03-07 04:42:02.0', 1, 0, 0, 0),
+(28, '123', '123', '2019-03-07 04:53:31.0', 1, 0, 0, 0),
+(29, '123', '123', '2019-03-07 05:04:26.0', 1, 0, 0, 0),
+(30, '123', '123', '2019-03-07 05:08:30.0', 1, 0, 0, 0),
+(31, '123', '123', '2019-03-07 05:08:52.0', 1, 0, 0, 0),
+(32, '123', '123', '2019-03-07 05:09:05.0', 1, 0, 0, 0),
+(33, '213', '123', '2019-03-07 05:09:20.0', 1, 0, 0, 0),
+(34, '123', '123', '2019-03-07 05:09:57.0', 1, 0, 0, 0),
+(35, '123', '123', '2019-03-07 05:10:24.0', 1, 0, 0, 0),
+(36, '123', '123', '2019-03-07 05:12:46.0', 1, 0, 0, 0),
+(37, '123', '123', '2019-03-07 05:13:25.0', 1, 0, 0, 0),
+(38, '123', '123', '2019-03-07 05:14:31.0', 1, 0, 0, 0),
+(39, '123', '123', '2019-03-07 05:16:05.0', 1, 0, 0, 0),
+(40, '123', '123', '2019-03-07 05:16:48.0', 1, 0, 0, 0),
+(41, '123', '123', '2019-03-07 05:18:19.0', 1, 0, 0, 0),
+(42, '312', '312', '2019-03-07 05:18:32.0', 1, 0, 0, 0),
+(43, '312', '312', '2019-03-07 05:18:32.0', 1, 0, 0, 0),
+(44, '123', '123', '2019-03-07 05:21:24.0', 1, 0, 0, 0),
+(45, '123', '123', '2019-03-07 05:23:17.0', 1, 0, 0, 0),
+(46, '123', '123', '2019-03-07 05:28:19.0', 1, 0, 0, 0),
+(47, '123', '123', '2019-03-07 05:29:02.0', 1, 0, 0, 0),
+(48, '123', '123', '2019-03-07 05:31:26.0', 1, 0, 0, 0),
+(49, 'New', '123', '2019-03-07 05:32:22.0', 1, 0, 0, 0),
+(50, 'Test', 'New', '2019-03-07 05:37:05.0', 1, 0, 0, 0),
+(51, 'Sample', '123', '2019-03-07 05:37:53.0', 1, 0, 0, 0),
+(52, '123', '123', '2019-03-07 05:41:41.0', 1, 0, 0, 0),
+(53, '123', '312', '2019-03-07 05:54:38.0', 1, 0, 0, 0),
+(54, '3213', '3123', '2019-03-07 05:54:41.0', 1, 0, 0, 0),
+(55, '432', '23412', '2019-03-07 05:54:45.0', 1, 0, 0, 0),
+(56, '123', '123', '2019-03-07 05:55:54.0', 1, 0, 0, 0),
+(57, '67576', '54', '2019-03-07 05:56:09.0', 1, 0, 0, 0),
+(58, '3123', '123', '2019-03-07 07:17:22.0', 1, 0, 0, 0),
+(59, '123', '123', '2019-03-07 07:46:26.0', 1, 0, 0, 0),
+(60, '321', '312', '2019-03-07 07:50:37.0', 1, 0, 0, 0),
+(61, '321', '312', '2019-03-07 08:14:00.0', 1, 0, 0, 0),
+(62, 'asdf', 'sample', '2019-11-26 10:27:02.3', 1, 0, 1, 0),
+(63, 'TEST', 'TEST JC JC', '2019-11-26 10:29:50.0', 1, 0, 0, 0),
+(64, 'CJJCCJCJCJCJCJ', 'EOWKEWOEKW', '2019-11-26 10:30:12.0', 1, 0, 0, 0),
+(65, 'test', 'dept post', '2020-02-06 08:37:14.0', 7, 0, 0, 3),
+(66, 'TEST FOR IS', 'TEST', '2020-02-07 16:25:27.0', 7, 0, 0, 2),
+(67, 'TEST POST FOR ALL', 'ALL', '2020-02-07 16:27:10.0', 7, 0, 0, 0),
+(68, 'TEST FOR CS', 'TEST', '2020-02-07 16:32:40.0', 7, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -120,7 +125,7 @@ CREATE TABLE `consultations` (
   `condesc` varchar(256) NOT NULL,
   `conprof` int(11) NOT NULL,
   `userno` int(11) NOT NULL,
-  `condatecreated` timestamp(1) NOT NULL DEFAULT CURRENT_TIMESTAMP(1) ON UPDATE CURRENT_TIMESTAMP(1),
+  `condatecreated` timestamp(1) NOT NULL DEFAULT current_timestamp(1) ON UPDATE current_timestamp(1),
   `conpref` varchar(256) NOT NULL,
   `constatus` varchar(20) NOT NULL,
   `conremarks` varchar(256) DEFAULT NULL,
@@ -189,7 +194,7 @@ CREATE TABLE `consultlogs` (
   `condesc` varchar(256) NOT NULL,
   `conprof` int(11) NOT NULL,
   `userno` int(11) NOT NULL,
-  `condatecreated` timestamp(1) NOT NULL DEFAULT CURRENT_TIMESTAMP(1) ON UPDATE CURRENT_TIMESTAMP(1),
+  `condatecreated` timestamp(1) NOT NULL DEFAULT current_timestamp(1) ON UPDATE current_timestamp(1),
   `conpref` varchar(256) NOT NULL,
   `constatus` varchar(20) NOT NULL,
   `condatemodified` timestamp(1) NOT NULL DEFAULT '0000-00-00 00:00:00.0'
@@ -236,17 +241,39 @@ INSERT INTO `consultlogs` (`conno`, `consub`, `condesc`, `conprof`, `userno`, `c
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dept`
+--
+
+CREATE TABLE `dept` (
+  `deptno` int(1) NOT NULL,
+  `deptname` varchar(255) NOT NULL,
+  `hidden` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dept`
+--
+
+INSERT INTO `dept` (`deptno`, `deptname`, `hidden`) VALUES
+(0, 'All', 1),
+(1, 'Computer Science', 0),
+(2, 'Information System', 0),
+(3, 'Information Technology', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `doclogs`
 --
 
 CREATE TABLE `doclogs` (
   `docno` int(11) NOT NULL,
-  `docdatesubmit` timestamp(1) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(1),
+  `docdatesubmit` timestamp(1) NULL DEFAULT NULL ON UPDATE current_timestamp(1),
   `userno` int(11) NOT NULL,
   `doctitle` varchar(60) NOT NULL,
   `docdesc` varchar(250) NOT NULL,
   `docstatus` varchar(60) NOT NULL,
-  `docdatechange` timestamp(1) NOT NULL DEFAULT CURRENT_TIMESTAMP(1),
+  `docdatechange` timestamp(1) NOT NULL DEFAULT current_timestamp(1),
   `hidden` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -255,8 +282,8 @@ CREATE TABLE `doclogs` (
 --
 
 INSERT INTO `doclogs` (`docno`, `docdatesubmit`, `userno`, `doctitle`, `docdesc`, `docstatus`, `docdatechange`, `hidden`) VALUES
-(1, '2019-03-08 11:42:38.6', 3, '123', '321', 'Received by Student', '2019-03-08 11:42:38.0', 0),
-(2, '2019-03-08 08:26:35.9', 3, 'Sample Document', 'Petition Paper', 'Received by Student', '2019-03-08 08:26:35.0', 0),
+(1, '2020-02-09 08:06:12.4', 3, '123', '321', 'Received by Student', '2020-02-09 08:06:12.0', 1),
+(2, '2020-02-09 07:27:38.7', 3, 'Sample Document', 'Petition Paper', 'Received by Student', '2020-02-09 07:27:38.0', 1),
 (3, '2019-03-08 12:08:46.7', 3, 'Test Submission', 'Submitted Document', 'Received by Office', '2019-03-08 12:08:46.0', 0),
 (4, '2019-03-08 12:09:06.8', 3, 'Test Submission', 'Submitted Document', 'Received by Office', '2019-03-08 12:09:06.0', 0),
 (5, '2019-03-08 12:09:13.9', 3, 'Test', 'Submission', 'Not Received', '2019-03-08 12:09:13.0', 0),
@@ -273,13 +300,14 @@ INSERT INTO `doclogs` (`docno`, `docdatesubmit`, `userno`, `doctitle`, `docdesc`
 
 CREATE TABLE `documents` (
   `docno` int(11) NOT NULL,
-  `docdatesubmit` timestamp(1) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(1),
+  `docdatesubmit` timestamp(1) NULL DEFAULT NULL ON UPDATE current_timestamp(1),
   `userno` int(11) NOT NULL,
   `doctitle` varchar(60) NOT NULL,
   `docdesc` varchar(250) NOT NULL,
   `docstatus` varchar(60) NOT NULL,
-  `docdatechange` timestamp(1) NOT NULL DEFAULT CURRENT_TIMESTAMP(1),
-  `docDir` varchar(250) NOT NULL,
+  `docdatechange` timestamp(1) NOT NULL DEFAULT current_timestamp(1),
+  `docISO` varchar(255) NOT NULL,
+  `submittedby` varchar(255) NOT NULL,
   `hidden` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -287,8 +315,8 @@ CREATE TABLE `documents` (
 -- Dumping data for table `documents`
 --
 
-INSERT INTO `documents` (`docno`, `docdatesubmit`, `userno`, `doctitle`, `docdesc`, `docstatus`, `docdatechange`, `docDir`, `hidden`) VALUES
-(27, '2019-12-01 04:04:11.0', 12, 'Reg form', 'For OJT 2', 'Not yet received.', '2019-12-01 04:04:11.0', 'uploads/submittedDocs/DIZON_REG_FORM.pdf', 0);
+INSERT INTO `documents` (`docno`, `docdatesubmit`, `userno`, `doctitle`, `docdesc`, `docstatus`, `docdatechange`, `docISO`, `submittedby`, `hidden`) VALUES
+(1, '0000-00-00 00:00:00.0', 1, 'Sample Docu', 'test', 'Received by the Office.', '0000-00-00 00:00:00.0', 'N/A', 'Rolland Charles Gamez', 0);
 
 -- --------------------------------------------------------
 
@@ -300,7 +328,7 @@ CREATE TABLE `files` (
   `fileno` int(11) NOT NULL,
   `filetitle` varchar(256) NOT NULL,
   `filename` varchar(256) NOT NULL,
-  `filedate` timestamp(1) NOT NULL DEFAULT CURRENT_TIMESTAMP(1) ON UPDATE CURRENT_TIMESTAMP(1),
+  `filedate` timestamp(1) NOT NULL DEFAULT current_timestamp(1) ON UPDATE current_timestamp(1),
   `hidden` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -324,7 +352,7 @@ CREATE TABLE `notif` (
   `notifdesc` varchar(256) NOT NULL,
   `notifaudience` varchar(256) NOT NULL,
   `notifdate` datetime(1) NOT NULL,
-  `notifstatus` int(1) NOT NULL DEFAULT '0'
+  `notifstatus` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -574,7 +602,42 @@ INSERT INTO `notif` (`notifno`, `userno`, `notiftitle`, `notifdesc`, `notifaudie
 (240, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:48:54.0', 1),
 (241, 1, 'Queue Status', 'Now Serving Queue Ticket No. 2', '10', '2019-11-30 22:49:48.0', 1),
 (242, 10, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-11-30 22:50:14.0', 1),
-(243, 1, 'Document Status Updated', 'Document Title: Sample Test Document / Status: On-Process', '12', '2019-12-01 10:49:21.0', 1);
+(243, 1, 'Document Status Updated', 'Document Title: Sample Test Document / Status: On-Process', '12', '2019-12-01 10:49:21.0', 1),
+(244, 3, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-12-06 23:26:07.0', 1),
+(245, 1, 'Queue Status', 'Now Serving Queue Ticket No. 4', '3', '2019-12-06 23:26:37.0', 1),
+(246, 3, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-12-06 23:27:01.0', 1),
+(247, 1, 'Queue Status', 'Now Serving Queue Ticket No. 5', '3', '2019-12-06 23:27:05.0', 1),
+(248, 1, 'Document Status Updated', 'Document Title: Reg form / Status: Received by Office', '12', '2019-12-06 23:31:50.0', 1),
+(249, 1, 'Document Status Updated', 'Document Title: Sample Docu / Status: Received by Office', '3', '2019-12-06 23:32:06.0', 1),
+(250, 2, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-12-07 15:54:08.0', 1),
+(251, 1, 'Queue Status', 'Now Serving Queue Ticket No. 6', '2', '2019-12-07 15:55:06.0', 1),
+(252, 2, 'New Queue Ticket', 'A New Queue Ticket has been added to the Waiting list.', 'admin', '2019-12-07 17:01:56.0', 1),
+(253, 1, 'Queue Status', 'Now Serving Queue Ticket No. 7', '2', '2019-12-07 17:02:24.0', 1),
+(254, 7, 'New Announcement Posted', 'test posted by Faculty  Account 2', 'all', '2020-02-06 16:32:50.0', 1),
+(255, 7, 'New Announcement Posted', 'test posted by Faculty  Account 2', 'all', '2020-02-06 16:37:15.0', 1),
+(256, 7, 'New Announcement Posted', 'TEST FOR IS posted by Faculty  Account 2', 'all', '2020-02-08 00:25:27.0', 1),
+(257, 7, 'New Announcement Posted', 'TEST POST FOR ALL posted by Faculty  Account 2', 'all', '2020-02-08 00:27:10.0', 1),
+(258, 7, 'New Announcement Posted', 'TEST FOR CS posted by Faculty  Account 2', 'all', '2020-02-08 00:32:40.0', 1),
+(259, 1, 'Document Status Updated', 'Document Title: Test submit tracking / Status: Received by Office', '1', '2020-02-09 13:38:51.0', 1),
+(260, 1, 'Document Status Updated', 'Document Title: Test / Status: Received by Office', '1', '2020-02-09 14:12:59.0', 1),
+(261, 1, 'Document Status Updated', 'Document Title: test / Status: For Release', '1', '2020-02-09 14:40:10.0', 1),
+(262, 3, 'Document Status Updated', 'Document Title: test / Status: Received by Student', 'admin', '2020-02-09 14:40:24.0', 1),
+(263, 1, 'Document Status Updated', 'Document Title: test  / Status: For Release', '1', '2020-02-09 14:43:26.0', 1),
+(264, 1, 'Document Status Updated', 'Document Title: test  / Status: Received by Office', '1', '2020-02-09 14:44:59.0', 1),
+(265, 1, 'Document Status Updated', 'Document Title: test  / Status: For Release', '1', '2020-02-09 14:45:06.0', 1),
+(266, 1, 'Document Status Updated', 'Document Title: test  / Status: Processed', '1', '2020-02-09 14:51:42.0', 1),
+(267, 1, 'Document Status Updated', 'Document Title: test  / Status: For Release', '1', '2020-02-09 14:53:08.0', 1),
+(268, 1, 'Document Status Updated', 'Document Title: test  / Status: For Release', '1', '2020-02-09 14:53:45.0', 1),
+(269, 1, 'Document Status Updated', 'Document Title: test  / Status: Processed', '1', '2020-02-09 14:58:44.0', 1),
+(270, 1, 'Document Status Updated', 'Document Title: test  / Status: For Release', '1', '2020-02-09 14:58:58.0', 1),
+(271, 1, 'Document Status Updated', 'Document Title: test  / Status: For Release', '1', '2020-02-09 15:04:04.0', 1),
+(272, 1, 'Document Status Updated', 'Document Title: test  / Status: Received by Student', 'admin', '2020-02-09 15:09:47.0', 1),
+(273, 1, 'Document Status Updated', 'Document Title: Test / Status: For Release', '1', '2020-02-09 15:25:35.0', 0),
+(274, 1, 'Document Status Updated', 'Document Title: Test / Status: Received by Student', 'admin', '2020-02-09 15:26:34.0', 0),
+(275, 1, 'Document Status Updated', 'Document Title: Test Docu  / Status: For Release', '1', '2020-02-09 15:27:37.0', 0),
+(276, 1, 'Document Status Updated', 'Document Title: Test Docu  / Status: Received by Student', 'admin', '2020-02-09 15:27:38.0', 0),
+(277, 1, 'Document Status Updated', 'Document Title: Petition / Status: For Release', '1', '2020-02-09 16:05:40.0', 0),
+(278, 1, 'Document Status Updated', 'Document Title: Petition / Status: Received by Student', 'admin', '2020-02-09 16:06:12.0', 0);
 
 -- --------------------------------------------------------
 
@@ -583,9 +646,9 @@ INSERT INTO `notif` (`notifno`, `userno`, `notiftitle`, `notifdesc`, `notifaudie
 --
 
 CREATE TABLE `qtoggle` (
-  `qtogno` int(11) NOT NULL DEFAULT '1',
-  `qtoggle` int(1) NOT NULL DEFAULT '1',
-  `qadmin` int(1) NOT NULL DEFAULT '1'
+  `qtogno` int(11) NOT NULL DEFAULT 1,
+  `qtoggle` int(1) NOT NULL DEFAULT 1,
+  `qadmin` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -607,7 +670,7 @@ CREATE TABLE `queue` (
   `qtype` varchar(256) NOT NULL,
   `qtitle` varchar(256) DEFAULT NULL,
   `qdesc` varchar(256) DEFAULT NULL,
-  `qdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `qdate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `qstatus` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -618,7 +681,11 @@ CREATE TABLE `queue` (
 INSERT INTO `queue` (`qno`, `userno`, `qtype`, `qtitle`, `qdesc`, `qdate`, `qstatus`) VALUES
 (1, 10, 'Enrollment Concern', NULL, '', '2019-11-30 14:48:44', 'No-Show'),
 (2, 10, 'Enrollment Concern', NULL, '', '2019-11-30 14:50:01', 'No-Show'),
-(3, 10, 'Enrollment Concern', NULL, '', '2019-11-30 14:50:14', 'Waiting');
+(3, 10, 'Enrollment Concern', NULL, '', '2019-11-30 14:50:14', 'Waiting'),
+(4, 3, 'Document Inquiry', NULL, '', '2019-12-06 15:26:50', 'Done'),
+(5, 3, 'Document Inquiry', NULL, '', '2019-12-06 15:27:17', 'No-Show'),
+(6, 2, 'Document Inquiry', NULL, '', '2019-12-07 07:55:15', 'Done'),
+(7, 2, 'Document Inquiry', NULL, '', '2020-02-06 07:03:12', 'Done');
 
 -- --------------------------------------------------------
 
@@ -633,7 +700,7 @@ CREATE TABLE `queuelogs` (
   `qtitle` varchar(256) DEFAULT NULL,
   `qdesc` varchar(256) DEFAULT NULL,
   `qremarks` varchar(256) NOT NULL,
-  `qdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `qdate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `qstatus` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -808,7 +875,15 @@ INSERT INTO `queuelogs` (`qno`, `userno`, `qtype`, `qtitle`, `qdesc`, `qremarks`
 (164, 10, 'Enrollment Concern', NULL, '', 'No-Show', '2019-11-30 14:48:44', 'No-Show'),
 (165, 10, 'Enrollment Concern', NULL, '', '', '2019-11-30 14:48:54', 'Waiting'),
 (166, 10, 'Enrollment Concern', NULL, '', 'No-Show', '2019-11-30 14:50:01', 'No-Show'),
-(167, 10, 'Enrollment Concern', NULL, '', '', '2019-11-30 14:50:14', 'Waiting');
+(167, 10, 'Enrollment Concern', NULL, '', '', '2019-11-30 14:50:14', 'Waiting'),
+(168, 3, 'Document Inquiry', NULL, '', '', '2019-12-06 15:26:07', 'Waiting'),
+(169, 3, 'Document Inquiry', '', '', 'test', '2019-12-06 15:26:50', 'Done'),
+(170, 3, 'Document Inquiry', NULL, '', '', '2019-12-06 15:27:01', 'Waiting'),
+(171, 3, 'Document Inquiry', NULL, '', 'No-Show', '2019-12-06 15:27:17', 'No-Show'),
+(172, 2, 'Document Inquiry', NULL, '', '', '2019-12-07 07:54:08', 'Waiting'),
+(173, 2, 'Document Inquiry', '', '', 'test', '2019-12-07 07:55:15', 'Done'),
+(174, 2, 'Document Inquiry', NULL, '', '', '2019-12-07 09:01:55', 'Waiting'),
+(175, 2, 'Document Inquiry', '', '', 'test\r\n', '2020-02-06 07:03:12', 'Done');
 
 -- --------------------------------------------------------
 
@@ -869,7 +944,7 @@ INSERT INTO `secq` (`secqno`, `secq`) VALUES
 CREATE TABLE `sections` (
   `sectionno` int(11) NOT NULL,
   `sectionname` varchar(10) NOT NULL,
-  `hidden` int(1) NOT NULL DEFAULT '0'
+  `hidden` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -926,7 +1001,7 @@ CREATE TABLE `updatelogs` (
   `ULOGNO` int(11) NOT NULL,
   `ULOGACT` varchar(250) NOT NULL,
   `ULOGUSER` varchar(250) NOT NULL,
-  `ULOGTIME` timestamp(1) NOT NULL DEFAULT CURRENT_TIMESTAMP(1) ON UPDATE CURRENT_TIMESTAMP(1),
+  `ULOGTIME` timestamp(1) NOT NULL DEFAULT current_timestamp(1) ON UPDATE current_timestamp(1),
   `ULOGNEW` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1675,7 +1750,105 @@ INSERT INTO `updatelogs` (`ULOGNO`, `ULOGACT`, `ULOGUSER`, `ULOGTIME`, `ULOGNEW`
 (737, 'Update Document Status', 'Admin  Account', '2019-12-01 02:49:21.0', 'Document No. 0013 changed status to On-Process'),
 (738, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-12-01 03:38:25.0', 'Logged in successfully.'),
 (739, 'Login', 'Admin  Account', '2019-12-01 04:51:26.0', 'Logged in successfully.'),
-(740, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-12-01 05:12:11.0', 'Logged in successfully.');
+(740, 'Login', 'Joseph Christian BAUTISTA Dizon', '2019-12-01 05:12:11.0', 'Logged in successfully.'),
+(741, 'Login', 'Ralph Angelo Cruz Vicente', '2019-12-06 15:26:00.0', 'Logged in successfully.'),
+(742, 'Get Queue Ticket', 'Ralph Angelo Cruz Vicente', '2019-12-06 15:26:07.0', 'Queue Ticket No. 1 / Document Inquiry'),
+(743, 'Queue Control', 'Admin  Account', '2019-12-06 15:26:50.0', 'Queue No. 0004 listed as Done.'),
+(744, 'Get Queue Ticket', 'Ralph Angelo Cruz Vicente', '2019-12-06 15:27:01.0', 'Queue Ticket No. 5 / Document Inquiry'),
+(745, 'Queue Control', 'Admin  Account', '2019-12-06 15:27:17.0', 'Queue No. 0005 listed as No-Show.'),
+(746, 'Login', 'Rolland Charles Dela Cruz Gamez', '2019-12-06 15:28:43.0', 'Logged in successfully.'),
+(747, 'Update Document Status', 'Admin  Account', '2019-12-06 15:31:50.0', 'Document No. 0027 changed status to Received by Office'),
+(748, 'Update Document Status', 'Admin  Account', '2019-12-06 15:32:06.0', 'Document No. 0028 changed status to Received by Office'),
+(749, 'Login', 'Society of Information Technology Enthusiast  ', '2019-12-06 15:41:54.0', 'Logged in successfully.'),
+(750, 'Login', 'Admin  Account', '2019-12-06 15:48:52.0', 'Logged in successfully.'),
+(751, 'Login', 'Society of Information Technology Enthusiast  ', '2019-12-06 15:51:19.0', 'Logged in successfully.'),
+(752, 'Login', 'Rolland Charles Dela Cruz Gamez', '2019-12-06 15:55:47.0', 'Logged in successfully.'),
+(753, 'Login', 'Rolland Charles Dela Cruz Gamez', '2019-12-06 16:07:34.0', 'Logged in successfully.'),
+(754, 'Login', 'Rolland Charles Dela Cruz Gamez', '2019-12-07 00:37:17.0', 'Logged in successfully.'),
+(755, 'Login', 'Admin  Account', '2019-12-07 00:37:53.0', 'Logged in successfully.'),
+(756, 'Login', 'Joseph Christian Bautista Dizon', '2019-12-07 03:17:26.0', 'Logged in successfully.'),
+(757, 'Login', 'Rolland Charles Dela Cruz Gamez', '2019-12-07 03:17:42.0', 'Logged in successfully.'),
+(758, 'Login', 'Admin  Account', '2019-12-07 03:17:52.0', 'Logged in successfully.'),
+(759, 'Login', 'Joseph Christian Bautista Dizon', '2019-12-07 07:53:52.0', 'Logged in successfully.'),
+(760, 'Get Queue Ticket', 'Joseph Christian Bautista Dizon', '2019-12-07 07:54:08.0', 'Queue Ticket No. 1 / Document Inquiry'),
+(761, 'Login', 'Admin  Account', '2019-12-07 07:54:11.0', 'Logged in successfully.'),
+(762, 'Queue Control', 'Admin  Account', '2019-12-07 07:55:15.0', 'Queue No. 0006 listed as Done.'),
+(763, 'Login', 'Joseph Christian Bautista Dizon', '2019-12-07 08:49:04.0', 'Logged in successfully.'),
+(764, 'Get Queue Ticket', 'Joseph Christian Bautista Dizon', '2019-12-07 09:01:56.0', 'Queue Ticket No. 7 / Document Inquiry'),
+(765, 'Login', 'Admin  Account', '2019-12-07 09:02:13.0', 'Logged in successfully.'),
+(766, 'Login', 'Rolland Charles Dela Cruz Gamez', '2019-12-07 10:14:50.0', 'Logged in successfully.'),
+(767, 'Login', 'Admin  Account', '2020-01-30 03:13:58.0', 'Logged in successfully.'),
+(768, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-05 06:49:05.0', 'Logged in successfully.'),
+(769, 'Login', 'Admin  Account', '2020-02-05 07:05:50.0', 'Logged in successfully.'),
+(770, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-05 07:08:49.0', 'Logged in successfully.'),
+(771, 'Login', 'Admin  Account', '2020-02-05 08:54:17.0', 'Logged in successfully.'),
+(772, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-05 08:55:59.0', 'Logged in successfully.'),
+(773, 'Login', 'Admin  Account', '2020-02-05 09:09:22.0', 'Logged in successfully.'),
+(774, 'Login', 'Faculty  Account 2', '2020-02-05 09:25:59.0', 'Logged in successfully.'),
+(775, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-06 07:02:38.0', 'Logged in successfully.'),
+(776, 'Login', 'Admin  Account', '2020-02-06 07:02:58.0', 'Logged in successfully.'),
+(777, 'Queue Control', 'Admin  Account', '2020-02-06 07:03:12.0', 'Queue No. 0007 listed as Done.'),
+(778, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-06 08:23:01.0', 'Logged in successfully.'),
+(779, 'Login', 'Faculty  Account 2', '2020-02-06 08:24:08.0', 'Logged in successfully.'),
+(780, 'Post Announcement', 'Faculty  Account 2', '2020-02-06 08:32:50.0', 'Announcement posted successfully.'),
+(781, 'Post Announcement', 'Faculty  Account 2', '2020-02-06 08:37:15.0', 'Announcement posted successfully.'),
+(782, 'Login', 'Faculty  Account 2', '2020-02-07 15:34:45.0', 'Logged in successfully.'),
+(783, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-07 15:39:51.0', 'Logged in successfully.'),
+(784, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 15:54:33.0', 'Logged in successfully.'),
+(785, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-07 16:04:47.0', 'Logged in successfully.'),
+(786, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:05:06.0', 'Logged in successfully.'),
+(787, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-07 16:10:18.0', 'Logged in successfully.'),
+(788, 'Login', 'Faculty  Account 2', '2020-02-07 16:10:45.0', 'Logged in successfully.'),
+(789, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-07 16:14:38.0', 'Logged in successfully.'),
+(790, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:16:44.0', 'Logged in successfully.'),
+(791, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-07 16:18:41.0', 'Logged in successfully.'),
+(792, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:21:54.0', 'Logged in successfully.'),
+(793, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:22:36.0', 'Logged in successfully.'),
+(794, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-07 16:22:55.0', 'Logged in successfully.'),
+(795, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:23:43.0', 'Logged in successfully.'),
+(796, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:24:52.0', 'Logged in successfully.'),
+(797, 'Login', 'Faculty  Account 2', '2020-02-07 16:25:12.0', 'Logged in successfully.'),
+(798, 'Post Announcement', 'Faculty  Account 2', '2020-02-07 16:25:27.0', 'Announcement posted successfully.'),
+(799, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:25:39.0', 'Logged in successfully.'),
+(800, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-07 16:25:50.0', 'Logged in successfully.'),
+(801, 'Login', 'Joseph Christian Bautista Dizon', '2020-02-07 16:26:47.0', 'Logged in successfully.'),
+(802, 'Login', 'Faculty  Account 2', '2020-02-07 16:26:58.0', 'Logged in successfully.'),
+(803, 'Post Announcement', 'Faculty  Account 2', '2020-02-07 16:27:10.0', 'Announcement posted successfully.'),
+(804, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:27:20.0', 'Logged in successfully.'),
+(805, 'Login', 'Joseph Christian Bautista Dizon', '2020-02-07 16:27:32.0', 'Logged in successfully.'),
+(806, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-07 16:27:40.0', 'Logged in successfully.'),
+(807, 'Login', 'Admin  Account', '2020-02-07 16:28:48.0', 'Logged in successfully.'),
+(808, 'Login', 'Joseph Christian Bautista Dizon', '2020-02-07 16:32:10.0', 'Logged in successfully.'),
+(809, 'Login', 'Faculty  Account 2', '2020-02-07 16:32:25.0', 'Logged in successfully.'),
+(810, 'Post Announcement', 'Faculty  Account 2', '2020-02-07 16:32:40.0', 'Announcement posted successfully.'),
+(811, 'Login', 'Joseph Christian Bautista Dizon', '2020-02-07 16:32:53.0', 'Logged in successfully.'),
+(812, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-07 16:33:13.0', 'Logged in successfully.'),
+(813, 'Update Document Status', 'Admin  Account', '2020-02-09 05:38:51.0', 'Document No. 0029 changed status to Received by Office'),
+(814, 'Update Document Status', 'Admin  Account', '2020-02-09 06:12:58.0', 'Document No. 0001 changed status to Received by Office'),
+(815, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-09 06:13:18.0', 'Logged in successfully.'),
+(816, 'Login', 'Admin  Account', '2020-02-09 06:16:55.0', 'Logged in successfully.'),
+(817, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-09 06:17:20.0', 'Logged in successfully.'),
+(818, 'Login', 'Admin  Account', '2020-02-09 06:18:35.0', 'Logged in successfully.'),
+(819, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-09 06:34:46.0', 'Logged in successfully.'),
+(820, 'Login', 'Admin  Account', '2020-02-09 06:39:58.0', 'Logged in successfully.'),
+(821, 'Update Document Status', 'Admin  Account', '2020-02-09 06:40:10.0', 'Document No. 0001 changed status to For Release'),
+(822, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-09 06:40:20.0', 'Logged in successfully.'),
+(823, 'Login', 'Admin  Account', '2020-02-09 06:40:38.0', 'Logged in successfully.'),
+(824, 'Update Document Status', 'Admin  Account', '2020-02-09 06:43:26.0', 'Document No. 0002 changed status to For Release'),
+(825, 'Update Document Status', 'Admin  Account', '2020-02-09 06:44:59.0', 'Document No. 0002 changed status to Received by Office'),
+(826, 'Update Document Status', 'Admin  Account', '2020-02-09 06:45:06.0', 'Document No. 0002 changed status to For Release'),
+(827, 'Update Document Status', 'Admin  Account', '2020-02-09 06:51:42.0', 'Document No. 0002 changed status to Processed'),
+(828, 'Update Document Status', 'Admin  Account', '2020-02-09 06:53:08.0', 'Document No. 0002 changed status to For Release'),
+(829, 'Update Document Status', 'Admin  Account', '2020-02-09 06:53:45.0', 'Document No. 0002 changed status to For Release'),
+(830, 'Update Document Status', 'Admin  Account', '2020-02-09 06:58:44.0', 'Document No. 0002 changed status to Processed'),
+(831, 'Update Document Status', 'Admin  Account', '2020-02-09 06:58:57.0', 'Document No. 0002 changed status to For Release'),
+(832, 'Login', 'Rolland Charles Dela Cruz Gamez', '2020-02-09 07:01:08.0', 'Logged in successfully.'),
+(833, 'Update Document Status', 'Admin  Account', '2020-02-09 07:04:04.0', 'Document No. 0002 changed status to For Release'),
+(834, 'Update Document Status', 'Admin  Account', '2020-02-09 07:25:35.0', 'Document No. 0001 changed status to For Release'),
+(835, 'Update Document Status', 'Admin  Account', '2020-02-09 07:27:36.0', 'Document No. 0002 changed status to For Release'),
+(836, 'Update Document Status', 'Admin  Account', '2020-02-09 08:05:40.0', 'Document No. 0001 changed status to For Release'),
+(837, 'Login', 'Medlynne Villafuerte Cuyugan', '2020-02-09 08:05:53.0', 'Logged in successfully.'),
+(838, 'Login', 'Admin  Account', '2020-02-09 08:06:05.0', 'Logged in successfully.');
 
 -- --------------------------------------------------------
 
@@ -1697,24 +1870,24 @@ CREATE TABLE `users` (
   `secqno` int(2) NOT NULL,
   `secqa` varchar(256) NOT NULL,
   `hidden` int(1) NOT NULL,
-  `inqueue` int(1) NOT NULL DEFAULT '0',
+  `inqueue` int(1) NOT NULL DEFAULT 0,
   `vcode` varchar(256) NOT NULL,
-  `verified` int(1) NOT NULL
+  `verified` int(1) NOT NULL,
+  `deptno` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userno`, `userid`, `fname`, `mname`, `lname`, `email`, `password`, `forgotpass`, `role`, `section`, `secqno`, `secqa`, `hidden`, `inqueue`, `vcode`, `verified`) VALUES
-(1, 'admin', 'Admin', NULL, 'Account', 'admin@ust.edu.ph', '$2y$10$Zklc9S1XCvNQGdYg2LOn8.dVShgTiEJ9xTxLvU7F7VGm8YBjY8u5m', 0, 'admin', 'admin', 1, '$2y$10$iJaecd1jMFQ7Trh.LdmMSe.x3ghek2gZJNGGtD673NnJnp6KZ3Aau', 0, 0, '7SY1V', 1),
-(2, '2015084222', 'Wesley', 'C', 'Chong', 'wesley.chong.iics@ust.edu.ph', '$2y$10$e/8aISvR6VMaBzvClAjx/.lplmn7tVYTrgnDXHIkqwPyw//mu1YVW', 0, 'student', '4ITG', 1, '$2y$10$9vjPLrodNKDz9m9rdQDbWuBb0ONgx75rRYYIZZdrOvJsMm5m7hx0S', 0, 0, 'XSCKM', 1),
-(3, '2015081659', 'Ralph Angelo', 'Cruz', 'Vicente', 'ralphangelo.vicente.iics@ust.edu.ph', '$2y$10$IaUC95enpsco4m0SCAA5kO1JplON0qhyg0DVfycagqSyj25fuJOEy', 0, 'student', '4IT-G', 1, '$2y$10$zJm6hSk3IfGi.kgCyYukReLDbDyMsJYkdbny.dG9oyZPvIoTray.O', 0, 0, 'YOVKG', 1),
-(4, '1998123123', 'Faculty', NULL, 'Account', 'faculty@ust.edu.ph', '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 'faculty', 'itchair', 1, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 0, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 1),
-(5, 'testadmin', 'Test', '', 'Admin', 'testadmin@ust.edu.ph', '$2y$10$bxyin98.mkqiS10wynA/F.1rSKaingUyvviMUf/DP83a9UG9YEbjC', 0, 'admin', 'Admin', 1, '$2y$10$erQZNbWVDpym0Yx5FL7AFeG28lAlmjtBcHfY0rIucQsCwhCdHTsIG', 0, 0, 'admin', 1),
-(6, '2015081508', 'Sean', 'Puzon', 'Sasot', 'seanmichael.sasot.iics@ust.edu.ph', '$2y$10$/8ENmgmQQ1qqJbKL8bJPquFIFdG8jQQhoaAbckFqkBeTBnX3N4sX.', 0, 'student', '1', 1, '$2y$10$1/q.p9GaQQxlM1.ObuXrSOwjDOxRCAjmz2bKkLR4ULm3TGya5BErm', 0, 0, '$2y$10$jTjDYHIYoXRbYYvUYC/74.Xhlxxcgle27g3W2JXHPPiL4OkPaIkm2', 1),
-(7, '1998123124', 'Faculty', NULL, 'Account 2', 'faculty@ust.edu.ph', '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 'faculty', 'swdb', 1, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 0, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 1),
-(12, '2015084963', 'Joseph Christian', 'BAUTISTA', 'Dizon', 'josephchristian.dizon.iics@ust.edu.ph', '$2y$10$nvAYh6.harOdgYwNTgOoe.xWC23QtaXF9ynmFjzbQGwV4btiltyLC', 0, 'student', '4IS-B', 1, '$2y$10$MWgI5KzpIDw8UQ8KaImgY.ir6K3IgUiQOYjLK6lZshKhulHGpG3JC', 0, 0, '$2y$10$WQ8S2yrbKj6oudepIaxwEuGwFNzoL/WaQ57ycyj8xwYLEHwH9Ad0m', 1);
+INSERT INTO `users` (`userno`, `userid`, `fname`, `mname`, `lname`, `email`, `password`, `forgotpass`, `role`, `section`, `secqno`, `secqa`, `hidden`, `inqueue`, `vcode`, `verified`, `deptno`) VALUES
+(1, 'admin', 'Admin', NULL, 'Account', 'admin@ust.edu.ph', '$2y$10$Zklc9S1XCvNQGdYg2LOn8.dVShgTiEJ9xTxLvU7F7VGm8YBjY8u5m', 0, 'admin', 'admin', 1, '$2y$10$iJaecd1jMFQ7Trh.LdmMSe.x3ghek2gZJNGGtD673NnJnp6KZ3Aau', 0, 0, '7SY1V', 1, 0),
+(2, '2015084963', 'Joseph Christian', 'Bautista', 'Dizon', 'josephchristian.dizon.iics@ust.edu.ph', '$2y$10$e/8aISvR6VMaBzvClAjx/.lplmn7tVYTrgnDXHIkqwPyw//mu1YVW', 0, 'student', '4ITG', 1, '$2y$10$9vjPLrodNKDz9m9rdQDbWuBb0ONgx75rRYYIZZdrOvJsMm5m7hx0S', 0, 0, 'XSCKM', 1, 1),
+(3, '2015086320', 'Rolland Charles', 'Dela Cruz', 'Gamez', 'rollandcharles.gamez.iics@ust.edu.ph', '$2y$10$IaUC95enpsco4m0SCAA5kO1JplON0qhyg0DVfycagqSyj25fuJOEy', 0, 'student', '4IT-G', 1, '$2y$10$zJm6hSk3IfGi.kgCyYukReLDbDyMsJYkdbny.dG9oyZPvIoTray.O', 0, 0, 'YOVKG', 1, 2),
+(4, '1998123123', 'Faculty', NULL, 'Account', 'faculty@ust.edu.ph', '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 'faculty', 'itchair', 1, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 0, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 1, 0),
+(5, 'testadmin', 'Test', '', 'Admin', 'testadmin@ust.edu.ph', '$2y$10$bxyin98.mkqiS10wynA/F.1rSKaingUyvviMUf/DP83a9UG9YEbjC', 0, 'admin', 'Admin', 1, '$2y$10$erQZNbWVDpym0Yx5FL7AFeG28lAlmjtBcHfY0rIucQsCwhCdHTsIG', 0, 0, 'admin', 1, 0),
+(7, '1998123124', 'Faculty', NULL, 'Account 2', 'faculty@ust.edu.ph', '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 'faculty', 'swdb', 1, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 0, 0, '$2y$10$6vV.gy0Ln0scm1kKZnQ5WeoT4UcVPcRl6egOOjEOASRdvdEvyK426', 1, 0),
+(14, '2019134640', 'Medlynne', 'Villafuerte', 'Cuyugan', 'medlynne.cuyugan.cthm@ust.edu.ph', '$2y$10$a26x9RI2w8ZLT1v3PPHhOee7/5ry9zYZS1/FTCKri4QQCs.kO6CF.', 0, 'student', '1IT-A', 2, '$2y$10$kQvJ6P44ZhuGELwghEKEoOcoxn3gHLW4eEXhAMnyfs.wx46cy.MEC', 0, 0, '$2y$10$bx/6G8d.XvUHog4nRPN2COmDajEazGkHINmjfLgq7Z7dGh9WDX2OW', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -1736,18 +1909,19 @@ CREATE TABLE `users_temp` (
   `secqno` int(2) NOT NULL,
   `secqa` varchar(256) NOT NULL,
   `hidden` int(1) NOT NULL,
-  `inqueue` int(1) NOT NULL DEFAULT '0',
+  `inqueue` int(1) NOT NULL DEFAULT 0,
   `vcode` varchar(8) NOT NULL,
-  `verified` int(1) NOT NULL
+  `verified` int(1) NOT NULL,
+  `deptname` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_temp`
 --
 
-INSERT INTO `users_temp` (`userno`, `userid`, `fname`, `mname`, `lname`, `email`, `password`, `forgotpass`, `role`, `section`, `secqno`, `secqa`, `hidden`, `inqueue`, `vcode`, `verified`) VALUES
-(2, '2019281930', 'Test', '', 'Email', '123123@ust.edu.ph', '$2y$10$MHZOkAc.2BysUAB62ToYSuNOKBt4nuCI5S43H6RSFrTcDuX3p.2FO', 0, 'student', '1CS-A', 2, '$2y$10$CtY4eMSTS4fynlYWLPwbpO7/KwD0bJD4qIEBXAU5xZNISNq2pOcEy', 0, 0, 'UW89Q', 0),
-(3, '2018920392', 'Test', '', 'Email', '1231232@ust.edu.ph', '$2y$10$zy1ZiOoBVihfYuF5EUBfQOtaTFO5dHOZWM.ZKJtWq7kjsVOGTsvVu', 0, 'student', '1CS-A', 1, '$2y$10$WD3ORnAswvfpQuOiBXwynOLtaMaip0RqwlhHMQeV9DeMYtzoUd/J.', 0, 0, 'CC6BN', 0);
+INSERT INTO `users_temp` (`userno`, `userid`, `fname`, `mname`, `lname`, `email`, `password`, `forgotpass`, `role`, `section`, `secqno`, `secqa`, `hidden`, `inqueue`, `vcode`, `verified`, `deptname`) VALUES
+(2, '2019281930', 'Test', '', 'Email', '123123@ust.edu.ph', '$2y$10$MHZOkAc.2BysUAB62ToYSuNOKBt4nuCI5S43H6RSFrTcDuX3p.2FO', 0, 'student', '1CS-A', 2, '$2y$10$CtY4eMSTS4fynlYWLPwbpO7/KwD0bJD4qIEBXAU5xZNISNq2pOcEy', 0, 0, 'UW89Q', 0, ''),
+(3, '2018920392', 'Test', '', 'Email', '1231232@ust.edu.ph', '$2y$10$zy1ZiOoBVihfYuF5EUBfQOtaTFO5dHOZWM.ZKJtWq7kjsVOGTsvVu', 0, 'student', '1CS-A', 1, '$2y$10$WD3ORnAswvfpQuOiBXwynOLtaMaip0RqwlhHMQeV9DeMYtzoUd/J.', 0, 0, 'CC6BN', 0, '');
 
 --
 -- Indexes for dumped tables
@@ -1758,7 +1932,8 @@ INSERT INTO `users_temp` (`userno`, `userid`, `fname`, `mname`, `lname`, `email`
 --
 ALTER TABLE `announcements`
   ADD PRIMARY KEY (`annno`),
-  ADD KEY `userid` (`userno`);
+  ADD KEY `userid` (`userno`),
+  ADD KEY `deptno` (`deptno`);
 
 --
 -- Indexes for table `consultations`
@@ -1782,6 +1957,12 @@ ALTER TABLE `consultlogs`
   ADD PRIMARY KEY (`conno`),
   ADD KEY `conprof` (`conprof`),
   ADD KEY `userid` (`userno`);
+
+--
+-- Indexes for table `dept`
+--
+ALTER TABLE `dept`
+  ADD PRIMARY KEY (`deptno`);
 
 --
 -- Indexes for table `doclogs`
@@ -1860,7 +2041,8 @@ ALTER TABLE `updatelogs`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userno`),
   ADD KEY `userid` (`userid`),
-  ADD KEY `secqno` (`secqno`);
+  ADD KEY `secqno` (`secqno`),
+  ADD KEY `deptno` (`deptno`);
 
 --
 -- Indexes for table `users_temp`
@@ -1878,7 +2060,7 @@ ALTER TABLE `users_temp`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `annno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `annno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `consultations`
@@ -1908,7 +2090,7 @@ ALTER TABLE `doclogs`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `docno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `docno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `files`
@@ -1920,19 +2102,19 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT for table `notif`
 --
 ALTER TABLE `notif`
-  MODIFY `notifno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
+  MODIFY `notifno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
 
 --
 -- AUTO_INCREMENT for table `queue`
 --
 ALTER TABLE `queue`
-  MODIFY `qno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `qno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `queuelogs`
 --
 ALTER TABLE `queuelogs`
-  MODIFY `qno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
+  MODIFY `qno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -1956,19 +2138,19 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `updatelogs`
 --
 ALTER TABLE `updatelogs`
-  MODIFY `ULOGNO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=741;
+  MODIFY `ULOGNO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=839;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `userno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users_temp`
 --
 ALTER TABLE `users_temp`
-  MODIFY `userno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `userno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

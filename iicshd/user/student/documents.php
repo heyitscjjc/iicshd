@@ -22,43 +22,6 @@ if (!isset($_SESSION['user_name'])) {
 }
 
 
-
-if(isset($_POST['submitDoc'])){
-    $userNo = $_SESSION['userno'];
-    $docTitle = $_POST['docTitle'];
-    $docDesc = $_POST['docDesc'];
-    $docType = $_POST['docType'];
-    $docStatus = "Not yet received.";
-    $hidden = 0;
-    $date = date("Y-m-d H:i:s");
-    $errors= array();
-	$passval = 'Uploaded successfully.';
-    $file_name = $_FILES['submittingDoc']['name'];
-    $file_size =$_FILES['submittingDoc']['size'];
-    $file_tmp =$_FILES['submittingDoc']['tmp_name'];
-    $file_type=$_FILES['submittingDoc']['type'];
-    @$file_ext=strtolower(end(explode('.',$_FILES['submittingDoc']['name'])));
-    $expensions= array("pdf");
-    if(in_array($file_ext,$expensions)=== false){
-      $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-    }
-
-    if($file_size > 2097152){
-       $errors[]='File size must be excately 2 MB';
-    }
-
-    if(empty($errors)==true){
-       move_uploaded_file($file_tmp,"../../uploads/submittedDocs/".$file_name);
-       $docDir = "uploads/submittedDocs/" . $file_name;
-       $query="INSERT INTO documents VALUES ('', '$date', '$userNo', '$docTitle', '$docDesc', '$docStatus', '$date', '$docDir', '$hidden')";
-       $conn->query($query);
-    }else{
-        print_r($errors);
-    }
-    header("location:/iicshd/user/student/documents.php?documentUploaded");
-}
-
-
 if (isset($_POST['receiveRel'])) {
     $recDoc = $_POST['recDoc'];
     $docTitle = $_POST['docTitle'];
@@ -152,76 +115,6 @@ if (isset($_POST['receiveRel'])) {
 		
                 <div class="accordion" id="accordionExample">
 
-                    <div class="card">
-                        <div class="card-header" id="headingTwo">
-                            <h5 class="mb-0">
-                                <button class="btn bg-dark text-white" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    <span class="fas fa-plus-circle"></span> Received Documents
-                                </button>
-                            </h5>
-                        </div>
-
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                            <div class="card-body">
-
-
-                                <div class="table-responsive">
-
-                                    <table id="received" class="table table-striped table-responsive-lg">
-
-                                        <thead>
-                                            <tr>
-                                                <th>Document #</th>
-                                                <th>Date Submitted</th>
-                                                <th>Title</th>
-                                                <th>Description</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-
-                                            <?php
-                                            $receivedQuery = mysqli_query($conn, "SELECT LPAD(documents.docno,4,0), documents.docdatesubmit, users.fname, users.mname, users.lname, documents.doctitle,"
-                                                    . "documents.docdesc, documents.docstatus FROM documents INNER JOIN users WHERE documents.userno = users.userno "
-                                                    . "AND documents.docstatus = 'Received by Student' AND documents.userno = " . $_SESSION['userno'] . "");
-
-                                            if ($receivedQuery->num_rows > 0) {
-                                                while ($row = $receivedQuery->fetch_assoc()) {
-                                                    $docid = $row['LPAD(documents.docno,4,0)'];
-                                                    $docdatesubmit = $row['docdatesubmit'];
-                                                    $userid = ($row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']);
-                                                    $doctitle = $row['doctitle'];
-                                                    $docdesc = $row['docdesc'];
-                                                    $docstatus = $row['docstatus'];
-
-                                                    echo '<tr>'
-                                                    . '<td>' . $docid . '</td>'
-                                                    . '<td>' . date("m/d/Y h:iA", strtotime($docdatesubmit)) . '</td>'
-                                                    . '<td>' . $doctitle . '</td>'
-                                                    . '<td>' . $docdesc . '</td>'
-                                                    . '<td>' . $docstatus . '</td>';
-                                                }
-                                            }
-                                            ?>
-
-                                        </tbody>
-
-                                        <tfoot>
-                                            <tr>
-                                                <th>Document #</th>
-                                                <th>Date Submitted</th>
-                                                <th>Title</th>
-                                                <th>Description</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="card">
                         <div class="card-header" id="headingThree">
@@ -289,7 +182,7 @@ if (isset($_POST['receiveRel'])) {
 
                 <br>
                 <br>
-                <h5>Tracking</h5><hr>
+                <h2>Tracking</h2><hr>
 
                 <div class="table-responsive">
 
@@ -297,50 +190,46 @@ if (isset($_POST['receiveRel'])) {
 
                         <thead>
                             <tr>
+								<th>ISO</th>
                                 <th>Document #</th>
                                 <th>Date Submitted</th>
                                 <th>Submitted By</th>
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                
                             </tr>
                         </thead>
 
                         <tbody>
 
                             <?php
-                            $newsubquery = mysqli_query($conn, "SELECT LPAD(documents.docno,4,0), documents.docdatesubmit, users.fname, users.mname, users.lname, documents.doctitle,"
+                            /*$newsubquery = mysqli_query($conn, "SELECT LPAD(documents.docno,4,0), documents.docdatesubmit, users.fname, users.mname, users.lname, documents.doctitle,"
                                     . "documents.docdesc, documents.docstatus FROM documents INNER JOIN users WHERE documents.userno = users.userno "
-                                    . "AND documents.userno = " . $_SESSION['userno'] . " AND documents.docstatus != 'Received by Student'");
+                                    . "AND documents.userno = " . $_SESSION['userno'] . " AND documents.docstatus != 'Received by Student'"); */
+							$newsubquery = mysqli_query($conn, "SELECT LPAD(documents.docno,4,0), documents.docdatechange, documents.docISO, documents.submittedby, documents.docdatesubmit, users.fname, users.mname, users.lname, documents.doctitle,"
+                                                . "documents.docdesc, documents.docstatus FROM documents INNER JOIN users WHERE documents.userno = users.userno");
 
 
                             if ($newsubquery->num_rows > 0) {
                                 while ($row = $newsubquery->fetch_assoc()) {
                                     $docid = $row['LPAD(documents.docno,4,0)'];
+									$dociso = $row['docISO'];
                                     $docdatesubmit = $row['docdatesubmit'];
-                                    $userid = ($row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']);
+                                    $submittedby = $row['submittedby'];
                                     $doctitle = $row['doctitle'];
                                     $docdesc = $row['docdesc'];
                                     $docstatus = $row['docstatus'];
 
                                     echo '<tr>'
+									. '<td>' . $dociso . '</td>'
                                     . '<td>' . $docid . '</td>'
                                     . '<td>' . date("m/d/Y h:iA", strtotime($docdatesubmit)) . '</td>'
-                                    . '<td>' . $userid . '</td>'
+                                    . '<td>' . $submittedby . '</td>'
                                     . '<td>' . $doctitle . '</td>'
                                     . '<td>' . $docdesc . '</td>'
                                     . '<td>' . $docstatus . '</td>';
-                                    if ($docstatus == 'For Release') {
-                                        echo '<td>'
-                                        . '<form method="post">'
-                                        . '<input type = "hidden" name="recDoc" value="' . $docid . '">'
-                                        . '<input type = "hidden" name="docTitle" value="' . $doctitle . '">'
-                                        . '<button type = "submit" class="btn btn-success btn-sm" name ="receiveRel"><span class="fas fa-check"></span></button>'
-                                        . '</td></tr>';
-                                    } else {
-                                        echo '<td> - </td></tr>';
-                                    }
+                              
                                 }
                             }
                             ?>
@@ -348,13 +237,14 @@ if (isset($_POST['receiveRel'])) {
                         </tbody>
                         <tfoot>
                             <tr>
+								<th>ISO</th>
                                 <th>Document #</th>
                                 <th>Date Submitted</th>
                                 <th>Submitted By</th>
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                
                             </tr>
                         </tfoot>
 
