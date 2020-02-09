@@ -218,8 +218,9 @@ if (isset($_POST['qNext'])) {
     $qdesc = $_POST['userQDesc'];
     $qstatus = "Done";
     $inqueue = "0";
-    $docstatus = "Submitted";
+    $docstatus = "Received by Office.";
     $hidden = "0";
+	$docISO = "N/A";
     $qremarks = $_POST['remarks'];
     $docDir = "Submitted at IICS Office";
     $nextQuery = $conn->prepare("UPDATE queue SET qstatus=? WHERE qno=?");
@@ -233,8 +234,8 @@ if (isset($_POST['qNext'])) {
     $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES ('', ?, ?, ?, ?, ?, NOW(), ?)");
     $insertQ->bind_param("isssss", $qnumdone, $qtype, $qtitle, $qdesc, $qremarks, $qstatus);
 
-    $submitDoc = $conn->prepare("INSERT INTO documents VALUES ('', NOW(), ?, ?, ?, ?, ?,'0', ?)");
-    $submitDoc->bind_param("issssi", $qnumdone, $qtitle, $qdesc, $docstatus, $docDir, $hidden);
+    $submitDoc = $conn->prepare("INSERT INTO documents VALUES ('', NOW(), ?, ?, ?, ?, ?,'0', ?, ?)");
+    $submitDoc->bind_param("issssis", $qnumdone, $qtitle, $qdesc, $docstatus, $docDir, $hidden, $docISO);
 
     $submitSql2 = $conn->prepare("INSERT INTO doclogs VALUES ('', NOW(), ?, ?, ?, ?, '0', ?)");
     $submitSql2->bind_param("isssi", $qnumdone, $qtitle, $qdesc, $docstatus, $hidden);

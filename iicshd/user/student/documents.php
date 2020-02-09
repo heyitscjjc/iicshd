@@ -21,79 +21,6 @@ if (!isset($_SESSION['user_name'])) {
     header("location:/iicshd/login.php");
 }
 
-
-
-if(isset($_POST['submitDoc'])){
-    $userNo = $_SESSION['userno'];
-    $docTitle = $_POST['docTitle'];
-    $docDesc = $_POST['docDesc'];
-    $docType = $_POST['docType'];
-    $docStatus = "Not yet received.";
-    $hidden = 0;
-    $date = date("Y-m-d H:i:s");
-    $errors= array();
-	$passval = 'Uploaded successfully.';
-    $file_name = $_FILES['submittingDoc']['name'];
-    $file_size =$_FILES['submittingDoc']['size'];
-    $file_tmp =$_FILES['submittingDoc']['tmp_name'];
-    $file_type=$_FILES['submittingDoc']['type'];
-    @$file_ext=strtolower(end(explode('.',$_FILES['submittingDoc']['name'])));
-    $expensions= array("pdf");
-    if(in_array($file_ext,$expensions)=== false){
-      $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-    }
-
-    if($file_size > 2097152){
-       $errors[]='File size must be excately 2 MB';
-    }
-
-    if(empty($errors)==true){
-       move_uploaded_file($file_tmp,"../../uploads/submittedDocs/".$file_name);
-       $docDir = "uploads/submittedDocs/" . $file_name;
-       $query="INSERT INTO documents VALUES ('', '$date', '$userNo', '$docTitle', '$docDesc', '$docStatus', '$date', '$docDir', '$hidden')";
-       $conn->query($query);
-    }else{
-        print_r($errors);
-    }
-    header("location:/iicshd/user/student/documents.php?documentUploaded");
-}
-
-
-if (isset($_POST['receiveRel'])) {
-    $recDoc = $_POST['recDoc'];
-    $docTitle = $_POST['docTitle'];
-    $docstatus = "Received by Student";
-
-    $editquery = $conn->prepare("UPDATE documents SET docstatus=?, docdatechange=NOW() WHERE docno=?");
-    $editquery->bind_param("si", $docstatus, $recDoc);
-    $editquery->execute();
-    $editquery->close();
-
-    $editquery2 = $conn->prepare("UPDATE doclogs SET docstatus=?, docdatechange=NOW() WHERE docno=?");
-    $editquery2->bind_param("si", $docstatus, $recDoc);
-    $editquery2->execute();
-    $editquery2->close();
-
-    if ($editquery == TRUE) {
-
-        if ($editquery2 == TRUE) {
-
-            $notiftitle = "Document Status Updated";
-            $notifdesc = "Document Title: " . $docTitle . " / Status: " . $docstatus . "";
-            $notifaudience = "admin";
-
-            $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
-            $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
-            $notif->execute();
-            $notif->close();
-
-            header("location: documents.php");
-            exit;
-        }
-    } else {
-        echo "Update failed.";
-    }
-}
 ?>
 
 <!doctype html>
@@ -303,7 +230,6 @@ if (isset($_POST['receiveRel'])) {
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
 
@@ -331,16 +257,7 @@ if (isset($_POST['receiveRel'])) {
                                     . '<td>' . $doctitle . '</td>'
                                     . '<td>' . $docdesc . '</td>'
                                     . '<td>' . $docstatus . '</td>';
-                                    if ($docstatus == 'For Release') {
-                                        echo '<td>'
-                                        . '<form method="post">'
-                                        . '<input type = "hidden" name="recDoc" value="' . $docid . '">'
-                                        . '<input type = "hidden" name="docTitle" value="' . $doctitle . '">'
-                                        . '<button type = "submit" class="btn btn-success btn-sm" name ="receiveRel"><span class="fas fa-check"></span></button>'
-                                        . '</td></tr>';
-                                    } else {
-                                        echo '<td> - </td></tr>';
-                                    }
+                                    
                                 }
                             }
                             ?>
@@ -354,7 +271,6 @@ if (isset($_POST['receiveRel'])) {
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </tfoot>
 
