@@ -6,28 +6,6 @@ require '../../include/PHPMailer/src/SMTP.php';
 require '../../include/PHPMailer/src/Exception.php';
 require '../../include/PHPMailer/src/PHPMailer.php';
 
-if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
-    header("location:/iicshd/user/admin/home.php");
-}
-if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
-    header("location:/iicshd/user/faculty/home.php");
-}
-
-
-if (isset($_SESSION['user_name'])) {
-
-    if ((time() - $_SESSION['last_time']) > 2000) {
-        header("Location:../../logout.php");
-    } else {
-        $_SESSION['last_time'] = time();
-    }
-}
-
-if (!isset($_SESSION['user_name'])) {
-    header("location:/iicshd/login.php");
-}
-
-
 $mail = new PHPMailer;
 
 $mail->isSMTP();                                      // Set mailer to use SMTP
@@ -37,6 +15,7 @@ $mail->Username = 'noreply.iicshd@gmail.com';                 // SMTP username
 $mail->Password = '1ng0dw3trust';                           // SMTP password
 $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 587;     
+$style = "style='display:float;'";
 
     //CHATBOT COMMANDS
     function connectionError($errno, $errstr) {
@@ -47,27 +26,34 @@ $mail->Port = 587;
         array_push($_SESSION['previousMessages'], "You: " .  $_POST['query']);
     }
     if(isset($_POST['btnNone'])){
-        $_REQUEST['query']="goodbye";
-        array_push($_SESSION['previousMessages'], "You: " .  "None");
         try {
-            $conversation = implode(',', $_SESSION['previousMessages']);
+            $style = "style='display:none;'";
+            $_REQUEST['query']="goodbye";
+            array_push($_SESSION['previousMessages'], "You: " .  "None");
+            array_push($_SESSION['previousMessages'], "-END OF CONVERSATION-");
+            $conversation = implode( "<p>", $_SESSION['previousMessages']);
+            $messageBody = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
+            . '<h2>Nice talking with you.</h2>'
+            . '<p>Here is our conversation earlier. You can use this as a reference in the future.</p>'
+            . $conversation
+            .'<hr></body></html>';
             //Recipients
             $mail->setFrom('noreply.iicshd@gmail.com', 'IICS Help Desk');
-            $mail->addAddress($_SESSION['studemail']);
+            $mail->addAddress($_SESSION['email']);
             $mail->addReplyTo('noreply.iicshd@gmail.com', 'IICS Help Desk'); // Add a recipient
 
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'IICS Help Desk | Conversation with the Assistant';
-            $mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
-                    . '<p>Nice talking with you.</p>'
-                    . '<p>Here is our conversation earlier. You can use this as a reference in the future.</p>'
-                    . $conversation
-                    . '<hr></body></html>';
-
+            $mail->Body = $messageBody;
             $mail->send();
+            $_SESSION['previousMessages'] = array();
         } catch (Exception $ex) {
             echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
+    }
+    if(isset($_POST['btnGetTicket'])){
+        array_push($_SESSION['previousMessages'], "You pressed on 'Get a ticket' to generate a ticket.");
+        header("location:/iicshd/user/student/queue.php#getQueue");
     }
 #chatbot function
 function sendMessage(){
@@ -131,7 +117,11 @@ function sendMessage(){
     }
     $reply = $output;
     $_SESSION['repliedMessage']=$reply;
-    array_push($_SESSION['previousMessages'], "Assister: " .  $reply);
+
+
+    if(end($_SESSION['previousMessages']) != "Virtual Helper: " .  $reply){
+        array_push($_SESSION['previousMessages'], "Virtual Helper: " .  $reply);
+    }
     echo $reply;
 }
 
@@ -177,8 +167,9 @@ function sendMessage(){
 </head>
 <body>
 <?php 
-        include '../../navbar.php';
-    ?>
+    include '../../navbar.php';
+
+?>
 <main>
 
 </main>
@@ -189,7 +180,6 @@ function sendMessage(){
 
 
 <div class="container-fluid" style="padding:150px;">
-    <p style='text-align: right;'><button class="btn" name="clear">Delete conversation and start over</button></p>
     <?php
     foreach ($_SESSION['previousMessages']  as $key => $val) {
         echo $val;
@@ -202,9 +192,12 @@ function sendMessage(){
             if(strpos($_SESSION['repliedMessage'], "Anything else")){
                 echo "<button class='btn' name='btnNone'>None</button>";
             }
+            if(strpos($_SESSION['repliedMessage'], "ticket")){
+                echo "<button class='btn' name='btnGetTicket'>Get a ticket</button>";
+            }
         ?>
-        <br><br><input type="text" id="query" name="query" class="form-control" placeholder="Send a message...">
-        <br><button class="btn" name="send">Send message</button>
+        <br><br><input type="text" id="query" name="query" class="form-control" placeholder="Send a message..."<?php echo $style;?>>
+        <br><button class="btn" name="send"<?php echo $style;?>>Send message</button>
     </form>
 </div>
 </body>
