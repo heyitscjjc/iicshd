@@ -48,7 +48,6 @@ if (isset($_POST['login'])) {
                 $_SESSION['mname'] = $row['mname'];
                 $_SESSION['lname'] = $row['lname'];
                 $_SESSION['userno'] = $row['userno'];
-                $_SESSION['section'] = $row['section'];
 				$_SESSION['dept'] = $row['deptno'];
                 $_SESSION['last_time'] = time();
                 $_SESSION['resetpass'] = $row['forgotpass'];
@@ -108,24 +107,7 @@ if (isset($_POST['login'])) {
                         exit();
                     }
                 }
-				if ($_SESSION['role'] == "organizati") {
-                    if ($_SESSION['resetpass'] == 1) {
-                        header("location:/iicshd/reset.php");
-                        exit();
-                    } else {
-
-                        $passaction = 'Login';
-
-                        $passval = "Logged in successfully.";
-                        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
-                        $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
-                        $logpass->execute();
-                        $logpass->close();
-                        
-                        header("location:/iicshd/user/organization/home.php");
-                        exit();
-                    }
-                }
+				
             }
         }
     } else {
