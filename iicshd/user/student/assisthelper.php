@@ -190,14 +190,14 @@ function sendMessage(){
         <br><h3><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
         <?php
             if(strpos($_SESSION['repliedMessage'], "Anything else")){
-                echo "<button class='btn' name='btnNone'>None</button>";
+                echo "<button type='button' class='btn' name='btnNone'>None</button>";
             }
             if(strpos($_SESSION['repliedMessage'], "ticket")){
-                echo "<button class='btn' name='btnGetTicket'>Get a ticket</button>";
+                echo "<button type='button' class='btn' name='btnGetTicket'>Get a ticket</button>";
             }
         ?>
         <br><br><input type="text" id="query" name="query" class="form-control" placeholder="Send a message..."<?php echo $style;?>>
-        <br><button class="btn" name="send"<?php echo $style;?>>Send message</button>
+        <br><button type="submit" class="btn" name="send"<?php echo $style;?>>Send message</button>
     </form>
 </div>
 </body>
