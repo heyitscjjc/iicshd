@@ -22,12 +22,11 @@ if (isset($_SESSION['user_name'])) {
 
 unset($_SESSION['fromMain']);
 
-$studnum = $studfname = $studmname = $studlname = $studsection = $studemail = $studpass = $studconfpass = $studsecq = $studsecans = $studrole = $forgot = $hidden = $studdept = "";
-$empnum = $empfname = $empmname = $emplname = $empsection = $empemail = $emppass = $empconfpass = $empsecq = $empsecans = $emprole = $forgot = $hidden =  "";
-$orgname = $orgfname = $orgmname = $orglname = $orgsection = $orgemail = $orgpass = $orgconfpass = $orgsecq = $orgsecans = $orgrole = $forgot = $hidden = "";
+$studnum = $studfname = $studmname = $studlname  = $studemail = $studpass = $studconfpass = $studsecq = $studsecans = $studrole = $forgot = $hidden = $studdept = "";
+$empnum = $empfname = $empmname = $emplname = $empemail = $emppass = $empconfpass = $empsecq = $empsecans = $emprole = $forgot = $hidden =  "";
+
 
 $tab1 = $tab2 = $tab3 = $studnumErr = $orgnameErr2 =  $empnumErr2 = $emailErr3 = $empnumErr3 = $numErr = $numErr2 = $firstErr = $firstErr2 = $midErr = $midErr2 = $lastErr = $lastErr2 = $emailErr = $emailErr2 = $confirmErr = $confirmErr2 = $passwordErr = $passwordErr2 = "";
-$orgnumErr2 = $orgfirstErr2 = $orgmidErr2 = $orglastErr2 = $orgemailErr2 = $orgnumErr3 = $orgpasswordErr2 = $orgconfirmErr2 = "";
 
 function RandomString($length) {
     $keys = array_merge(range(0, 9), range('A', 'Z'));
@@ -47,7 +46,6 @@ if (isset($_POST['studRegister'])) {
     $studfname = clean($_POST["studfname"]);
     $studmname = clean($_POST["studmname"]);
     $studlname = clean($_POST["studlname"]);
-    $studsection = clean($_POST["studsection"]);
     $studemail = $_POST["studemail"];
     $studpass = $_POST["studpass"];
     $studconfpass = $_POST["studconfpass"];
@@ -137,8 +135,8 @@ if (isset($_POST['studRegister'])) {
         $hashedSecAns = password_hash($studsecans, PASSWORD_DEFAULT);
         //insert the user into the database
 
-        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
-        $sqladd->bind_param("ssssssissisisii", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsection, $studsecq, $hashedSecAns, $hidden, $vcode, $verified, $studdept);
+        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES ('',?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
+        $sqladd->bind_param("ssssssisisisii", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsecq, $hashedSecAns, $hidden, $vcode, $verified, $studdept);
         $sqladd->execute();
         $sqladd->close();
 
@@ -160,7 +158,6 @@ if (isset($_POST['studRegister'])) {
         $_SESSION['studemail'] = $studemail;
         $_SESSION['studpass'] = $hashedPwd;
         $_SESSION['studforgot'] = $forgot;
-        $_SESSION['studsection'] = $studsection;
         $_SESSION['studsecq'] = $studsecq;
         $_SESSION['studseca'] = $hashedSecAns;
         $_SESSION['studhidden'] = $hidden;
@@ -188,7 +185,6 @@ if (isset($_POST['empRegister'])) {
     $empconfpass = $_POST["empconfpass"];
     $empsecq = clean($_POST["empsecq"]);
     $empsecans = $_POST["empsecans"];
-    $empsection = "Faculty";
     $emprole = "faculty";
     $forgot = $hidden = $verified = "0";
     $vcode = RandomString(5);
@@ -271,8 +267,8 @@ if (isset($_POST['empRegister'])) {
         $hashedSecAns = password_hash($empsecans, PASSWORD_DEFAULT);
         //insert the user into the database
 
-        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,'',?,?)");
-        $sqladd->bind_param("ssssssissisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsection, $empsecq, $hashedSecAns, $hidden, $vcode, $verified);
+        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES ('',?,?,?,?,?,?,?,?,?,?,?,'',?,?)");
+        $sqladd->bind_param("ssssssisisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsecq, $hashedSecAns, $hidden, $vcode, $verified);
         $sqladd->execute();
         $sqladd->close();
 
@@ -295,7 +291,6 @@ if (isset($_POST['empRegister'])) {
         $_SESSION['empemail'] = $empemail;
         $_SESSION['emppass'] = $hashedPwd;
         $_SESSION['empforgot'] = $forgot;
-        $_SESSION['empsection'] = $empsection;
         $_SESSION['empsecq'] = $empsecq;
         $_SESSION['empseca'] = $hashedSecAns;
         $_SESSION['emphidden'] = $hidden;
@@ -405,23 +400,6 @@ if (isset($_SESSION['tab'])) {
                                                     $deptno = $row['deptno'];
                                                     $deptname = $row['deptname'];
                                                     echo "<option value='" . $deptno . "'>" . $deptname . "</option>";
-                                                }
-                                            } else {
-                                                echo"<option value=''></option>";
-                                            }
-                                            ?> 
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select required class="form-control" name="studsection">
-                                            <option class="hidden" value="" selected disabled>Year and Section: *</option>
-                                            <?php
-                                            $prof = mysqli_query($conn, "SELECT * from sections WHERE hidden = '0' ORDER BY sectionname ASC");
-                                            if ($prof->num_rows > 0) {
-                                                while ($row = $prof->fetch_assoc()) {
-                                                    $sectionname = $row['sectionname'];
-                                                    $sectionno = $row['sectionno'];
-                                                    echo "<option value='" . $sectionname . "'>" . $sectionname . "</option>";
                                                 }
                                             } else {
                                                 echo"<option value=''></option>";
