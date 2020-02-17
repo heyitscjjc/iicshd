@@ -1,21 +1,20 @@
 <?php
+    require '../../include/controller.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    require '../../include/PHPMailer/src/SMTP.php';
+    require '../../include/PHPMailer/src/Exception.php';
+    require '../../include/PHPMailer/src/PHPMailer.php';
 
-require '../../include/controller.php';
-use PHPMailer\PHPMailer\PHPMailer;
-require '../../include/PHPMailer/src/SMTP.php';
-require '../../include/PHPMailer/src/Exception.php';
-require '../../include/PHPMailer/src/PHPMailer.php';
+    $mail = new PHPMailer;
 
-$mail = new PHPMailer;
-
-$mail->isSMTP();                                      // Set mailer to use SMTP
-$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-$mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = 'noreply.iicshd@gmail.com';                 // SMTP username
-$mail->Password = '1ng0dw3trust';                           // SMTP password
-$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-$mail->Port = 587;     
-$style = "style='display:float;'";
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'noreply.iicshd@gmail.com';                 // SMTP username
+    $mail->Password = '1ng0dw3trust';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;     
+    $style = "style='display:float;'";
 
     //CHATBOT COMMANDS
     function connectionError($errno, $errstr) {
@@ -25,8 +24,13 @@ $style = "style='display:float;'";
     if(isset($_POST['send'])){
         array_push($_SESSION['previousMessages'], "You: " .  $_POST['query']);
     }
+    if(isset($_POST['btnYes'])){
+        $_REQUEST['query']="Yes";
+        array_push($_SESSION['previousMessages'], "You: " .  "Yes");
+    }
     if(isset($_POST['btnNone'])){
         try {
+            $_SESSION['context'] = null;
             $style = "style='display:none;'";
             $_REQUEST['query']="goodbye";
             array_push($_SESSION['previousMessages'], "You: " .  "None");
@@ -47,6 +51,7 @@ $style = "style='display:float;'";
             $mail->Body = $messageBody;
             $mail->send();
             $_SESSION['previousMessages'] = array();
+            $_SESSION['context'] = null;
         } catch (Exception $ex) {
             echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
@@ -54,76 +59,90 @@ $style = "style='display:float;'";
     if(isset($_POST['btnGetTicket'])){
         array_push($_SESSION['previousMessages'], "You pressed on 'Get a ticket' to generate a ticket.");
         header("location:/iicshd/user/student/queue.php#getQueue");
+        exit();
     }
-#chatbot function
-function sendMessage(){
-    set_error_handler("connectionError");
-    $workspace = '01ae9e7d-7a59-43bf-8db7-5392661441cd';
-    $username = 'apikey';
-    $password = '5n_o_uV8056uGeLj2asr9TIYoGvLy0gJyW84gpd_bPbN';
-    $version = '2019-12-09';
-    $gateway = 'https://gateway.watsonplatform.net/assistant/api'; // Dallas
-    //$gateway = 'https://gateway-wdc.watsonplatform.net/assistant/api'; // Washington, DC
-    //$gateway = 'https://gateway-fra.watsonplatform.net/assistant/api'; // Frankfurt
-    //$gateway = 'https://gateway-syd.watsonplatform.net/assistant/api'; // Sydney
-    //$gateway = 'https://gateway-tok.watsonplatform.net/assistant/api'; // Tokyo
-    //$gateway = 'https://gateway-lon.watsonplatform.net/assistant/api'; // London
-
-    # End configuration
-
-    if(isset($_REQUEST['reset'])) {
-        session_destroy();
-        $_SESSION = null;
-        $destination = 'http://'.$_SERVER['HTTP_HOST'].'/'.$_SERVER['PHP_SELF'];
-        header('Location: '.$destination);
-        exit;
+    if(isset($_POST['btnDocs'])){
+        array_push($_SESSION['previousMessages'], "You pressed on 'View submitted Documents'.");
+        header("location:/iicshd/user/student/documents.php");
+        exit();
     }
-
-    if(!isset($_SESSION['context'])) {
-        $_SESSION['context'] = null;
+    if(isset($_POST['btnClassSchedule'])){
+        $_REQUEST['query']="View Schedules";
+        array_push($_SESSION['previousMessages'], "You: " .  "View Schedules");
     }
+    if(isset($_POST['btnDeleteConvo'])){
+        $_SESSION['previousMessages'] = array();
+        $_SESSION['context'] = null;    }
+    #chatbot function
+    function sendMessage(){
+        set_error_handler("connectionError");
+        $workspace = '01ae9e7d-7a59-43bf-8db7-5392661441cd';
+        $username = 'apikey';
+        $password = '5n_o_uV8056uGeLj2asr9TIYoGvLy0gJyW84gpd_bPbN';
+        $version = '2019-12-09';
+        $gateway = 'https://gateway.watsonplatform.net/assistant/api'; // Dallas
+        //$gateway = 'https://gateway-wdc.watsonplatform.net/assistant/api'; // Washington, DC
+        //$gateway = 'https://gateway-fra.watsonplatform.net/assistant/api'; // Frankfurt
+        //$gateway = 'https://gateway-syd.watsonplatform.net/assistant/api'; // Sydney
+        //$gateway = 'https://gateway-tok.watsonplatform.net/assistant/api'; // Tokyo
+        //$gateway = 'https://gateway-lon.watsonplatform.net/assistant/api'; // London
 
-    if(isset($_REQUEST['query'])) {
-        $query = $_REQUEST['query'];
+        # End configuration
+
+        if(isset($_REQUEST['reset'])) {
+            session_destroy();
+            $_SESSION = null;
+            $destination = 'http://'.$_SERVER['HTTP_HOST'].'/'.$_SERVER['PHP_SELF'];
+            header('Location: '.$destination);
+            exit;
+        }
+
+        if(!isset($_SESSION['context'])) {
+            $_SESSION['context'] = null;
+            $_SESSION['previousMessages'] = array();
+        }
+
+        if(isset($_REQUEST['query'])) {
+            $query = $_REQUEST['query'];
+        }
+        else {
+            $query = "Hello";
+        }
+        
+        $curl = curl_init();
+        $context = json_encode($_SESSION['context']);
+        $data = '{"input": {"text": "'.$query.'"}, "context": '.$context.'}';
+
+        curl_setopt_array($curl, array(
+            CURLOPT_HTTPHEADER => array('Content-type: application/json'),
+            CURLOPT_POST => true,
+            CURLOPT_URL => "$gateway/v1/workspaces/$workspace/message?version=$version",
+            CURLOPT_USERPWD => "$username:$password",
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => true
+        ));
+
+        $response = curl_exec($curl);
+
+        $err = curl_error($curl);
+        curl_close($curl);
+        $response = json_decode($response);
+        $_SESSION['context'] = $response->context;
+        $output = implode('<br>', $response->output->text);
+
+        if($query != null) {
+
+        }
+        $reply = $output;
+        $_SESSION['repliedMessage']=$reply;
+
+
+        if(end($_SESSION['previousMessages']) != "Virtual Helper: " .  $reply){
+            array_push($_SESSION['previousMessages'], "Virtual Helper: " .  $reply);
+        }
+        echo $reply;
     }
-    else {
-        $query = null;
-    }
-
-    $curl = curl_init();
-    $context = json_encode($_SESSION['context']);
-    $data = '{"input": {"text": "'.$query.'"}, "context": '.$context.'}';
-
-    curl_setopt_array($curl, array(
-        CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-        CURLOPT_POST => true,
-        CURLOPT_URL => "$gateway/v1/workspaces/$workspace/message?version=$version",
-        CURLOPT_USERPWD => "$username:$password",
-        CURLOPT_POSTFIELDS => $data,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_SSL_VERIFYPEER => true
-    ));
-
-    $response = curl_exec($curl);
-
-    $err = curl_error($curl);
-    curl_close($curl);
-    $response = json_decode($response);
-    //$_SESSION['context'] = $response->context;
-    $output = implode('<br>', $response->output->text);
-
-    if($query != null) {
-
-    }
-    $reply = $output;
-    $_SESSION['repliedMessage']=$reply;
-
-
-    if(end($_SESSION['previousMessages']) != "Virtual Helper: " .  $reply){
-        array_push($_SESSION['previousMessages'], "Virtual Helper: " .  $reply);
-    }
-    echo $reply;
-}
 
 
 ?>
@@ -155,6 +174,14 @@ function sendMessage(){
                 bottom:0;                
                 border-top: 5px solid #b00f24;
             }
+            .btn{
+                transition-duration: 0.10s;
+                cursor: pointer;
+            }
+            .btn:hover {
+                background-color: #800000;
+                color: white;
+            }
         </style>
 
         <!-- Font Awesome JS -->
@@ -174,24 +201,36 @@ function sendMessage(){
 
 
 <div class="container-fluid" style="padding:150px;">
-    <?php
-    foreach ($_SESSION['previousMessages']  as $key => $val) {
-        echo $val;
-        echo "<hr>";
-     }
-    ?>
-    <form method="post" autocomplete="off">
+    <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';">
+        <p style="text-align: right;"><button class="btn" name="btnDeleteConvo">Delete conversation and start over</button></p><br>
+        <?php
+            foreach ($_SESSION['previousMessages']  as $key => $val) {
+                echo $val;
+                echo "<hr>";
+            }
+        ?>
         <br><h3><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
         <?php
             if(strpos($_SESSION['repliedMessage'], "Anything else")){
-                echo "<button type='button' class='btn' name='btnNone'>None</button>";
+                echo "<button class='btn' name='btnYes'>Yes, there's something else</button>";
+                echo " <button class='btn' name='btnNone'>None</button>";
             }
             if(strpos($_SESSION['repliedMessage'], "ticket")){
-                echo "<button type='button' class='btn' name='btnGetTicket'>Get a ticket</button>";
+                echo " <a href='queue.php#getQueue' target='_blank'> <button class='btn' name='btnGetTicket'>Open a ticket</button></a>";
+                echo " <button class='btn' name='btnYes'>Yes, I have already submitted one</button>";
+            }
+            if(strpos($_SESSION['repliedMessage'], "track")){
+                echo "<button class='btn' name='btnDocs'>Visit Documents page</button>";
+            }
+            if(strpos($_SESSION['repliedMessage'], "inquiry") || strpos($_SESSION['repliedMessage'], "first-time") || strpos($_SESSION['repliedMessage'], "type")){
+                echo "<p>Don't know where to start? Try</p>";
+                echo "<button class='btn' name='btnTrack'>Track Documents</button>";
+                echo " <a href='queue.php#getQueue' target='_blank'> <button class='btn' name='btnGetTicket'>Open a ticket</button></a>";
+                echo " <button class='btn' name='btnClassSchedule'>View classroom schedules</button>";
             }
         ?>
         <br><br><input type="text" id="query" name="query" class="form-control" placeholder="Send a message..."<?php echo $style;?>>
-        <br><button type="submit" class="btn" name="send"<?php echo $style;?>>Send message</button>
+        <br><button class="btn" name="send"<?php echo $style;?>>Send message</button>
     </form>
 </div>
 

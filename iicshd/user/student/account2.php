@@ -1,6 +1,5 @@
 <?php
 include '../../include/controller.php';
-
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
     header("location:/iicshd/user/admin/home.php");
 }
