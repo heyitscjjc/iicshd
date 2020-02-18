@@ -70,6 +70,10 @@
         $_REQUEST['query']="View Schedules";
         array_push($_SESSION['previousMessages'], "You: " .  "View Schedules");
     }
+    if(isset($_POST['btnTrack'])){
+        $_REQUEST['query']="Track Documents";
+        array_push($_SESSION['previousMessages'], "You: " .  "Track Documents");
+    }
     if(isset($_POST['btnDeleteConvo'])){
         $_SESSION['previousMessages'] = array();
         $_SESSION['context'] = null;    }
@@ -204,9 +208,11 @@
     <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';">
         <p style="text-align: right;"><button class="btn" name="btnDeleteConvo">Delete conversation and start over</button></p><br>
         <?php
-            foreach ($_SESSION['previousMessages']  as $key => $val) {
-                echo $val;
-                echo "<hr>";
+            if(is_array(@$_SESSION['previousMessages'])){
+                foreach (@$_SESSION['previousMessages']  as $key => $val) {
+                    echo $val;
+                    echo "<hr>";
+                }
             }
         ?>
         <br><h3><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
