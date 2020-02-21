@@ -107,12 +107,10 @@ if (isset($_POST['unpinPost'])) {
     
     <?php 
         include '../../navbar.php';
-        echo "<p style='background-color: #f1c40f; padding: 10px;'>NEW: Type in your inquiry and let it answered by the assistant helper. Check it now by clicking on the 'Ask me Anything' in the navigation bar.</p>"
+        echo "<p class='bg-warning' style='padding: 10px;'>NEW: Type in your inquiry and let it answered by the assistant helper. Check it now by clicking on the 'Ask me Anything' in the navigation bar.</p>"
     ?>
 
-        <div class="container-fluid">
-
-
+        <div class="container">
             <main role="main" class="col-md-12 ml-sm-auto">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Home</h1>
@@ -132,9 +130,7 @@ if (isset($_POST['unpinPost'])) {
                 }
                 ?>
 
-
                 <div class="accordion" id="accordionExample">
-
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
@@ -293,8 +289,9 @@ if (isset($_POST['unpinPost'])) {
             </main>
         </div>
 
+        <!-- FOOTER -->
         <div class="container-fluid header">
-            <div align="center" style="font-size: 11px; color:white;">
+            <div class="text-center text-white" style="font-size: 11px;">
                 IICS Help Desk © 2019
             </div>
         </div>

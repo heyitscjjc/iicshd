@@ -62,11 +62,11 @@ if (!isset($_SESSION['user_name'])) {
         include '../../navbar.php';
     ?>
 
-        <div class="container-fluid">
+        <div class="container">
 
             <main role="main" class="col-md-12 ml-sm-auto">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Statistics</h1>
+                    <h1 class="h2 mt-5">Statistics</h1>
                 </div>
 
                 <div class="row">
@@ -76,7 +76,7 @@ if (!isset($_SESSION['user_name'])) {
                                 <h5>Total # of Queued Students based on Queue Status</h5>
                             </div>
                             <div class="card-body">
-                                <div id="chart-container" style="height:300px; width:580px">       
+                                <div id="chart-container" style="height:300px; width:500px">       
                                     <canvas id="piechart"></canvas>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@ if (!isset($_SESSION['user_name'])) {
                                 <h5>Total # of Queued Students based on Transaction Type</h5>
                             </div>
                             <div class="card-body">
-                                <div id="chart-container" style="height:300px; width:580px">       
+                                <div id="chart-container" style="height:300px; width:490px">       
                                     <canvas id="barchart"></canvas>
                                 </div>
                             </div>
@@ -118,8 +118,9 @@ if (!isset($_SESSION['user_name'])) {
             </main>
         </div>
 
+        <!-- FOOTER -->
         <div class="container-fluid header">
-            <div align="center" style="font-size: 11px; color:white;">
+            <div class="text-center text-white" style="font-size: 11px;">
                 IICS Help Desk © 2019
             </div>
         </div>

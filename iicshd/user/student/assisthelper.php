@@ -178,14 +178,14 @@
                 bottom:0;                
                 border-top: 5px solid #b00f24;
             }
-            .btn{
+            /* .btn{
                 transition-duration: 0.10s;
                 cursor: pointer;
             }
             .btn:hover {
                 background-color: #800000;
                 color: white;
-            }
+            } */
         </style>
 
         <!-- Font Awesome JS -->
@@ -204,9 +204,10 @@
 </script>
 
 
-<div class="container-fluid" style="padding:150px;">
+<div class="container mt-5 p-5 w-50" style="border:1px solid grey; border-radius: 30px; background-color: #ecf0f1;">
     <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';">
-        <p style="text-align: right;"><button class="btn" name="btnDeleteConvo">Delete conversation and start over</button></p><br>
+        <p style="text-align: right;"><button class="btn text-white" style="background-color: #6D0000;" name="btnDeleteConvo">Delete conversation and start over</button></p><br>
+        <div class="p-3" style="background-color: white; border-radius: 10px">
         <?php
             if(is_array(@$_SESSION['previousMessages'])){
                 foreach (@$_SESSION['previousMessages']  as $key => $val) {
@@ -214,7 +215,8 @@
                     echo "<hr>";
                 }
             }
-        ?>
+            ?>
+        </div>
         <br><h3><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
         <?php
             if(strpos($_SESSION['repliedMessage'], "Anything else")){
@@ -230,18 +232,27 @@
             }
             if(strpos($_SESSION['repliedMessage'], "inquiry") || strpos($_SESSION['repliedMessage'], "first-time") || strpos($_SESSION['repliedMessage'], "type")){
                 echo "<p>Don't know where to start? Try</p>";
-                echo "<button class='btn' name='btnTrack'>Track Documents</button>";
-                echo " <a href='queue.php#getQueue' target='_blank'> <button class='btn' name='btnGetTicket'>Open a ticket</button></a>";
-                echo " <button class='btn' name='btnClassSchedule'>View classroom schedules</button>";
+                echo "<button class='btn btn-secondary' name='btnTrack'>Track Documents</button>";
+                echo " <a href='queue.php#getQueue' target='_blank'> <button class='btn btn-secondary' name='btnGetTicket'>Open a ticket</button></a>";
+                echo " <button class='btn btn-secondary' name='btnClassSchedule'>View classroom schedules</button>";
             }
         ?>
-        <br><br><input type="text" id="query" name="query" class="form-control" placeholder="Send a message..."<?php echo $style;?>>
-        <br><button class="btn" name="send"<?php echo $style;?>>Send message</button>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-9">
+                <input type="text" id="query" name="query" class="form-control" placeholder="Send a message..."<?php echo $style;?>>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn text-white" style="background-color: #6D0000;" name="send"<?php echo $style;?>>Send message</button>
+            </div>
+        </div>
     </form>
 </div>
+<br><br><br><br><br>
 
+        <!-- FOOTER -->
         <div class="container-fluid header">
-            <div align="center" style="font-size: 11px; color:white;">
+            <div class="text-center text-white" style="font-size: 11px;">
                 IICS Help Desk © 2019
             </div>
         </div>

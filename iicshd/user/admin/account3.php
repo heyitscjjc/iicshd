@@ -71,28 +71,28 @@ if (!isset($_SESSION['user_name'])) {
         include '../../navbar.php';
     ?>
 
-        <div class="container-fluid">
+        <div class="container">
 
             <main role="main" class="col-md-12 ml-sm-auto">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Account Settings</h1>
+                    <h1 class="h2 mt-5">Account Settings</h1>
                 </div>
 
                 <div class="row">
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="card">
                             <ul class="list-group list-group-flush">
-                                <a href="account.php"><li class="list-group-item">User Information <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="account2.php"><li class="list-group-item">Security <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="account3.php"><li class="list-group-item active">Activity Logs <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="account4.php"><li class="list-group-item">Archives <span style="float:right;" class="fas fa-caret-right"></span></li></a>
+                                <a href="account.php"><li class="list-group-item">User Information <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="account2.php"><li class="list-group-item">Security <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="account3.php"><li class="list-group-item active">Activity Logs <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="account4.php"><li class="list-group-item">Archives <span class="fas fa-caret-right float-right"></span></li></a>
                             </ul>
                         </div>
                     </div>
 
 
-                    <div class='col-sm-10'>
+                    <div class='col-sm-9'>
                         <div class="card">
                             <div class="card-header">
                                 <h5>
@@ -101,7 +101,7 @@ if (!isset($_SESSION['user_name'])) {
                                 </h5>
                             </div>
 
-                            <div class="card-body">
+                            <div class="card-body" style="overflow-x: auto;">
 
                                 <table id="data_table" class="table table-striped table-responsive-lg">
 
@@ -161,8 +161,9 @@ if (!isset($_SESSION['user_name'])) {
             </main>               
         </div>
 
+        <!-- FOOTER -->
         <div class="container-fluid header">
-            <div align="center" style="font-size: 11px; color:white;">
+            <div class="text-center text-white" style="font-size: 11px;">
                 IICS Help Desk © 2019
             </div>
         </div>

@@ -4,7 +4,7 @@
 
 if($_SESSION['role'] == 'student'){
    echo " <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
-        <a class='navbar-brand'>
+        <a class='navbar-brand' href='home.php'>
             <img src = '../../img/logosolo.png'></img>       
             <span class='mb-0 h6' style='color:white;'>IICS Help Desk</span> 
         </a>
@@ -84,7 +84,7 @@ if($_SESSION['role'] == 'student'){
             <ul class='navbar-nav px-1'>
                 <li class='dropdown'>
                     <a href='#' class='btn btn-primary btn-sm dropdown-toggle notif-toggle' data-toggle='dropdown'><span class='badge badge-danger count' style='border-radius:10px;'></span> <span class='fas fa-bell' style='font-size:18px;'></span> Notifications</a>
-                    <ul class='shownotif dropdown-menu' style='white-space:normal;'></ul>
+                    <ul class='shownotif dropdown-menu dropdown-menu-right' style='white-space:normal;'></ul>
                 </li>
             </ul>
 
@@ -97,7 +97,7 @@ if($_SESSION['role'] == 'student'){
                         echo $_SESSION['user_name'];
 
     echo "          </button>
-                    <div class='dropdown-menu'>
+                    <div class='dropdown-menu dropdown-menu-right'>
                         <a class='dropdown-item' href='account.php'>
                             <i class='fas fa-user-cog'></i>
                             Account
@@ -130,7 +130,7 @@ else if($_SESSION['role'] == 'faculty'){
 
         <ul class='navbar-nav mr-auto'>
 
-            <li class='nav-item active'>
+            <li class='nav-item'>
                 <a class='nav-link' style='color:white;' href='home.php'>
                     <span data-feather='home'></span>
                     Home <span class='sr-only'>(current)</span>
@@ -172,7 +172,7 @@ else if($_SESSION['role'] == 'faculty'){
         <ul class='navbar-nav px-1'>
             <li class='dropdown'>
                 <a href='#' class='btn btn-primary btn-sm dropdown-toggle notif-toggle' data-toggle='dropdown'><span class='badge badge-danger count' style='border-radius:10px;'></span> <span class='fas fa-bell' style='font-size:18px;'></span> Notifications</a>
-                <ul class='shownotif dropdown-menu' style='white-space:normal;'></ul>
+                <ul class='shownotif dropdown-menu dropdown-menu-right' style='white-space:normal;'></ul>
             </li>
         </ul>
 
@@ -183,7 +183,7 @@ else if($_SESSION['role'] == 'faculty'){
                     <span data-feather='user'></span>";
                     echo $_SESSION['user_name'];
                 echo "</button>
-                <div class='dropdown-menu'>
+                <div class='dropdown-menu dropdown-menu-right'>
                     <a class='dropdown-item' href='account.php'>
                         <i class='fas fa-user-cog'></i>
                         Account
@@ -216,7 +216,7 @@ echo "        <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
 
     <ul class='navbar-nav mr-auto'>
 
-        <li class='nav-item active'>
+        <li class='nav-item'>
             <a class='nav-link active' href='home.php'>
                 <span data-feather='home'></span>
                 Home <span class='sr-only'>(current)</span>
@@ -279,7 +279,7 @@ echo "        <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
     <ul class='navbar-nav px-1'>
         <li class='dropdown'>
             <a href='#' class='btn btn-primary btn-sm dropdown-toggle notif-toggle' data-toggle='dropdown'><span class='badge badge-danger count' style='border-radius:10px;'></span> <span class='fas fa-bell' style='font-size:18px;'></span> Notifications</a>
-            <ul class='shownotif dropdown-menu' style='white-space:normal;'></ul>
+            <ul class='shownotif dropdown-menu dropdown-menu-right' style='white-space:normal;'></ul>
         </li>
     </ul>
 
@@ -290,7 +290,7 @@ echo "        <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
                 <span data-feather='user'></span>";
                 echo $_SESSION['user_name'];
         echo    "</button>
-            <div class='dropdown-menu'>
+            <div class='dropdown-menu dropdown-menu-right'>
                 <a class='dropdown-item' href='cpanel.php'>
                     <i class='fas fa-sliders-h'></i>
                     Control Panel

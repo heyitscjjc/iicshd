@@ -67,11 +67,11 @@ if (!isset($_SESSION['user_name'])) {
         include '../../navbar.php';
     ?>
 
-        <div class="container-fluid">
+        <div class="container">
 
             <main role="main" class="col-md-12 ml-sm-auto">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Reports</h1>
+                    <h1 class="h2 mt-5">Reports</h1>
                 </div>
 
                 <div class="accordion" id="accordionExample">
@@ -234,8 +234,9 @@ if (!isset($_SESSION['user_name'])) {
             <br>
         </div>
 
+        <!-- FOOTER -->
         <div class="container-fluid header">
-            <div align="center" style="font-size: 11px; color:white;">
+            <div class="text-center text-white" style="font-size: 11px;">
                 IICS Help Desk © 2019
             </div>
         </div>

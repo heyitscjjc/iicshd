@@ -154,193 +154,28 @@ if (isset($_POST['updatePass'])) {
         <!--NEW NAVBAR-->
 
         <?php 
-        include '../../navbar.php';
-       
-    ?>
-           
+            include '../../navbar.php';
+        ?>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item">
-                        <a class="nav-link" style="color:white;" href="home.php">
-                            <span data-feather="home"></span>
-                            Home <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" style="color:white;" href="documents.php">
-                            <span data-feather="file-text"></span>
-                            Documents
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" style="color:white;" href="queue.php">
-                            <span data-feather="users"></span>
-                            Queue
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" style="color:white;" href="consultations.php">
-                            <span data-feather="info"></span>
-                            Consultation
-                        </a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" style="color:white;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span data-feather="calendar"></span>
-                            Schedule
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="fschedule.php">
-                                <span data-feather="book-open"></span>
-                                Faculty Schedule
-                            </a>
-                            <a class="dropdown-item" href="cschedule.php">
-                                <span data-feather="book-open"></span>
-                                Class Schedule
-                            </a>
-                            <a class="dropdown-item" href="rschedule.php">
-                                <span data-feather="book-open"></span>
-                                Room Schedule
-                            </a>
-							<a class="dropdown-item" href="eschedule.php">
-                                <span data-feather="book-open"></span>
-                                Exam Schedule
-                            </a>
-                        </div>
-                    </li>
-
-                </ul>
-
-                <ul class="navbar-nav px-1">
-                    <li class="dropdown">
-                        <a href="#" class="btn btn-primary btn-sm dropdown-toggle notif-toggle" data-toggle="dropdown"><span class="badge badge-danger count" style="border-radius:10px;"></span> <span class="fas fa-bell" style="font-size:18px;"></span> Notifications</a>
-                        <ul class="shownotif dropdown-menu" style="white-space:normal;"></ul>
-                    </li>
-                </ul>
-
-                <!-- <ul class="navbar-nav px-1">
-                                    <li class="nav-item text-nowrap">
-                                    <li class="nav-item dropdown">
-                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fas fa-envelope"></span>
-                                            Notifications
-                                        </button>
-                                        <div class="dropdown-menu" style="white-space: normal;">
-                <?php
-//                            $notifquery = "SELECT notif.notifno, notif.notiftitle, notif.notifdesc, notif.notifaudience, notif.notifdate, users.userno 
-//                                                    FROM notif 
-//                                                INNER JOIN users 
-//                                                ON users.userno = notif.notifaudience 
-//                                                WHERE notif.notifaudience = '".$_SESSION['userno']."' 
-//                                                UNION ALL 
-//                                            SELECT notif.notifno, notif.notiftitle, notif.notifdesc, notif.notifaudience, notif.notifdate, notif.notifno as userno 
-//                                                    FROM notif 
-//                                                WHERE notif.notifaudience = 'all' 
-//                                                UNION ALL
-//                                            SELECT notif.notifno, notif.notiftitle, notif.notifdesc, notif.notifaudience, notif.notifdate, notif.notifno as userno 
-//                                                    FROM notif 
-//                                                    WHERE notif.notifaudience = 'student' 
-//                                            ORDER BY notifno DESC LIMIT 4";
-//                            $notifresult = $conn->query($notifquery);
-//
-//                            if ($notifresult->num_rows > 0) {
-//                                while ($row = $notifresult->fetch_assoc()) {
-//                                    $notiftitle = $row['notiftitle'];
-//                                    $notifdesc = $row['notifdesc'];
-//                                    $notifdate = $row['notifdate'];
-//
-//                                    echo '
-//                                            <a class="dropdown-item" ';
-//
-//                                    if ($notiftitle == "New Announcement Posted") {
-//                                        echo 'href="home.php"';
-//                                    }
-//                                    if ($notiftitle == "New File Upload") {
-//                                        echo 'href="documents.php"';
-//                                    }
-//                                    if ($notiftitle == "Schedule Updated") {
-//                                        echo 'href="fschedule.php"';
-//                                    }
-//                                    echo 'style="width: 300px; white-space: normal;">
-//                                                <span style="font-size: 13px;"><strong> ' . $notiftitle . ' </strong></span><br>
-//                                                ' . $notifdesc . ' <br>
-//                                                <span style="font-size: 10px;"> ' . $notifdate . ' </span><br>
-//                                            </a>
-//                                            <div class="dropdown-divider"></div>';
-//                                }
-//                            } else {
-//                                echo '
-//                                            <a class="dropdown-item" href="#" style="width: 300px; white-space: normal;">
-//                                                No new notifications.
-//                                            </a>';
-//                            }
-                ?>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="notifications.php" style="color: blue; width: 300px; white-space: normal;">
-                                                <center>View All Notifications</center>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    </li>
-                                </ul>-->
-
-                <ul class="navbar-nav px-3">
-                    <li class="nav-item text-nowrap">
-                    <li class="nav-item dropdown">
-                        <button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span data-feather="user"></span>
-                            <?php
-                            echo $_SESSION['user_name'];
-                            ?>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item active" href="account.php">
-                                <i class="fas fa-user-cog"></i>
-                                Account
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../../logout.php">
-                                <span data-feather="log-out"></span>  Log Out
-                            </a>
-                        </div>
-                    </li>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <div class="container-fluid">
+        <div class="container">
 
             <main role="main" class="col-md-12 ml-sm-auto">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Account Settings</h1>
+                    <h1 class="h2 mt-5">Account Settings</h1>
                 </div>
 
                 <div class="row">
-
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="card">
                             <ul class="list-group list-group-flush">
-                                <a href="account.php"><li class="list-group-item">User Information <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="account2.php"><li class="list-group-item">Security <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="account3.php"><li class="list-group-item active">Activity Logs <span style="float:right;" class="fas fa-caret-right"></span></li></a>
+                                <a href="account.php"><li class="list-group-item">User Information <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="account2.php"><li class="list-group-item">Security <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="account3.php"><li class="list-group-item active">Activity Logs <span class="fas fa-caret-right float-right"></span></li></a>
                             </ul>
                         </div>
                     </div>
 
-
-                    <div class='col-sm-10'>
+                    <div class='col-sm-9'>
                         <div class="card">
                             <div class="card-header">
                                 <h5>
@@ -349,10 +184,8 @@ if (isset($_POST['updatePass'])) {
                                 </h5>
                             </div>
 
-                            <div class="card-body">
-
+                            <div class="card-body" style="overflow-x: auto;">
                                 <table id="data_table" class="table table-striped table-responsive-lg">
-
                                     <thead>
                                         <tr>
                                             <th>Timestamp</th>
@@ -409,8 +242,9 @@ if (isset($_POST['updatePass'])) {
             </main>               
         </div>
 
+        <!-- FOOTER -->
         <div class="container-fluid header">
-            <div align="center" style="font-size: 11px; color:white;">
+            <div class="text-center text-white" style="font-size: 11px;">
                 IICS Help Desk © 2019
             </div>
         </div>

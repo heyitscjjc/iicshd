@@ -189,13 +189,11 @@ if (isset($_POST['empRegister'])) {
         include '../../navbar.php';
     ?>
 
-        <div class="container-fluid">
-
-
+        <div class="container mb-5">
             <main role="main" class="col-md-12 ml-sm-auto">
 
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Control Panel</h1>
+                    <h1 class="h2 mt-5">Control Panel</h1>
                 </div>
 
                 <?php
@@ -208,19 +206,19 @@ if (isset($_POST['empRegister'])) {
 
                 <div class="row">
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="card">
                             <ul class="list-group list-group-flush">
-                                <a href="cpanel.php"><li class="list-group-item">General <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="cpanel2.php"><li class="list-group-item">User Accounts <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="cpanel3.php"><li class="list-group-item">Queue Settings <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="cpanel4.php"><li class="list-group-item">Manage Uploads <span style="float:right;" class="fas fa-caret-right"></span></li></a>
-                                <a href="cpanel5.php"><li class="list-group-item active">Create Admin <span style="float:right;" class="fas fa-caret-right"></span></li></a>
+                                <a href="cpanel.php"><li class="list-group-item">General <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="cpanel2.php"><li class="list-group-item">User Accounts <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="cpanel3.php"><li class="list-group-item">Queue Settings <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="cpanel4.php"><li class="list-group-item">Manage Uploads <span class="fas fa-caret-right float-right"></span></li></a>
+                                <a href="cpanel5.php"><li class="list-group-item active">Create Admin <span class="fas fa-caret-right float-right"></span></li></a>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <div class="card">
                             <h4 class="card-header">Create Admin</h4>
                             <div class="card-body">
@@ -317,12 +315,12 @@ if (isset($_POST['empRegister'])) {
 
         </div>
 
+        <!-- FOOTER -->
         <div class="container-fluid header">
-            <div align="center" style="font-size: 11px; color:white;">
+            <div class="text-center text-white" style="font-size: 11px;">
                 IICS Help Desk © 2019
             </div>
         </div>
-
 
 
         <!-- Bootstrap core JavaScript

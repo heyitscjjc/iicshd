@@ -252,13 +252,11 @@ if (isset($_POST['deletepost'])) {
         include '../../navbar.php';
     ?>
 
-        <div class="container-fluid">
-		
-		
+        <div class="container">
             <main role="main" class="col-md-12 ml-sm-auto">
 
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Home</h1>
+                    <h1 class="h2 mt-5">Home</h1>
                 </div>
 
                 <?php
@@ -298,18 +296,18 @@ if (isset($_POST['deletepost'])) {
                                 <form action="" method="POST">
 
                                     <div class="form-group">
-                                        <label for="title">Title <span class="require">*</span></label>
+                                        <label for="title">Title: <span style="color: red;">*</span></label>
                                         <input type="text" class="form-control" name="pTitle" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="description">Description</label>
+                                        <label for="description">Description:</label>
                                         <textarea rows="2" class="form-control" name="pDesc" required ></textarea>
                                     </div>
 									
 									<div class="form-group">
                                         <select required class="form-control" name="dept">
-                                            <option class="hidden" value="" selected disabled>Department: *</option>
+                                            <option class="hidden" value="" selected disabled>Department: <span style="color: red !important;">*</span></option>
                                             <?php
                                             $prof = mysqli_query($conn, "SELECT * from dept");
                                             if ($prof->num_rows > 0) {
@@ -331,18 +329,13 @@ if (isset($_POST['deletepost'])) {
                                         </button>
                                         <br>
                                     </div>
-									
-									</div>
                                 </form>
                             </div>
                         </div>
                     </div>
-
-
-            <main role="main" class="col-md-12 ml-sm-auto">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Home</h1>
                 </div>
+
+                <br>
 
                 <?php
                 $announceSelect = "SELECT announcements.annno, announcements.anntitle, announcements.anndesc, announcements.anndate, announcements.userno, users.fname, users.mname, users.lname FROM announcements LEFT JOIN users ON users.userno = announcements.userno WHERE announcements.hidden = '0' ORDER BY announcements.annno DESC";
@@ -378,8 +371,9 @@ if (isset($_POST['deletepost'])) {
             </main>
         </div>
 
+        <!-- FOOTER -->
         <div class="container-fluid header">
-            <div align="center" style="font-size: 11px; color:white;">
+            <div class="text-center text-white" style="font-size: 11px;">
                 IICS Help Desk © 2019
             </div>
         </div>

@@ -181,6 +181,7 @@ html {
     padding: 10px;
     text-align: center;
     background: #2e2e2e;
+    /* background-color: #CF1727; */
     color: white;
     font-size: 30px;
 }
@@ -189,6 +190,7 @@ html {
     padding: 10px;
     text-align: center;
     background: #2e2e2e;
+    /* background-color: #CF1727; */
     color: white;
     font-size: 30px;
 }
@@ -196,8 +198,8 @@ html {
 .headerline {
     padding: 1px;
     text-align: center;
-    /* background: #b00f24; */
-    background-color: yellow;
+    background: #b00f24;
+    /* background-color: #A7ADC2; */
     color: white;
     font-size: 2px;
 }
