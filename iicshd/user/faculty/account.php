@@ -27,7 +27,7 @@ if (isset($_POST['insertsched'])) {
 
     $c = $consulday . " " . $consulstart . "-" . $consulend;
 
-    $submitSql = $conn->prepare("INSERT INTO consulthours VALUES ('', ?, 1, ?)");
+    $submitSql = $conn->prepare("INSERT INTO consulthours VALUES (NULL, ?, 1, ?)");
     $submitSql->bind_param("ss", $_SESSION['userno'], $c);
     $submitSql->execute();
     $submitSql->close();

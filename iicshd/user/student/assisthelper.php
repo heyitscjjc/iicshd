@@ -204,10 +204,10 @@
 </script>
 
 
-<div class="container mt-5 p-5 w-50" style="border:1px solid grey; border-radius: 30px; background-color: #ecf0f1;">
+<div class="container mt-5 p-5 w-50" style="border-radius: .25rem; background-color: #ecf0f1;">
     <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';">
         <p style="text-align: right;"><button class="btn text-white" style="background-color: #6D0000;" name="btnDeleteConvo">Delete conversation and start over</button></p><br>
-        <div class="p-3" style="background-color: white; border-radius: 10px">
+        <div class="p-3" style="background-color: white; border-radius: .25rem;">
         <?php
             if(is_array(@$_SESSION['previousMessages'])){
                 foreach (@$_SESSION['previousMessages']  as $key => $val) {

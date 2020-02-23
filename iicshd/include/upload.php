@@ -49,7 +49,7 @@ if (isset($_POST["uploadFile"])) {
             $passval = 'Document template uploaded.';
 
             $passaction = "File Upload";
-            $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+            $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
             $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
             $logpass->execute();
             $logpass->close();
@@ -58,12 +58,12 @@ if (isset($_POST["uploadFile"])) {
             $notifdesc = "New File Available: " . $_FILES['fileToUpload']['name'] . ".";
             $notifaudience = "student";
             
-            $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+            $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
             $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
             $notif->execute();
             $notif->close();
 
-            $fileSql = $conn->prepare("INSERT INTO files VALUES ('',?,?,NOW(),'0')");
+            $fileSql = $conn->prepare("INSERT INTO files VALUES (NULL,?,?,NOW(),'0')");
             $fileSql->bind_param("ss", $fileName, $_FILES["fileToUpload"]["name"]);
             $fileSql->execute();
             $fileSql->close();

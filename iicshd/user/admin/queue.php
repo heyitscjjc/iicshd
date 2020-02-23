@@ -50,7 +50,7 @@ if (isset($_POST['toggleClose'])) {
         $passval = 'Closed queue successfully.';
 
         $passaction = "Queue Control";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -76,7 +76,7 @@ if (isset($_POST['toggleOpen'])) {
         $passval = 'Opened queue successfully.';
 
         $passaction = "Queue Control";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -102,7 +102,7 @@ if (isset($_POST['adminIn'])) {
         $passval = 'Admin is available.';
 
         $passaction = "Queue Control";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -128,7 +128,7 @@ if (isset($_POST['adminOut'])) {
         $passval = 'Admin is unavailable.';
 
         $passaction = "Queue Control";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -156,7 +156,7 @@ if (isset($_POST['qStart'])) {
     $notifdesc = "Now Serving Queue Ticket No. " . $qqno . "";
     $notifaudience = $getquser;
 
-    $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+    $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
     $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
     $notif->execute();
     $notif->close();
@@ -231,13 +231,13 @@ if (isset($_POST['qNext'])) {
     $userQ = $conn->prepare("UPDATE users SET inqueue=? WHERE userno=?");
     $userQ->bind_param("ii", $inqueue, $qnumdone);
 
-    $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES ('', ?, ?, ?, ?, ?, NOW(), ?)");
+    $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES (NULL, ?, ?, ?, ?, ?, NOW(), ?)");
     $insertQ->bind_param("isssss", $qnumdone, $qtype, $qtitle, $qdesc, $qremarks, $qstatus);
 
-    $submitDoc = $conn->prepare("INSERT INTO documents VALUES ('', NOW(), ?, ?, ?, ?, ?,'0', ?, ?)");
+    $submitDoc = $conn->prepare("INSERT INTO documents VALUES (NULL, NOW(), ?, ?, ?, ?, ?,'0', ?, ?)");
     $submitDoc->bind_param("issssis", $qnumdone, $qtitle, $qdesc, $docstatus, $docDir, $hidden, $docISO);
 
-    $submitSql2 = $conn->prepare("INSERT INTO doclogs VALUES ('', NOW(), ?, ?, ?, ?, '0', ?)");
+    $submitSql2 = $conn->prepare("INSERT INTO doclogs VALUES (NULL, NOW(), ?, ?, ?, ?, '0', ?)");
     $submitSql2->bind_param("isssi", $qnumdone, $qtitle, $qdesc, $docstatus, $hidden);
 
     if ($nextQuery == TRUE) {
@@ -265,7 +265,7 @@ if (isset($_POST['qNext'])) {
         $passval = 'Queue No. ' . $qqdone . ' listed as Done.';
 
         $passaction = "Queue Control";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -277,7 +277,7 @@ if (isset($_POST['qNext'])) {
             $notifdesc = "Title: " . $qtitle . " / Moved to New Submissions";
             $notifaudience = "admin";
 
-            $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+            $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
             $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
             $notif->execute();
             $notif->close();
@@ -317,7 +317,7 @@ if (isset($_POST['qNoShow'])) {
     $userQ = $conn->prepare("UPDATE users SET inqueue=? WHERE userno=?");
     $userQ->bind_param("ii", $inqueue, $qnumdone);
 
-    $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES ('', ?, ?, ?, ?, 'No-Show', NOW(), ?)");
+    $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES (NULL, ?, ?, ?, ?, 'No-Show', NOW(), ?)");
     $insertQ->bind_param("issss", $qnumdone, $qtype, $qtitle, $qdesc, $qstatus);
 
     if ($nextQuery == TRUE) {
@@ -345,7 +345,7 @@ if (isset($_POST['qNoShow'])) {
         $passval = 'Queue No. ' . $qqdone . ' listed as No-Show.';
 
         $passaction = "Queue Control";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();

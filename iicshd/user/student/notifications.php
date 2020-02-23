@@ -77,7 +77,7 @@ if (isset($_POST['updatePass'])) {
                         $passval = 'Password changed.';
 
                         $passaction = "Change Password";
-                        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+                        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
                         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
                         $logpass->execute();
                         $logpass->close();

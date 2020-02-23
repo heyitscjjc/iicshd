@@ -44,7 +44,7 @@ if (isset($_POST['updatedoc2'])) {
     if ($editquery == TRUE) {
         $passval = 'Consultation Request No. ' . $edit_doc_no . ' changed status to ' . $docstatus . '.';
         $passaction = "Update Consultation Request Status";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -53,7 +53,7 @@ if (isset($_POST['updatedoc2'])) {
         $notifdesc = "Title: " . $edit_doc_title . " (" . $docstatus . ")";
         $notifaudience = $edit_doc_user;
 
-        $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
         $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
         $notif->execute();
         $notif->close();
@@ -84,7 +84,7 @@ if (isset($_POST['updatedoc3'])) {
 
         $passval = 'Consultation Request No. ' . $edit_doc_no . ' changed status to ' . $docstatus . '.';
         $passaction = "Update Consultation Request Remarks";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -93,7 +93,7 @@ if (isset($_POST['updatedoc3'])) {
         $notifdesc = "Title: " . $edit_doc_title . " (" . $constatus . ")";
         $notifaudience = $edit_doc_user;
 
-        $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
         $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
         $notif->execute();
         $notif->close();

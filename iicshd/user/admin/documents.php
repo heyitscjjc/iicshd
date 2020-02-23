@@ -43,7 +43,7 @@ if (isset($_POST['updatedoc'])) {
         $passval = 'Document No. ' . $edit_doc_no . ' changed status to ' . $docstatus . '';
 
         $passaction = "Update Document Status";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -52,7 +52,7 @@ if (isset($_POST['updatedoc'])) {
         $notifdesc = "Document Title: " . $doctitle . " / Status: " . $docstatus . "";
         $notifaudience = $docuserno;
 
-        $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
         $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
         $notif->execute();
         $notif->close();
@@ -87,7 +87,7 @@ if (isset($_POST['updatedoc2'])) {
         $passval = 'Document No. ' . $edit_doc_no . ' changed status to ' . $docstatus . '';
 
         $passaction = "Update Document Status";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -96,7 +96,7 @@ if (isset($_POST['updatedoc2'])) {
         $notifdesc = "Document Title: " . $doctitle . " / Status: " . $docstatus . "";
         $notifaudience = $docuserno;
 
-        $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
         $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
         $notif->execute();
         $notif->close();
@@ -131,7 +131,7 @@ if (isset($_POST['receiveRel'])) {
             $notifdesc = "Document Title: " . $docTitle . " / Status: " . $docstatus . "";
             $notifaudience = "admin";
 
-            $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+            $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
             $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
             $notif->execute();
             $notif->close();

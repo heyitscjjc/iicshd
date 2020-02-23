@@ -65,10 +65,10 @@ if (isset($_POST['submitCon'])) {
     $cPref = $_POST['conPref'];
     $cStatus = "Requested";
 
-    $submitSql = $conn->prepare("INSERT INTO consultations VALUES ('', ?, ?, ?, ?, NOW(), ?, ?, '','0','0','0')");
+    $submitSql = $conn->prepare("INSERT INTO consultations VALUES (NULL, ?, ?, ?, ?, NOW(), ?, ?, '','0','0','0')");
     $submitSql->bind_param("ssiiss", $cTitle, $cDesc, $cProf, $_SESSION['userno'], $cPref, $cStatus);
 
-    $submitSql2 = $conn->prepare("INSERT INTO consultlogs VALUES ('', ?, ?, ?, ?, NOW(), ?, ?, '0')");
+    $submitSql2 = $conn->prepare("INSERT INTO consultlogs VALUES (NULL, ?, ?, ?, ?, NOW(), ?, ?, '0')");
     $submitSql2->bind_param("ssiiss", $cTitle, $cDesc, $cProf, $_SESSION['userno'], $cPref, $cStatus);
 
 
@@ -85,7 +85,7 @@ if (isset($_POST['submitCon'])) {
         $passval = 'Consultation Request (' . $cTitle . ') sent.';
 
         $passaction = "Consultation Request";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -94,7 +94,7 @@ if (isset($_POST['submitCon'])) {
         $notifdesc = "Title: " . $cTitle . "";
         $notifaudience = $cProf;
 
-        $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
         $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
         $notif->execute();
         $notif->close();

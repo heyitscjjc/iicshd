@@ -42,7 +42,7 @@ if (isset($_POST['postAnnouncement'])) {
     $pTitle = clean($_POST["pTitle"]);
     $pDesc = clean($_POST["pDesc"]);
 
-    $announceSql = $conn->prepare("INSERT INTO announcements VALUES ('', ?, ?, NOW(), ?, '0', '0')");
+    $announceSql = $conn->prepare("INSERT INTO announcements VALUES (NULL, ?, ?, NOW(), ?, '0', '0', '0')");
     $announceSql->bind_param("ssi", $pTitle, $pDesc, $_SESSION['userno']);
 
     if ($announceSql == TRUE) {
@@ -53,7 +53,7 @@ if (isset($_POST['postAnnouncement'])) {
         $passval = 'Announcement posted successfully.';
 
         $passaction = "Post Announcement";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -62,7 +62,7 @@ if (isset($_POST['postAnnouncement'])) {
         $notifdesc = "" . $pTitle . " posted by " . $_SESSION['user_name'] . "";
         $notifaudience = "all";
 
-        $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),'')");
+        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),'')");
         $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
         $notif->execute();
         $notif->close();
@@ -122,7 +122,7 @@ if (isset($_POST['editpost'])) {
         $passval = 'Announcement edited successfully.';
 
         $passaction = "Edit Announcement";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -179,7 +179,7 @@ if (isset($_POST['deletepost'])) {
         $passval = 'Announcement deleted successfully.';
 
         $passaction = "Delete Announcement";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();

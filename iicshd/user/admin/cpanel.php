@@ -99,7 +99,7 @@ if (isset($_POST['addnewsecq'])) {
 
     if ($bool == TRUE) {
 
-        $addnewsec = $conn->prepare("INSERT INTO secq VALUES ('', ?)");
+        $addnewsec = $conn->prepare("INSERT INTO secq VALUES (NULL, ?)");
         $addnewsec->bind_param("s", $newsecq);
 
         $addnewsec->execute();
@@ -108,7 +108,7 @@ if (isset($_POST['addnewsecq'])) {
         $passval = 'Added security question successfully.';
 
         $passaction = "Add Security Question";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -139,7 +139,7 @@ if (isset($_POST['addSection'])) {
 
     if ($bool == TRUE) {
 
-        $addnewsec = $conn->prepare("INSERT INTO sections VALUES ('', ?, '0')");
+        $addnewsec = $conn->prepare("INSERT INTO sections VALUES (NULL, ?, '0')");
         $addnewsec->bind_param("s", $newsection);
 
         $addnewsec->execute();
@@ -148,7 +148,7 @@ if (isset($_POST['addSection'])) {
         $passval = 'Added section successfully.';
 
         $passaction = "Add Section";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -178,7 +178,7 @@ if (isset($_POST['updateSched'])) {
         $passval = 'Updated schedule link of ' . $schedname . ' successfully.';
 
         $passaction = "Update Schedule Link";
-        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+        $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
         $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
         $logpass->execute();
         $logpass->close();
@@ -187,7 +187,7 @@ if (isset($_POST['updateSched'])) {
         $notifdesc = "Updated " . $schedname . ".";
         $notifaudience = "all";
 
-        $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
         $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
         $notif->execute();
         $notif->close();

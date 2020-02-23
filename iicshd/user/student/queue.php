@@ -39,10 +39,10 @@ if (isset($_POST['getQueueNum'])) {
 
     if ($docTitle == "") {
 
-        $submitSql = $conn->prepare("INSERT INTO queue VALUES ('', ?, ?, ?, ?, NOW(), ?)");
+        $submitSql = $conn->prepare("INSERT INTO queue VALUES (NULL, ?, ?, ?, ?, NOW(), ?)");
         $submitSql->bind_param("issss", $_SESSION['userno'], $qType, $docTitle, $qDesc, $qStatus);
 
-        $submitSql2 = $conn->prepare("INSERT INTO queuelogs VALUES ('', ?, ?, ?, ?, '', NOW(), ?)");
+        $submitSql2 = $conn->prepare("INSERT INTO queuelogs VALUES (NULL, ?, ?, ?, ?, '', NOW(), ?)");
         $submitSql2->bind_param("issss", $_SESSION['userno'], $qType, $docTitle, $qDesc, $qStatus);
 
         $userQ = $conn->prepare("UPDATE users SET inqueue=? WHERE userno=?");
@@ -69,7 +69,7 @@ if (isset($_POST['getQueueNum'])) {
             $passval = 'Queue Ticket No. ' . $qnologs . ' / ' . $qType . '';
 
             $passaction = "Get Queue Ticket";
-            $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+            $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
             $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
             $logpass->execute();
             $logpass->close();
@@ -78,7 +78,7 @@ if (isset($_POST['getQueueNum'])) {
             $notifdesc = "A New Queue Ticket has been added to the Waiting list.";
             $notifaudience = "admin";
 
-            $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+            $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
             $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
             $notif->execute();
             $notif->close();
@@ -92,10 +92,10 @@ if (isset($_POST['getQueueNum'])) {
         }
     } elseif ($docTitle != "") {
 
-        $submitSql = $conn->prepare("INSERT INTO queue VALUES ('', ?, ?, ?, ?, NOW(), ?)");
+        $submitSql = $conn->prepare("INSERT INTO queue VALUES (NULL, ?, ?, ?, ?, NOW(), ?)");
         $submitSql->bind_param("issss", $_SESSION['userno'], $qType, $docTitle, $qDesc2, $qStatus);
 
-        $submitSql2 = $conn->prepare("INSERT INTO queuelogs VALUES ('', ?, ?, ?, ?, '', NOW(), ?)");
+        $submitSql2 = $conn->prepare("INSERT INTO queuelogs VALUES (NULL, ?, ?, ?, ?, '', NOW(), ?)");
         $submitSql2->bind_param("issss", $_SESSION['userno'], $qType, $docTitle, $qDesc2, $qStatus);
 
         $userQ = $conn->prepare("UPDATE users SET inqueue=? WHERE userno=?");
@@ -122,7 +122,7 @@ if (isset($_POST['getQueueNum'])) {
             $passval = 'Queue Ticket No. ' . $qnologs . ' / ' . $qType . '';
 
             $passaction = "Get Queue Ticket";
-            $logpass = $conn->prepare("INSERT INTO updatelogs VALUES ('',?,?,NOW(),?)");
+            $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
             $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
             $logpass->execute();
             $logpass->close();
@@ -131,7 +131,7 @@ if (isset($_POST['getQueueNum'])) {
             $notifdesc = "A New Queue Ticket has been added to the Waiting list.";
             $notifaudience = "admin";
 
-            $notif = $conn->prepare("INSERT INTO notif VALUES ('',?,?,?,?,NOW(),0)");
+            $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
             $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
             $notif->execute();
             $notif->close();
