@@ -62,7 +62,7 @@ if (isset($_POST['postAnnouncement'])) {
         $notifdesc = "" . $pTitle . " posted by " . $_SESSION['user_name'] . "";
         $notifaudience = "all";
 
-        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),'')");
+        $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),0)");
         $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
         $notif->execute();
         $notif->close();

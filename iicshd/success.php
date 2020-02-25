@@ -105,7 +105,7 @@ if ($studSuccess == '1') {
                         $hashedv = password_hash($inputv, PASSWORD_DEFAULT);
                         //insert the user into the database
 
-                        $sqladd = $conn->prepare("INSERT INTO users VALUES ('',?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
+                        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
                         $sqladd->bind_param("ssssssisisisii", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsecq, $hashedSecAns, $hidden, $hashedv, $verified, $studdept); //16
                         $sqladd->execute();
                         $sqladd->close();
@@ -196,7 +196,7 @@ if ($studSuccess == '1') {
                         $hashedv = password_hash($inputv, PASSWORD_DEFAULT);
                         //insert the user into the database
 
-                        $sqladd = $conn->prepare("INSERT INTO users VALUES ('',?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
+                        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
                         $sqladd->bind_param("ssssssisisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsecq, $hashedSecAns, $hidden, $hashedv, $verified);
                         $sqladd->execute();
                         $sqladd->close();
@@ -282,7 +282,7 @@ header("Location: index.php");
                             <?php
 							echo $vcode;
                             if ($codefail == TRUE) {
-                                echo "<div class='alert alert-danger'> Wrong verification code. Please check your <b>Spam</b> folder if you can't locate the email.</div>";
+                                echo "<div class='alert alert-danger'> Wrong code. Please check your <b>Spam</b> folder if you can't locate the email.</div>";
                             } else {
                                 echo '';
                             }
@@ -303,14 +303,14 @@ header("Location: index.php");
                                                 $mail->addReplyTo('noreply.iicshd@gmail.com', 'IICS Help Desk'); // Add a recipient
 
                                                 $mail->isHTML(true);                                  // Set email format to HTML
-                                                $mail->Subject = 'IICS Help Desk | Verify Your Account';
+                                                $mail->Subject = 'IICS Help Desk | Your Student Account';
                                                 $mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
                                                         . '<p>Thank you for signing up STUDENT!</p>'
-                                                        . '<p>Please input the <b>verification code</b> to complete registration.</p>'
+                                                        . '<p>Please input the <b>code</b> to complete registration.</p>'
                                                         . '<hr>'
                                                         . '<p align="left"><b>Name: </b>' . $studfname . ' ' . $studlname . '</p>
                                                            <p align="left"><b>User ID: </b>' . $studnum . '</p>
-                                                           <p align="left"><b>Verification Code: </b>' . $vcode . '</p>'
+                                                           <p align="left"><b>Code: </b>' . $vcode . '</p>'
                                                         . '<hr></body></html>';
 
                                                 $mail->send();
@@ -329,14 +329,14 @@ header("Location: index.php");
                                                 $mail->addReplyTo('noreply.iicshd@gmail.com', 'IICS Help Desk'); // Add a recipient
 
                                                 $mail->isHTML(true);                                  // Set email format to HTML
-                                                $mail->Subject = 'IICS Help Desk | Verify Your Account';
+                                                $mail->Subject = 'IICS Help Desk | Your Faculty Account';
                                                 $mail->Body = '<div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
                                                         . '<p>Thank you for signing up FACULTY!</p>'
-                                                        . '<p>Please input the <b>verification code</b> to complete registration.</p>'
+                                                        . '<p>Please input the <b>code</b> to complete registration.</p>'
                                                         . '<hr>'
                                                         . '<p align="left"><b>Name: </b>' . $empfname . ' ' . $emplname . '</p>
                                                            <p align="left"><b>User ID: </b>' . $empnum . '</p>
-                                                           <p align="left"><b>Verification Code: </b>' . $vcode . '</p>'
+                                                           <p align="left"><b>Code: </b>' . $vcode . '</p>'
                                                         . '<hr>';
 
                                                 $mail->send();
