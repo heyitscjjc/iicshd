@@ -136,7 +136,8 @@ if (isset($_POST['studRegister'])) {
         //insert the user into the database
 
         $sqladd = $conn->prepare("INSERT INTO users_temp VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
-        $sqladd->bind_param("ssssssisisisii", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsecq, $hashedSecAns, $hidden, $vcode, $verified, $studdept);
+        $sqladd->bind_param("ssssssisisisii", $studnum, $studfname, $studmname, $studlname, $studemail, 
+        $hashedPwd, $forgot, $studrole, $studsecq, $hashedSecAns, $hidden, $vcode, $verified, $studdept);
         $sqladd->execute();
         $sqladd->close();
 
@@ -351,7 +352,7 @@ if (isset($_SESSION['tab'])) {
             <br>
             <div class="row">
                 <div class="col-md-5 left">
-                    <div align="center"><img src="img/logo3_3.png" alt=""/><br/><br/></div>
+                    <div style="text-align: right;"><img src="img/iicshdv2Register.png" alt="" height=384/><br/><br/></div>
                 </div>
 
                 <div class="col-md-7 right">

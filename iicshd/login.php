@@ -44,9 +44,12 @@ if (isset($_SESSION['resetpass']) && $_SESSION['resetpass'] == 0) {
 
         <br>
         <!-- form start -->
-        <div align="center" class="container">
+        <div style="text-align: center;" class="container">
 
-            <center><img src="img/logo3_3.png"></center>
+            <img src="img/iicshdv2def.png" height=256>
+            <br><br>
+            <h1 style="font-weight: 900; font-size: 48; color: #6d0000;">IICS HD</h1>
+            <p>Help Desk and Queueing System</p>
             <div align="center" class="container-fluid card card-container">
                 <?php echo $registerSuccess; ?>
                 <form class="form-signin" action="" method="POST">
