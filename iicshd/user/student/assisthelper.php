@@ -178,14 +178,15 @@
                 bottom:0;                
                 border-top: 5px solid #b00f24;
             }
-            /* .btn{
+            .btn{
                 transition-duration: 0.10s;
                 cursor: pointer;
-            }
-            .btn:hover {
-                background-color: #800000;
                 color: white;
-            } */
+            } 
+            .btn:hover {
+                background-color: #ecf0f1;
+                color: black;
+            } 
         </style>
 
         <!-- Font Awesome JS -->
@@ -204,9 +205,9 @@
 </script>
 
 
-<div class="container mt-5 p-5 w-50" style="border-radius: .25rem; background-color: #ecf0f1;">
+<div class="container mt-5 p-5 w-50" style="border-radius: .25rem; background-color: white;">
     <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';">
-        <p style="text-align: right;"><button class="btn text-white" style="background-color: #6D0000;" name="btnDeleteConvo">Delete conversation and start over</button></p><br>
+        <p style="text-align: right;"><button class="btn" style="background-color: #6D0000;" name="btnDeleteConvo">Delete conversation and start over</button></p><br>
         <div class="p-3" style="background-color: white; border-radius: .25rem;">
         <?php
             if(is_array(@$_SESSION['previousMessages'])){
@@ -243,7 +244,7 @@
                 <input type="text" id="query" name="query" class="form-control" placeholder="Send a message..."<?php echo $style;?>>
             </div>
             <div class="col-sm-3">
-                <button class="btn text-white" style="background-color: #6D0000;" name="send"<?php echo $style;?>>Send message</button>
+                <button class="btn" style="background-color: #6D0000;" name="send"<?php echo $style;?>>Send message</button>
             </div>
         </div>
     </form>
