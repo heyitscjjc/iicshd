@@ -271,16 +271,14 @@ header("Location: index.php");
             <br>
             <div class="row">
                 <div class="col-md-5 left">
-                    <div align="center"><img src="img/logo3_3.png" alt=""/><br/><br/></div>
+                    <div style="text-align: right;"><img src="img/email.png" alt="" height=256/><br/><br/></div>
                 </div>
 
                 <div class="col-md-7 right">
                     <div class="card">
                         <div class="card-body">
-                            <span class="fas fa-2x fa-user-check"></span>
                             <center><h4>Almost Done!</h4></center>
                             <?php
-							echo $vcode;
                             if ($codefail == TRUE) {
                                 echo "<div class='alert alert-danger'> Wrong code. Please check your <b>Spam</b> folder if you can't locate the email.</div>";
                             } else {

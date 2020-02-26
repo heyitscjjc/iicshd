@@ -56,13 +56,12 @@ if (!isset($_SESSION['user_name'])) {
             <br>
             <div class="row">
                 <div class="col-md-5 left">
-                    <div align="center"><img src="img/logo3_3.png" alt=""/><br/><br/></div>
+                    <div align="center"><img src="img/emailVerified.png" alt="" height=256/><br/><br/></div>
                 </div>
 
                 <div class="col-md-7 right">
                     <div class="card">
                         <div class="card-body">
-                            <span class="fas fa-2x fa-check-circle"></span>
                             <center><h4>Registration Successful!</h4></center>
                             <center><h5>Your account has been verified.</h5></center>
                             <?php $_SESSION['param'] = ''; ?>

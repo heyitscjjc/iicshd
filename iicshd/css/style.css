@@ -360,3 +360,15 @@ html {
     border: 1px solid #ccc;
     border-top: none;
 }
+.btn.btn-signin {
+    background-color: #b00f24;
+}
+.btn.btn-signin:hover {
+    background-color: #2e2e2e;
+}
+.btnRegister {
+    background-color: #b00f24;
+}
+.btnRegister:hover {
+    background-color: #2e2e2e;
+}

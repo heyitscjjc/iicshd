@@ -357,7 +357,7 @@ if (isset($_POST['deletepost'])) {
                                                                 </div>
                                                                 <div class="card-body">
                                                                     <h5 class="card-title">' . $anntitle . '</h5>
-                                                                    <p class="card-text" style="font-size: 12px;">' . date("m/d/Y h:iA", strtotime($anndate)) . ' by ' . $usercreated . '</p>
+                                                                    <p class="card-text" style="font-size: 12px;">' . date("m/d/Y h:iA", strtotime($anndate)) . ' by ' . $usercreated . '</p> 
                                                                     <p class="card-text" style="font-size: 15px;">' . $anndesc . '</p>
                                                                 </div>
                                                             </div>
@@ -419,7 +419,7 @@ if (isset($_POST['deletepost'])) {
                 <hr>
 
                 <?php
-                $announceSelect = "SELECT announcements.annno, announcements.anntitle, announcements.anndesc, announcements.anndate, announcements.userno, users.fname, users.mname, users.lname FROM announcements LEFT JOIN users ON users.userno = announcements.userno WHERE announcements.hidden = '0' ORDER BY announcements.annno DESC";
+                $announceSelect = "SELECT announcements.annno, announcements.anntitle, announcements.anndesc, announcements.anndate, announcements.userno, announcements.deptno, users.fname, users.mname, users.lname FROM announcements LEFT JOIN users ON users.userno = announcements.userno WHERE announcements.hidden = '0' ORDER BY announcements.annno DESC";
                 $result = $conn->query($announceSelect);
 
                 if ($result->num_rows > 0) {
@@ -429,14 +429,30 @@ if (isset($_POST['deletepost'])) {
                         $anndesc = $row['anndesc'];
                         $anndate = $row['anndate'];
                         $usercreated = ($row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']);
-
+                        $department = $row['deptno'];
+                        if($department == 0){
+                            $departmentName = "IICS COMMUNITY";
+                            $deptColor = "#b00f24";
+                        }
+                        else if($department == 1){
+                            $departmentName = "COMPUTER SCIENCE";
+                            $deptColor = "#3498db";
+                        }
+                        else if($department == 2){
+                            $departmentName = "INFORMATION SYSTEMS";
+                            $deptColor = "#7f8c8d";
+                        }
+                        else if($department == 3){
+                            $departmentName = "INFORMATION TECHNOLOGY";
+                            $deptColor = "#2ecc71";
+                        }   
                         echo '<div class="card">
                                         <div class="card-header bg-dark text-white">
                                             <h6></h6>
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">' . $anntitle . '</h5>
-                                            <p class="card-text" style="font-size: 12px;">' . date("m/d/Y h:iA", strtotime($anndate)) . ' by ' . $usercreated . '</p>
+                                            <p class="card-text" style="font-size: 12px;">' . date("m/d/Y h:iA", strtotime($anndate)) . ' by ' . $usercreated . ' <span style="background-color:' . $deptColor . ';color: white;padding: 3px;">' . $departmentName . '</span><p>
                                             <p class="card-text" style="font-size: 15px;">' . $anndesc . '</p>
                                         </div>
                                   </div><br>';
