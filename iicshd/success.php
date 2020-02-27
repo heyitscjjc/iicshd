@@ -302,14 +302,21 @@ header("Location: index.php");
 
                                                 $mail->isHTML(true);                                  // Set email format to HTML
                                                 $mail->Subject = 'IICS Help Desk | Your Student Account';
-                                                $mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
+
+                                                ob_start();
+                                                include 'emails/emailVerify.php';
+                                                $emailBody = ob_get_clean();
+
+                                                $mail->Body = $emailBody;
+                                                $mail->Body = $emailBody;
+                                                /*$mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
                                                         . '<p>Thank you for signing up STUDENT!</p>'
                                                         . '<p>Please input the <b>code</b> to complete registration.</p>'
                                                         . '<hr>'
                                                         . '<p align="left"><b>Name: </b>' . $studfname . ' ' . $studlname . '</p>
                                                            <p align="left"><b>User ID: </b>' . $studnum . '</p>
                                                            <p align="left"><b>Code: </b>' . $vcode . '</p>'
-                                                        . '<hr></body></html>';
+                                                        . '<hr></body></html>';*/
 
                                                 $mail->send();
                                             } catch (Exception $ex) {

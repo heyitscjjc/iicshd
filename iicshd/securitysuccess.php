@@ -122,12 +122,17 @@ unset($_SESSION['seq']);
 
                                 $mail->isHTML(true);                                  // Set email format to HTML
                                 $mail->Subject = 'IICS Help Desk | Forgot Password';
-                                $mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
+
+                                ob_start();
+                                include 'emails/emailForgotPass.php';
+                                $emailBody = ob_get_clean();
+                                $mail->Body = $emailBody;
+                                /*$mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
                                         . '<p>You have requested for a password reset.</p>'
                                         . '<p>Please use the given <b>temporary password</b> for logging-in.</p>'
                                         . '<hr>'
                                         . '<p align="left"><b>Temporary Password: </b>' . $temp_pass . '</p>'
-                                        . '<hr></body></html>';
+                                        . '<hr></body></html>';*/
                             } catch (Exception $ex) {
                                 echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
                             }

@@ -170,13 +170,17 @@ if (isset($_POST['qStart'])) {
 
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'IICS Help Desk | Now Serving Your Queue Ticket';
-        $mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
+        ob_start();
+        include '../../emails/emailQueue.php';
+        $emailBody = ob_get_clean();
+        $mail->Body = $emailBody;
+        /*$mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
                 . '<p>Your Queue Ticket is in the Now Serving List.</p>'
                 . '<p>You may now proceed to the IICS office.</p>'
                 . '<p>Failure to do so will result in a "No-Show", making way for other students in the Queue.</p>'
                 . '<hr>'
                 . '<p align="left"><b>Queue Ticket No: </b>' . $qqno . '</p>'
-                . '<hr></body></html>';
+                . '<hr></body></html>';*/
         $mail->send();
     } catch (Exception $ex) {
         echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
@@ -385,7 +389,36 @@ if (isset($_POST['qNoShow'])) {
                 position:fixed;
                 bottom:0;                
                 border-top: 5px solid #b00f24;
+
             }
+            .blink_text {
+                font-weight: 900;
+                font-size: 100px;;
+                animation:1s blinker linear infinite;
+                -webkit-animation:1s blinker linear infinite;
+                -moz-animation:1s blinker linear infinite;
+
+                color: none;
+                }
+
+                @-moz-keyframes blinker {  
+                0% { opacity: 1.0; }
+                50% { opacity: 0.0; }
+                100% { opacity: 1.0; }
+                }
+
+                @-webkit-keyframes blinker {  
+                0% { opacity: 1.0; }
+                50% { opacity: 0.0; }
+                100% { opacity: 1.0; }
+                }
+
+                @keyframes blinker {  
+                0% { opacity: 1.0; }
+                50% { opacity: 0.0; }
+                100% { opacity: 1.0; }
+                }
+            
         </style>
 
         <!-- Font Awesome JS -->
@@ -440,6 +473,7 @@ if (isset($_POST['qNoShow'])) {
                 } else {
                     echo '<form method="post" action="">';
                     echo '&nbsp; <button class="btn btn-dark" type = "submit" name="adminOut"><span class="fas fa-user-tie"></span> Admin is Unavailable</button> ';
+                    echo '&nbsp; <button class="btn btn-dark" type = "submit" name="refreshQueue"><a href="queue.php" style="color:white;text-decoration:none;"><span class="fas fa-redo"></span> Refresh Queue</a></button> ';
                     echo '</form></div>';
                 }
                 echo '</h5> '
@@ -458,7 +492,7 @@ if (isset($_POST['qNoShow'])) {
                 echo '<div class = "col-lg-6">
                     <div class = "card">
                     <div class = "card-header bg-info text-white">
-                    <center><h5>Now Serving</h5></center>
+                    <center><h5 style="font-size: 58px;">Now Serving</h5></center>
                     </div>
                     <div class = "card-body">';
                 if ($qQuery->num_rows > 0) {
@@ -475,7 +509,7 @@ if (isset($_POST['qNoShow'])) {
 
                         echo' <div style = "align: center;">
                                 
-                    <center><h1>' . $qno . '</h1></center>
+                    <center><h1 class="blink_text">' . $qno . '</h1></center>
                     <hr>
                     <p align="left"><b>Student Number:</b> ' . $userid . '</p>
                     <p align="left"><b>Student Name:</b> ' . $username . '</p>
