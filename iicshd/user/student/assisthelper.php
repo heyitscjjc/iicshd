@@ -221,15 +221,15 @@
         <br><h3><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
         <?php
             if(strpos($_SESSION['repliedMessage'], "Anything else")){
-                echo "<button class='btn' name='btnYes'>Yes, there's something else</button>";
-                echo " <button class='btn' name='btnNone'>None</button>";
+                echo "<button class='btn btn-secondary' name='btnYes'>Yes, there's something else</button>";
+                echo " <button class='btn btn-secondary' name='btnNone'>None</button>";
             }
             if(strpos($_SESSION['repliedMessage'], "ticket")){
-                echo " <a href='queue.php#getQueue' target='_blank'> <button class='btn' name='btnGetTicket'>Open a ticket</button></a>";
-                echo " <button class='btn' name='btnYes'>Yes, I have already submitted one</button>";
+                echo " <a href='queue.php#getQueue' target='_blank'> <button class='btn btn-secondary' name='btnGetTicket'>Open a ticket</button></a>";
+                echo " <button class='btn btn-secondary' name='btnYes'>Yes, I have already submitted one</button>";
             }
             if(strpos($_SESSION['repliedMessage'], "track")){
-                echo "<button class='btn' name='btnDocs'>Visit Documents page</button>";
+                echo "<button class='btn btn-secondary' name='btnDocs'>Visit Documents page</button>";
             }
             if(strpos($_SESSION['repliedMessage'], "inquiry") || strpos($_SESSION['repliedMessage'], "first-time") || strpos($_SESSION['repliedMessage'], "type")){
                 echo "<p>Don't know where to start? Try</p>";
