@@ -308,7 +308,6 @@ header("Location: index.php");
                                                 $emailBody = ob_get_clean();
 
                                                 $mail->Body = $emailBody;
-                                                $mail->Body = $emailBody;
                                                 /*$mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
                                                         . '<p>Thank you for signing up STUDENT!</p>'
                                                         . '<p>Please input the <b>code</b> to complete registration.</p>'

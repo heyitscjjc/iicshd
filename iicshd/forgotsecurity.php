@@ -166,12 +166,15 @@ if (!isset($_SESSION['seq'])) {
 
                                     $mail->isHTML(true);                                  // Set email format to HTML
                                     $mail->Subject = 'IICS Help Desk | Forgot Security Question';
-                                    $mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
+                                    /*$mail->Body = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
                                             . '<p>Please input the <b>verification code</b> to proceed with resetting your password.</p>'
                                             . '<hr>'
                                             . '<p align="left"><b>Verification Code: </b>' . $vcode . '</p>'
-                                            . '<hr></body></html>';
-
+                                            . '<hr></body></html>';*/
+                                    ob_start();
+                                    include 'emails/emailForgotSecQues.php';
+                                    $emailBody = ob_get_clean();
+                                    $mail->Body = $emailBody;
                                     $mail->send();
                                 } catch (Exception $ex) {
                                     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;

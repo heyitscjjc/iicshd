@@ -36,19 +36,21 @@
             array_push($_SESSION['previousMessages'], "You: " .  "None");
             array_push($_SESSION['previousMessages'], "-END OF CONVERSATION-");
             $conversation = implode( "<p>", $_SESSION['previousMessages']);
-            $messageBody = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
+            /*$messageBody = '<html><head></head><body><div align="center"><img src="https://i.imgur.com/yqJNKhh.png" alt="IICS Help Desk"/></center>'
             . '<h2>Nice talking with you.</h2>'
             . '<p>Here is our conversation earlier. You can use this as a reference in the future.</p>'
             . $conversation
-            .'<hr></body></html>';
+            .'<hr></body></html>';*/
             //Recipients
             $mail->setFrom('noreply.iicshd@gmail.com', 'IICS Help Desk');
             $mail->addAddress($_SESSION['email']);
             $mail->addReplyTo('noreply.iicshd@gmail.com', 'IICS Help Desk'); // Add a recipient
-
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'IICS Help Desk | Conversation with the Assistant';
-            $mail->Body = $messageBody;
+            ob_start();
+            include '../../emails/emailChatTranscript.php';
+            $emailBody = ob_get_clean();
+            $mail->Body = $emailBody;
             $mail->send();
             $_SESSION['previousMessages'] = array();
             $_SESSION['context'] = null;
@@ -64,6 +66,11 @@
     if(isset($_POST['btnDocs'])){
         array_push($_SESSION['previousMessages'], "You pressed on 'View submitted Documents'.");
         header("location:/iicshd/user/student/documents.php");
+        exit();
+    }
+    if(isset($_POST['btnAcntSettings'])){
+        array_push($_SESSION['previousMessages'], "You pressed on Account Settings.");
+        header("location:/iicshd/user/student/account.php");
         exit();
     }
     if(isset($_POST['btnClassSchedule'])){
@@ -166,7 +173,7 @@
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/dashboard.css" rel="stylesheet">
         <link href="../../fa-5.5.0/css/fontawesome.css" rel="stylesheet">
-
+        <link href="../../css/style.css" rel="stylesheet">
         <style>
             .header {
                 padding: 10px;
@@ -181,11 +188,8 @@
             .btn{
                 transition-duration: 0.10s;
                 cursor: pointer;
+                font-weight: normal;
                 color: white;
-            } 
-            .btn:hover {
-                background-color: #ecf0f1;
-                color: black;
             } 
         </style>
 
@@ -207,7 +211,7 @@
 
 <div class="container mt-5 p-5 w-50" style="border-radius: .25rem; background-color: white;">
     <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';">
-        <p style="text-align: right;"><button class="btn" style="background-color: #6D0000;" name="btnDeleteConvo">Delete conversation and start over</button></p><br>
+        <p style="text-align: right;"><button class="btn btn-lg btn-success btn-block btn-signin" name="btnDeleteConvo" style="width: 250px; float: right;">Delete conversation and start over</button></p><br><br>
         <div class="p-3" style="background-color: white; border-radius: .25rem;">
         <?php
             if(is_array(@$_SESSION['previousMessages'])){
@@ -231,6 +235,9 @@
             if(strpos($_SESSION['repliedMessage'], "track")){
                 echo "<button class='btn btn-secondary' name='btnDocs'>Visit Documents page</button>";
             }
+            if(strpos($_SESSION['repliedMessage'], "account settings")){
+                echo "<button class='btn btn-secondary' name='btnAcntSettings'>Visit Account Settings</button>";
+            }
             if(strpos($_SESSION['repliedMessage'], "inquiry") || strpos($_SESSION['repliedMessage'], "first-time") || strpos($_SESSION['repliedMessage'], "type")){
                 echo "<p>Don't know where to start? Try</p>";
                 echo "<button class='btn btn-secondary' name='btnTrack'>Track Documents</button>";
@@ -244,7 +251,7 @@
                 <input type="text" id="query" name="query" class="form-control" placeholder="Send a message..."<?php echo $style;?>>
             </div>
             <div class="col-sm-3">
-                <button class="btn" style="background-color: #6D0000;" name="send"<?php echo $style;?>>Send message</button>
+                <button class="btn btn-lg btn-success btn-block btn-signin" name="send"<?php echo $style;?>>Send message</button>
             </div>
         </div>
     </form>
