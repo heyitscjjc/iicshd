@@ -125,7 +125,7 @@ if (!isset($_SESSION['seq'])) {
             <div class="row">
 
                 <div class="col-md-5 left">
-                    <div align="center"><img src="img/logo3_3.png" alt=""/><br/><br/></div>
+                    <div style="text-align: right;"><img src="img/passwordReset.png" height=256alt=""/><br/><br/></div>
                 </div>
 
                 <div class="col-md-7 right">

@@ -105,7 +105,7 @@ if ($studSuccess == '1') {
                         $hashedv = password_hash($inputv, PASSWORD_DEFAULT);
                         //insert the user into the database
 
-                        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
+                        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'0',?,?,?)");
                         $sqladd->bind_param("ssssssisisisii", $studnum, $studfname, $studmname, $studlname, $studemail, $hashedPwd, $forgot, $studrole, $studsecq, $hashedSecAns, $hidden, $hashedv, $verified, $studdept); //16
                         $sqladd->execute();
                         $sqladd->close();
@@ -196,7 +196,7 @@ if ($studSuccess == '1') {
                         $hashedv = password_hash($inputv, PASSWORD_DEFAULT);
                         //insert the user into the database
 
-                        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'',?,?,?)");
+                        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'0',?,?,?)");
                         $sqladd->bind_param("ssssssisisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsecq, $hashedSecAns, $hidden, $hashedv, $verified);
                         $sqladd->execute();
                         $sqladd->close();
