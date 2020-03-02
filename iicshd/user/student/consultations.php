@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_name'])) {
 }
 
 function fill_prof($conn) {
-    $prof = mysqli_query($conn, "SELECT userno, fname, mname, lname, section FROM users WHERE role = 'faculty'");
+    $prof = mysqli_query($conn, "SELECT userno, fname, mname, lname FROM users WHERE role = 'faculty'");
     if ($prof->num_rows > 0) {
         while ($row = $prof->fetch_assoc()) {
             $profname = ($row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']);
@@ -65,7 +65,7 @@ if (isset($_POST['submitCon'])) {
     $cPref = $_POST['conPref'];
     $cStatus = "Requested";
 
-    $submitSql = $conn->prepare("INSERT INTO consultations VALUES (NULL, ?, ?, ?, ?, NOW(), ?, ?, '','0','0','0')");
+    $submitSql = $conn->prepare("INSERT INTO consultations VALUES (NULL, ?, ?, ?, ?, NOW(), ?, ?, 'None','0','0','0')");
     $submitSql->bind_param("ssiiss", $cTitle, $cDesc, $cProf, $_SESSION['userno'], $cPref, $cStatus);
 
     $submitSql2 = $conn->prepare("INSERT INTO consultlogs VALUES (NULL, ?, ?, ?, ?, NOW(), ?, ?, '0')");
@@ -192,7 +192,31 @@ if (isset($_POST['submitCon'])) {
                                         <label for="description"><b>Professor: </b></label>
                                         <select name="cProf" id="cProf" class="form-control">
                                             <option disabled selected value>Select one: </option>
-                                            <?php echo fill_prof($conn); ?>
+                                            <?php
+                                            // echo fill_prof($conn); 
+                                            $prof = mysqli_query($conn, "SELECT userno, fname, mname, lname FROM users WHERE role = 'faculty'");
+                                            if ($prof->num_rows > 0) {
+                                                while ($row = $prof->fetch_assoc()) {
+                                                    $profname = ($row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']);
+                                                    $profno = $row['userno'];
+                                                    $profrole = $row['section'];
+                                                    if ($profrole == "faculty") {
+                                                        echo "<option value='" . $profno . "'>" . $profname . "</option>";
+                                                    } if ($profrole == "swdb") {
+                                                        echo "<option value='" . $profno . "'>" . $profname . " (SWDB Coordinator)</option>";
+                                                    } if ($profrole == "itchair") {
+                                                        echo "<option value='" . $profno . "'>" . $profname . " (IT Department Chair)</option>";
+                                                    } if ($profrole == "ischair") {
+                                                        echo "<option value='" . $profno . "'>" . $profname . " (IS Department Chair)</option>";
+                                                    } if ($profrole == "cschair") {
+                                                        echo "<option value='" . $profno . "'>" . $profname . " (CS Department Chair)</option>";
+                                                    }
+                                                }
+                                            } else {
+                                                echo"<option value=''></option>";
+                                            }
+                                            
+                                            ?>
                                         </select>
                                     </div>
 

@@ -196,7 +196,7 @@ if ($studSuccess == '1') {
                         $hashedv = password_hash($inputv, PASSWORD_DEFAULT);
                         //insert the user into the database
 
-                        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'0',?,?,?)");
+                        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'0',?,?,'0')");
                         $sqladd->bind_param("ssssssisisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsecq, $hashedSecAns, $hidden, $hashedv, $verified);
                         $sqladd->execute();
                         $sqladd->close();

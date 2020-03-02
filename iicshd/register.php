@@ -268,12 +268,8 @@ if (isset($_POST['empRegister'])) {
         $hashedSecAns = password_hash($empsecans, PASSWORD_DEFAULT);
         //insert the user into the database
 
-        //$sqladd = $conn->prepare("INSERT INTO users_temp VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'0',?,?)");
-        //$sqladd->bind_param("ssssssisisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsecq, $hashedSecAns, $hidden, $vcode, $verified);
-        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'0',?,?,?)");
-        $sqladd->bind_param("ssssssisisisii", $studnum, $studfname, $studmname, $studlname, $studemail, 
-        $hashedPwd, $forgot, $studrole, $studsecq, $hashedSecAns, $hidden, $vcode, $verified, $studdept);
-        
+        $sqladd = $conn->prepare("INSERT INTO users_temp VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'0',?,?, 'faculty')");
+        $sqladd->bind_param("ssssssisisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsecq, $hashedSecAns, $hidden, $vcode, $verified);
         $sqladd->execute();
         $sqladd->close();
 
