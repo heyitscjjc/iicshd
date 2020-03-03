@@ -5,22 +5,22 @@
  */
 
 
-$(function () {
+$(function() {
 
     $.validator.setDefaults({
         errorClass: 'form-text',
-        highlight: function (element) {
+        highlight: function(element) {
             $(element)
-                    .closest('.form-control')
-                    .addClass('is-invalid');
+                .closest('.form-control')
+                .addClass('is-invalid');
         },
-        unhighlight: function (element) {
+        unhighlight: function(element) {
             $(element)
-                    .closest('.form-control')
-                    .removeClass('is-invalid')
-                    .addClass('is-valid');
+                .closest('.form-control')
+                .removeClass('is-invalid')
+                .addClass('is-valid');
         },
-        errorPlacement: function (error, element) {
+        errorPlacement: function(error, element) {
             if (element.prop('type') === 'checkbox') {
                 error.insertAfter(element.parent());
             } else {
@@ -29,31 +29,35 @@ $(function () {
         }
     });
 
-    jQuery.validator.addMethod("ustedu", function (value, element) {
+    jQuery.validator.addMethod("ustedu", function(value, element) {
         return this.optional(element) || /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ust)\.edu\.ph*$/.test(value);
     }, "Please use your <em>ust.edu.ph</em> email address.");
 
-    jQuery.validator.addMethod("passwordx", function (value, element) {
+    jQuery.validator.addMethod("facultyustedu", function(value, element) {
+        return this.optional(element) || /^[A-Za-z]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ust)\.edu\.ph*$/.test(value);
+    }, "Please use your <em>ust.edu.ph</em> faculty email address.");
+
+    jQuery.validator.addMethod("passwordx", function(value, element) {
         return this.optional(element) || /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/.test(value);
     }, "Your password must be atleast 8 characters long and must be a combination of uppercase letters, lowercase letters and numbers.");
 
-    jQuery.validator.addMethod("num", function (value, element) {
+    jQuery.validator.addMethod("num", function(value, element) {
         return this.optional(element) || /^(20)([0-9]{8})*$/.test(value);
     }, "Invalid student number. Sample: 2011001234");
 
-    jQuery.validator.addMethod("empnum", function (value, element) {
+    jQuery.validator.addMethod("empnum", function(value, element) {
         return this.optional(element) || /^(19|20)([0-9]{8})*$/.test(value);
     }, "Invalid employee number. Sample: 2011001234");
 
-    jQuery.validator.addMethod("fname", function (value, element) {
+    jQuery.validator.addMethod("fname", function(value, element) {
         return this.optional(element) || /^[a-zA-Z\u00f1\u00d1 ]*$/u.test(value);
     }, "Input must contain letters only.");
 
-    jQuery.validator.addMethod("mname", function (value, element) {
+    jQuery.validator.addMethod("mname", function(value, element) {
         return this.optional(element) || /^[a-zA-Z\u00f1\u00d1 ]*$/u.test(value);
     }, "Input must contain letters only.");
 
-    jQuery.validator.addMethod("lname", function (value, element) {
+    jQuery.validator.addMethod("lname", function(value, element) {
         return this.optional(element) || /^[a-zA-Z\u00f1\u00d1 ]*$/u.test(value);
     }, "Input must contain letters only.");
 
@@ -157,7 +161,7 @@ $(function () {
             empemail: {
                 required: true,
                 email: true,
-                ustedu: true
+                facultyustedu: false
             },
             emppass: {
                 required: true,
@@ -187,7 +191,7 @@ $(function () {
             },
             empemail: {
                 required: 'This field is required.',
-                email: 'Please use your <em>ust.edu.ph</em> email address.'
+                // email: 'Please use your <em>ust.edu.ph</em> email address.'
             },
             emppass: {
                 required: 'This field is required.'
@@ -206,5 +210,3 @@ $(function () {
 
     });
 });
-
-
