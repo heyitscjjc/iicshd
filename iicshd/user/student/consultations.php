@@ -55,7 +55,7 @@ if (isset($_POST['submitCon'])) {
     $cPref = $_POST['conPref'];
     $cStatus = "Requested";
 
-    $submitSql = $conn->prepare("INSERT INTO consultations VALUES (NULL, ?, ?, ?, ?, NOW(), ?, ?, 'None','0','0','0')");
+    $submitSql = $conn->prepare("INSERT INTO consultations VALUES (NULL, ?, ?, ?, ?, NOW(), ?, ?, 'None',NULL,NULL,NOW())");
     $submitSql->bind_param("ssiiss", $cTitle, $cDesc, $cProf, $_SESSION['userno'], $cPref, $cStatus);
 
     $submitSql2 = $conn->prepare("INSERT INTO consultlogs VALUES (NULL, ?, ?, ?, ?, NOW(), ?, ?, '0')");
