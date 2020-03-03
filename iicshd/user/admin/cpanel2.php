@@ -419,7 +419,7 @@ if (isset($_POST['updatefac'])) {
                                     </div>
 
                                     <div class="tab-pane container fade" id="faculty">
-                                        <table id="facultymembers" class="table table-striped table-lg">
+                                        <table id="facultymembers" class="table table-striped table-responsive table-lg">
                                             <thead>
                                                 <tr>
                                                     <th>Faculty #</th>
