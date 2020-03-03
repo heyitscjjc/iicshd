@@ -222,11 +222,11 @@ if (isset($_POST['qNext'])) {
     $qdesc = $_POST['userQDesc'];
     $qstatus = "Done";
     $inqueue = "0";
-    $docstatus = "Received by Office.";
+    $docstatus = "Submitted at IICS Office";
     $hidden = "0";
 	$docISO = "N/A";
     $qremarks = $_POST['remarks'];
-    $docDir = "Submitted at IICS Office";
+    $docDir = "N/A";
     $nextQuery = $conn->prepare("UPDATE queue SET qstatus=? WHERE qno=?");
     $nextQuery->bind_param("si", $qstatus, $qqdone);
     $nextQuery->execute();

@@ -191,7 +191,7 @@ $(function() {
             },
             empemail: {
                 required: 'This field is required.',
-                // email: 'Please use your <em>ust.edu.ph</em> email address.'
+                email: 'Please use your <em>ust.edu.ph</em> email address.'
             },
             emppass: {
                 required: 'This field is required.'

@@ -234,7 +234,7 @@ if (isset($_POST['receiveRel'])) {
 
                                         <?php
                                         $newsubquery = mysqli_query($conn, "SELECT LPAD(documents.docno,4,0), documents.docdatesubmit, users.userno, users.fname, users.mname, users.lname, documents.doctitle,"
-                                                . "documents.docdesc, documents.docstatus FROM documents INNER JOIN users WHERE documents.userno = users.userno AND documents.docstatus = 'Submitted' AND documents.hidden = '0'");
+                                                . "documents.docdesc, documents.docstatus FROM documents INNER JOIN users WHERE documents.userno = users.userno AND documents.docstatus = 'Submitted at IICS Office' AND documents.hidden = '0'");
 
                                         if ($newsubquery->num_rows > 0) {
                                             while ($row = $newsubquery->fetch_assoc()) {
@@ -485,7 +485,7 @@ if (isset($_POST['receiveRel'])) {
                                                                                     <p><strong>Description: </strong>' . $docdesc . '</p>
                                                                                     <p><strong>Date Submitted: </strong>' . date("m/d/Y h:iA", strtotime($docdatesubmit)) . '</p>
 																					<p><strong>ISO: </strong>' . $docISO . '</p> 
-																					<p><strong>Change ISO: </strong><input type="textbox" name="docISO" id="docISO" value=""></p>
+																					<p><strong>Change ISO: </strong><input type="textbox" name="docISO" id="docISO" value="'. $docISO .'"></p>
                                                                                     <p><strong>Submitted By: </strong>' . $userid . '</p>  
                                                                                          <strong>Update Status: </strong><select name="edit_status2" id="edit_status2">
                                                                                     

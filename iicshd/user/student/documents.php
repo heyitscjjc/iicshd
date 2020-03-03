@@ -224,12 +224,13 @@ if (!isset($_SESSION['user_name'])) {
 
                         <thead>
                             <tr>
-                                <th>Document #</th>
+                                <th>Document#</th>
                                 <th>Date Submitted</th>
                                 <th>Submitted By</th>
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Status</th>
+                                <th>ISO Tracking#</th>
                             </tr>
                         </thead>
 
@@ -237,7 +238,7 @@ if (!isset($_SESSION['user_name'])) {
 
                             <?php
                             $newsubquery = mysqli_query($conn, "SELECT LPAD(documents.docno,4,0), documents.docdatesubmit, users.fname, users.mname, users.lname, documents.doctitle,"
-                                    . "documents.docdesc, documents.docstatus FROM documents INNER JOIN users WHERE documents.userno = users.userno "
+                                    . "documents.docdesc, documents.docstatus, documents.docISO FROM documents INNER JOIN users WHERE documents.userno = users.userno "
                                     . "AND documents.userno = " . $_SESSION['userno'] . " AND documents.docstatus != 'Received by Student'");
 
 
@@ -249,15 +250,15 @@ if (!isset($_SESSION['user_name'])) {
                                     $doctitle = $row['doctitle'];
                                     $docdesc = $row['docdesc'];
                                     $docstatus = $row['docstatus'];
-
+                                    $docISO = $row['docISO'];
                                     echo '<tr>'
                                     . '<td>' . $docid . '</td>'
                                     . '<td>' . date("m/d/Y h:iA", strtotime($docdatesubmit)) . '</td>'
                                     . '<td>' . $userid . '</td>'
                                     . '<td>' . $doctitle . '</td>'
                                     . '<td>' . $docdesc . '</td>'
-                                    . '<td>' . $docstatus . '</td>';
-                                    
+                                    . '<td>' . $docstatus . '</td>'
+                                    . '<td>' . $docISO . '</td>';
                                 }
                             }
                             ?>
@@ -271,6 +272,7 @@ if (!isset($_SESSION['user_name'])) {
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Status</th>
+                                <td>ISO Tracking#</th>
                             </tr>
                         </tfoot>
 
