@@ -238,8 +238,8 @@ if (isset($_POST['qNext'])) {
     $insertQ = $conn->prepare("INSERT INTO queuelogs VALUES (NULL, ?, ?, ?, ?, ?, NOW(), ?)");
     $insertQ->bind_param("isssss", $qnumdone, $qtype, $qtitle, $qdesc, $qremarks, $qstatus);
 
-    $submitDoc = $conn->prepare("INSERT INTO documents VALUES (NULL, NOW(), ?, ?, ?, ?, ?,'0', ?, ?)");
-    $submitDoc->bind_param("issssis", $qnumdone, $qtitle, $qdesc, $docstatus, $docDir, $hidden, $docISO);
+    $submitDoc = $conn->prepare("INSERT INTO documents VALUES (NULL, NOW(), ?, ?, ?, ?, NOW(),'0', ?, ?)");
+    $submitDoc->bind_param("isssis", $qnumdone, $qtitle, $qdesc, $docstatus, $hidden, $docISO);
 
     $submitSql2 = $conn->prepare("INSERT INTO doclogs VALUES (NULL, NOW(), ?, ?, ?, ?, '0', ?)");
     $submitSql2->bind_param("isssi", $qnumdone, $qtitle, $qdesc, $docstatus, $hidden);
