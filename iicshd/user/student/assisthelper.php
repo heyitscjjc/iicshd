@@ -18,7 +18,7 @@
 
     //CHATBOT COMMANDS
     function connectionError($errno, $errstr) {
-        echo "Can't connect to the internet. Try again later.";
+        echo "We can't reach to the Virtual Helper at the moment. Try again later.";
         die();
       }
     if(isset($_POST['send'])){
@@ -68,16 +68,45 @@
         header("location:/iicshd/user/student/documents.php");
         exit();
     }
+    if(isset($_POST['btnSchedules'])){
+        $_REQUEST['query']="View available Schedules";
+        array_push($_SESSION['previousMessages'], "View available Schedules");
+    }
     if(isset($_POST['btnAcntSettings'])){
         array_push($_SESSION['previousMessages'], "You pressed on Account Settings.");
         header("location:/iicshd/user/student/account.php");
         exit();
     }
-    if(isset($_POST['btnClassSchedule'])){
-        $_REQUEST['query']="View Schedules";
-        array_push($_SESSION['previousMessages'], "You: " .  "View Schedules");
+    if(isset($_POST['btnClass'])){
+        array_push($_SESSION['previousMessages'], "You pressent on View Class Schedule");
+        header("location:/iicshd/user/student/cschedule.php");
+        exit();  
+    }
+    if(isset($_POST['btnFaculty'])){
+        array_push($_SESSION['previousMessages'], "You pressent on View Faculty Schedule");
+        header("location:/iicshd/user/student/fschedule.php");
+        exit();  
+    }
+    if(isset($_POST['btnRoom'])){
+        array_push($_SESSION['previousMessages'], "You pressent on View Room Schedule");
+        header("location:/iicshd/user/student/rschedule.php");
+        exit();  
+    }
+    if(isset($_POST['btnRoom'])){
+        array_push($_SESSION['previousMessages'], "You pressent on View Room Schedule");
+        header("location:/iicshd/user/student/rschedule.php");
+        exit();  
+    }
+    if(isset($_POST['btnExam'])){
+        array_push($_SESSION['previousMessages'], "You pressent on View Exams Schedule");
+        header("location:/iicshd/user/student/eschedule.php");
+        exit();  
     }
     if(isset($_POST['btnTrack'])){
+        $_REQUEST['query']="Track Documents";
+        array_push($_SESSION['previousMessages'], "You: " .  "Track Documents");
+    }
+    if(isset($_POST['btnClass'])){
         $_REQUEST['query']="Track Documents";
         array_push($_SESSION['previousMessages'], "You: " .  "Track Documents");
     }
@@ -190,6 +219,7 @@
                 cursor: pointer;
                 font-weight: normal;
                 color: white;
+                margin: 2px;
             } 
         </style>
 
@@ -226,11 +256,11 @@
         <?php
             if(strpos($_SESSION['repliedMessage'], "Anything else")){
                 echo "<button class='btn btn-secondary' name='btnYes'>Yes, there's something else</button>";
-                echo " <button class='btn btn-secondary' name='btnNone'>None</button>";
+                echo "<button class='btn btn-secondary' name='btnNone'>None</button>";
             }
             if(strpos($_SESSION['repliedMessage'], "ticket")){
-                echo " <a href='queue.php#getQueue' target='_blank'> <button class='btn btn-secondary' name='btnGetTicket'>Open a ticket</button></a>";
-                echo " <button class='btn btn-secondary' name='btnYes'>Yes, I have already submitted one</button>";
+                echo "<a href='queue.php#getQueue' target='_blank'> <button class='btn btn-secondary' name='btnGetTicket'>Open a ticket</button></a>";
+                echo "<button class='btn btn-secondary' name='btnYes'>Yes, I have already submitted one</button>";
             }
             if(strpos($_SESSION['repliedMessage'], "track")){
                 echo "<button class='btn btn-secondary' name='btnDocs'>Visit Documents page</button>";
@@ -241,8 +271,15 @@
             if(strpos($_SESSION['repliedMessage'], "inquiry") || strpos($_SESSION['repliedMessage'], "first-time") || strpos($_SESSION['repliedMessage'], "type")){
                 echo "<p>Don't know where to start? Try</p>";
                 echo "<button class='btn btn-secondary' name='btnTrack'>Track Documents</button>";
-                echo " <a href='queue.php#getQueue' target='_blank'> <button class='btn btn-secondary' name='btnGetTicket'>Open a ticket</button></a>";
-                echo " <button class='btn btn-secondary' name='btnClassSchedule'>View classroom schedules</button>";
+                echo "<a href='queue.php#getQueue' target='_blank'> <button class='btn btn-secondary' name='btnGetTicket'>Open a ticket</button></a>";
+                echo "<button class='btn btn-secondary' name='btnSchedules'>View available schedules</button>";
+            }
+            if(strpos($_SESSION['repliedMessage'], "Schedules") !== false){
+                echo "<p>Available Schedules</p>";
+                echo "<button class='btn btn-secondary' name='btnClass'>Class Schedule</button>";
+                echo "<button class='btn btn-secondary' name='btnRoom'>Room Schedule</button>";
+                echo "<button class='btn btn-secondary' name='btnFaculty'>Faculty Schedule</button>";
+                echo "<button class='btn btn-secondary' name='btnExam'>Exams Schedule</button>";
             }
         ?>
         <br><br>

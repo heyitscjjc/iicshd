@@ -107,7 +107,7 @@ if (isset($_POST['unpinPost'])) {
     
     <?php 
         include '../../navbar.php';
-        echo "<p class='bg-warning' style='padding: 10px;'>NEW: Type in your inquiry and let it answered by the assistant helper. Check it now by clicking on the 'Ask me Anything' in the navigation bar.</p>"
+        echo "<p class='bg-warning' style='padding: 10px;'>NEW: Type in your inquiry and let it answered by the Virtual Helper. Check it now by clicking on the 'Ask me Anything' in the navigation bar.</p>"
     ?>
 
         <div class="container">
