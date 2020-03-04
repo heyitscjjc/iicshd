@@ -78,27 +78,27 @@
         exit();
     }
     if(isset($_POST['btnClass'])){
-        array_push($_SESSION['previousMessages'], "You pressent on View Class Schedule");
+        array_push($_SESSION['previousMessages'], "You pressed on View Class Schedule");
         header("location:/iicshd/user/student/cschedule.php");
         exit();  
     }
     if(isset($_POST['btnFaculty'])){
-        array_push($_SESSION['previousMessages'], "You pressent on View Faculty Schedule");
+        array_push($_SESSION['previousMessages'], "You pressed on View Faculty Schedule");
         header("location:/iicshd/user/student/fschedule.php");
         exit();  
     }
     if(isset($_POST['btnRoom'])){
-        array_push($_SESSION['previousMessages'], "You pressent on View Room Schedule");
+        array_push($_SESSION['previousMessages'], "You pressed on View Room Schedule");
         header("location:/iicshd/user/student/rschedule.php");
         exit();  
     }
     if(isset($_POST['btnRoom'])){
-        array_push($_SESSION['previousMessages'], "You pressent on View Room Schedule");
+        array_push($_SESSION['previousMessages'], "You pressed on View Room Schedule");
         header("location:/iicshd/user/student/rschedule.php");
         exit();  
     }
     if(isset($_POST['btnExam'])){
-        array_push($_SESSION['previousMessages'], "You pressent on View Exams Schedule");
+        array_push($_SESSION['previousMessages'], "You pressed on View Exams Schedule");
         header("location:/iicshd/user/student/eschedule.php");
         exit();  
     }
