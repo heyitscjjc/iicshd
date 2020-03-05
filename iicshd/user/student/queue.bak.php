@@ -1,21 +1,5 @@
 <?php
 include '../../include/controller.php';
-use PHPMailer\PHPMailer\PHPMailer;
-
-require '../../include/PHPMailer/src/SMTP.php';
-require '../../include/PHPMailer/src/Exception.php';
-require '../../include/PHPMailer/src/PHPMailer.php';
-
-$mail = new PHPMailer;
-
-$mail->isSMTP();                                      // Set mailer to use SMTP
-$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-$mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = 'noreply.iicshd@gmail.com';                 // SMTP username
-$mail->Password = '1ng0dw3trust';                           // SMTP password
-$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-$mail->Port = 587;
-
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "admin") {
     header("location:/iicshd/user/admin/home.php");
 }
@@ -43,22 +27,6 @@ if (isset($_GET['queue'])) {
 }
 
 if (isset($_POST['getQueueNum'])) {
-
-    try {
-        //Recipients
-        $mail->setFrom('noreply.iicshd@gmail.com', 'IICS Help Desk');
-        $mail->addAddress($_SESSION['email']);
-        $mail->addReplyTo('noreply.iicshd@gmail.com', 'IICS Help Desk'); // Add a recipient
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'IICS Help Desk | You have opened a ticket';
-        ob_start();
-        include '../../emails/emailstartQueue.php';
-        $emailBody = ob_get_clean();
-        $mail->Body = $emailBody;
-        $mail->send();
-    } catch (Exception $ex) {
-        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-    }
 
     $docTitle = $_POST['docTitle'];
     $qno = $_POST['qno'];
@@ -365,7 +333,7 @@ if (isset($_POST['getQueueNum'])) {
                                         . '<div class="card-body">'
                                         . '<h2 class="text-center">' . $qno . '</h2>'
                                         . '<h6 class="text-center">' . $qdate . '</h6>'
-                                        . '<p>* Make sure you configured correctly your email notifications settings for us to notify you via Email when it is your turn.</p>'
+                                        . '<p>* We will notify you via Email when it is your turn. Make sure you configured correctly your email notifications settings.</p>'
                                         . '<hr>'
                                         . '<h6 class="text-center">Transaction Type: ' . $qtype . '</h6>';
                                         if ($qtype == 'Other') {
