@@ -326,13 +326,14 @@ if (isset($_POST['getQueueNum'])) {
                         </div>
                     </div>';
                                     } else {
-                                        echo '<div class="card">'
+                                        echo '<div class="card" style="text-align:center;">'
                                         . '<div class="card-header">'
                                         . '<h4 class="text-center my-3">Your Queue Number</h4>'
                                         . '</div>'
                                         . '<div class="card-body">'
                                         . '<h2 class="text-center">' . $qno . '</h2>'
                                         . '<h6 class="text-center">' . $qdate . '</h6>'
+                                        . '<p>* We will notify you via Email when it is your turn. Make sure you configured correctly your email notifications settings.</p>'
                                         . '<hr>'
                                         . '<h6 class="text-center">Transaction Type: ' . $qtype . '</h6>';
                                         if ($qtype == 'Other') {

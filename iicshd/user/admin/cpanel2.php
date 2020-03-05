@@ -304,7 +304,6 @@ if (isset($_POST['updatefac'])) {
                                                     <th>Student #</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
-                                                    <th>Section</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -319,14 +318,12 @@ if (isset($_POST['updatefac'])) {
                                                         $getuid = $row['userid'];
                                                         $getuname = ($row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']);
                                                         $getumail = $row['email'];
-                                                        $getusection = $row['section'];
                                                         $getstatus = $row['hidden'];
 
                                                         echo "<tr>"
                                                         . "<td>" . $getuid . "</td>"
                                                         . "<td>" . $getuname . "</td>"
-                                                        . "<td>" . $getumail . "</td>"
-                                                        . "<td>" . $getusection . "</td>";
+                                                        . "<td>" . $getumail . "</td>";
                                                         if ($getstatus == 0) {
                                                             echo "<td> Active </td>"
                                                             . "<td>" . "<a href='#deactivate" . $getuno . "'data-toggle='modal'><button type='button' class='btn btn-danger btn-sm' title='Deactivate'><span class='fas fa-lock' aria-hidden='true'></span></button></a>" . "</td>";
@@ -410,7 +407,6 @@ if (isset($_POST['updatefac'])) {
                                                     <th>Student #</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
-                                                    <th>Section</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -427,7 +423,6 @@ if (isset($_POST['updatefac'])) {
                                                     <th>Email</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
-                                                    <th>Edit</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -441,7 +436,6 @@ if (isset($_POST['updatefac'])) {
                                                         $getuname2 = ($row2['fname'] . ' ' . $row2['mname'] . ' ' . $row2['lname']);
                                                         $getumail2 = $row2['email'];
                                                         $getstatus2 = $row2['hidden'];
-                                                        $getrole = $row2['section'];
 
                                                         echo "<tr>"
                                                         . "<td>" . $getuid2 . "</td>"
@@ -454,8 +448,8 @@ if (isset($_POST['updatefac'])) {
                                                             echo "<td> Deactivated </td>"
                                                             . "<td>" . "<a href='#activate" . $getuno2 . "'data-toggle='modal'><button type='button' class='btn btn-success btn-sm' title='Activate'><span class='fas fa-lock' aria-hidden='true'></span></button></a>" . "</td>";
                                                         }
-                                                        echo
-                                                        "<td>" . "<a href='#edit" . $getuno2 . "'data-toggle='modal'><button type='button' class='btn btn-dark btn-sm' title='Edit'><span class='fas fa-edit' aria-hidden='true'></span></button></a>" . "</td>";
+//                                                        echo
+//                                                        "<td>" . "<a href='#edit" . $getuno2 . "'data-toggle='modal'><button type='button' class='btn btn-dark btn-sm' title='Edit'><span class='fas fa-edit' aria-hidden='true'></span></button></a>" . "</td>";
 
                                                         echo '<div id="edit';
                                                         echo $getuno2;
@@ -474,19 +468,7 @@ if (isset($_POST['updatefac'])) {
                                                         echo '">
                                                                                 <input type="hidden" name="acname2" value="';
                                                         echo $getuname2;
-                                                        echo '">
-                                                                                <b>Current Status: </b>';
-                                                        if ($getrole == "faculty") {
-                                                            echo "Faculty";
-                                                        } if ($getrole == "itchair") {
-                                                            echo "IT Department Chair";
-                                                        } if ($getrole == "ischair") {
-                                                            echo "IS Department Chair";
-                                                        } if ($getrole == "cschair") {
-                                                            echo "CS Department Chair";
-                                                        } if ($getrole == "swdb") {
-                                                            echo "SWDB Coordinator";
-                                                        }
+                                                        echo '">';
                                                         echo'
                                                                                 <div class="form-group">
                                                                                    <b>Update Status: </b>
@@ -587,7 +569,6 @@ if (isset($_POST['updatefac'])) {
                                                     <th>Email</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
-                                                    <th>Edit</th>
                                                 </tr>
                                             </tfoot>
                                         </table>

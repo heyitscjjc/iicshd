@@ -27,6 +27,7 @@
     if(isset($_POST['btnYes'])){
         $_REQUEST['query']="Yes";
         array_push($_SESSION['previousMessages'], "You: " .  "Yes");
+        $style = "style='display:float;'";
     }
     if(isset($_POST['btnNone'])){
         try {
@@ -255,6 +256,7 @@
         <br><h3><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
         <?php
             if(strpos($_SESSION['repliedMessage'], "Anything else")){
+                $style = "style='display:none;'";
                 echo "<button class='btn btn-secondary' name='btnYes'>Yes, there's something else</button>";
                 echo "<button class='btn btn-secondary' name='btnNone'>None</button>";
             }
