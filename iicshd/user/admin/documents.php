@@ -26,10 +26,9 @@ if (isset($_POST['updatedoc'])) {
     $docstatus = $_POST['edit_status'];
     $docuserno = $_POST['docuserno'];
     $doctitle = $_POST['edit_doc_title'];
-	$docISO = $_POST['docISO'];
 
-    $editquery = $conn->prepare("UPDATE documents SET docstatus=?, docdatechange=NOW(), docISO=? WHERE docno=?");
-    $editquery->bind_param("ssi", $docstatus, $docISO, $edit_doc_no);
+    $editquery = $conn->prepare("UPDATE documents SET docstatus=?, docdatechange=NOW() WHERE docno=?");
+    $editquery->bind_param("si", $docstatus, $edit_doc_no);
     $editquery->execute();
     $editquery->close();
 

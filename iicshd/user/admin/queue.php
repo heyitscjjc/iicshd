@@ -465,6 +465,7 @@ if (isset($_POST['qNoShow'])) {
                 . '<form method="post" action="">'
                 . '<input type="hidden" name="closeQueue" value="0">'
                 . '<button class="btn btn-danger" type = "submit" name="toggleClose"><span class="fas fa-lock"></span> Close Queue</button> '
+                . '<button class="btn btn-dark" type = "submit" name="refreshQueue"><a href="queue.php" style="color:white;text-decoration:none;"><span class="fas fa-redo"></span> Refresh Queue</a></button> '
                 . '</form>';
                 if ($qadmin == '1') {
                     echo '<form method="post" action="">';
@@ -473,7 +474,6 @@ if (isset($_POST['qNoShow'])) {
                 } else {
                     echo '<form method="post" action="">';
                     echo '&nbsp; <button class="btn btn-dark" type = "submit" name="adminOut"><span class="fas fa-user-tie"></span> Admin is Unavailable</button> ';
-                    echo '&nbsp; <button class="btn btn-dark" type = "submit" name="refreshQueue"><a href="queue.php" style="color:white;text-decoration:none;"><span class="fas fa-redo"></span> Refresh Queue</a></button> ';
                     echo '</form></div>';
                 }
                 echo '</h5> '

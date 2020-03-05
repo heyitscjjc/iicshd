@@ -126,8 +126,8 @@ if (isset($_POST['empRegister'])) {
         $hashedSecAns = password_hash($empsecans, PASSWORD_DEFAULT);
         //insert the user into the database
 
-        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,'0',?,?)");
-        $sqladd->bind_param("ssssssissisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsection, $empsecq, $hashedSecAns, $hidden, $vcode, $verified);
+        $sqladd = $conn->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,'0',?,?,'0')");
+        $sqladd->bind_param("ssssssisisisi", $empnum, $empfname, $empmname, $emplname, $empemail, $hashedPwd, $forgot, $emprole, $empsecq, $hashedSecAns, $hidden, $vcode, $verified);
         $sqladd->execute();
         $sqladd->close();
 
