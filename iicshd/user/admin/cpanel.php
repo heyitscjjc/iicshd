@@ -1,7 +1,6 @@
 
 <?php
 include '../../include/controller.php';
-include '../../include/upload.php';
 
 if (isset($_SESSION['user_name']) && $_SESSION['role'] == "faculty") {
     header("location:/iicshd/user/faculty/home.php");
@@ -20,6 +19,82 @@ if (isset($_SESSION['user_name'])) {
 
 if (!isset($_SESSION['user_name'])) {
     header("location:/iicshd/index.php");
+}
+
+if (isset($_POST["uploadFile"])) {
+
+    $fileName = $_POST['fileName'];
+
+    $date = date("m/d/Y");
+
+    $target_dir = "../../uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $docFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+//        echo "Sorry, file already exists.";
+        $_GET['uploadfail'] = 'success';
+        header("Location: cpanel.php?uploadfail=success");
+        $uploadOk = 0;
+    }
+// Check file size
+    if ($_FILES["fileToUpload"]["size"] > 20000000) {
+//        echo "Sorry, your file is too large.";
+        $_GET['uploadfail'] = 'success';
+        header("Location: cpanel.php?uploadfail=success");
+        $uploadOk = 0;
+    }
+
+// Allow certain file formats
+    if ($docFileType != "pdf" && $docFileType != "docx" && $docFileType != "doc") {
+//        echo "Sorry, only PDF, DOCX, & DOC files are allowed.";
+        $_GET['uploadfail'] = 'success';
+        header("Location: cpanel.php?uploadfail=success");
+        $uploadOk = 0;
+    }
+
+// Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        $_GET['uploadfail'] = 'success';
+        header("Location: cpanel.php?uploadfail=success");
+//        echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            $_GET['upload'] = 'success';
+
+            $passval = 'Document template uploaded.';
+
+            $passaction = "File Upload";
+            $logpass = $conn->prepare("INSERT INTO updatelogs VALUES (NULL,?,?,NOW(),?)");
+            $logpass->bind_param("sss", $passaction, $_SESSION['user_name'], $passval);
+            $logpass->execute();
+            $logpass->close();
+
+            $notiftitle = "New File Upload";
+            $notifdesc = "New File Available: " . $_FILES['fileToUpload']['name'] . ".";
+            $notifaudience = "student";
+            
+            $notif = $conn->prepare("INSERT INTO notif VALUES (NULL,?,?,?,?,NOW(),'0')");
+            $notif->bind_param("isss", $_SESSION['userno'], $notiftitle, $notifdesc, $notifaudience);
+            $notif->execute();
+            $notif->close();
+
+            $fileSql = $conn->prepare("INSERT INTO files VALUES (NULL,?,?,NOW(),'0')");
+            $fileSql->bind_param("ss", $fileName, $_FILES["fileToUpload"]["name"]);
+            $fileSql->execute();
+            $fileSql->close();
+
+            header("Location: cpanel.php?upload=success");
+
+//            echo "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
+        } else {
+//            echo "Sorry, there was an error uploading your file.";
+        }
+    }
 }
 
 $secqErr = $_FILES['fileToUpload'] = $sectionErr = '';
@@ -450,210 +525,7 @@ if (isset($_POST['deletesec'])) {
                                     <br>
                                     <button type="submit" name = "addnewsecq" class="btn btn-success float-right">Add</button>
                                 </form>
-
                                 <br>
-
-                                <h5 class="card-title">Manage Sections</h5>
-                                <hr>
-                                <div class="alert alert-secondary"><span class="fas fa-exclamation-circle"></span>
-                                    The section list must be updated each time a new semester starts.
-                                </div>
-                                <hr>
-                                <table id="sections" class="table table-striped table-lg">
-
-                                    <thead>
-
-                                        <tr>
-
-                                            <th><center>Section</center></th>
-                                    <th><center>Status</center></th>
-                                    <th><center>Action</center></th>
-                                    <th><center>Edit</center></th>
-                                    <th><center>Delete</center></th>
-
-                                    </tr>
-
-                                    </thead>
-
-                                    <tbody>
-
-                                        <?php
-                                        $query = mysqli_query($conn, "SELECT * FROM sections");
-                                        if ($query->num_rows > 0) {
-                                            while ($row = $query->fetch_assoc()) {
-                                                $getsecno = $row['sectionno'];
-                                                $getsecname = $row['sectionname'];
-                                                $getstatus = $row['hidden'];
-
-                                                echo "<tr>"
-                                                . "<td>" . $getsecname . "</td>";
-                                                if ($getstatus == 0) {
-                                                    echo "<td> Active </td>"
-                                                    . "<td>" . "<center><a href='#deactivate" . $getsecno . "'data-toggle='modal'><button type='button' class='btn btn-danger btn-sm' title='Deactivate'><span class='fas fa-lock' aria-hidden='true'></span></button></a></center>" . "</td>";
-                                                } else {
-                                                    echo "<td> Deactivated </td>"
-                                                    . "<td>" . "<center><a href='#activate" . $getsecno . "'data-toggle='modal'><button type='button' class='btn btn-success btn-sm' title='Activate'><span class='fas fa-lock' aria-hidden='true'></span></button></a></center>" . "</td>";
-                                                }
-                                                echo "<td>" . "<center><a href='#editsec" . $getsecno . "'data-toggle='modal'><button type='button' class='btn btn-dark btn-sm' title='Edit'><span class='fas fa-edit' aria-hidden='true'></span></button></a></center>" . "</td>";
-                                                echo "<td>" . "<center><a href='#deletesec" . $getsecno . "'data-toggle='modal'><button type='button' class='btn btn-danger btn-sm' title='Delete'><span class='fas fa-trash' aria-hidden='true'></span></button></a></center>" . "</td>";
-
-                                                echo '<div id="activate';
-                                                echo $getsecno;
-                                                echo'" class="modal fade" role="dialog">
-                                                                <div class="modal-dialog modal-lg">
-                                                                    <form method="post">
-                                                                        <div class="modal-content">
-
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Activate Section</h4>
-                                                                            </div>
-
-                                                                            <div class="modal-body">
-                                                                                <input type="hidden" name="activate_id" value="';
-                                                echo $getsecno;
-                                                echo '">
-                                                                                <input type="hidden" name="acname" value="';
-                                                echo $getsecname;
-                                                echo '">
-
-                                                                                <div class="alert alert-warning"><p>Are you sure you want to ACTIVATE the section <strong>';
-                                                echo $getsecname;
-                                                echo'</strong>?</p>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="submit" name="activate" class="btn btn-success"><span class="fas fa-check"></span> Yes</button>
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times"></span> No</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>';
-
-
-                                                echo '<div id="deletesec';
-                                                echo $getsecno;
-                                                echo'" class="modal fade" role="dialog">
-                                                                <div class="modal-dialog modal-lg">
-                                                                    <form method="post">
-                                                                        <div class="modal-content">
-
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Delete Section</h4>
-                                                                            </div>
-
-                                                                            <div class="modal-body">
-                                                                                <input type="hidden" name="deletesec_id" value="';
-                                                echo $getsecno;
-                                                echo '">
-                                                                                <input type="hidden" name="deletesecname" value="';
-                                                echo $getsecname;
-                                                echo '">
-
-                                                                                <div class="alert alert-danger"><p>Are you sure you want to DELETE the section <strong>';
-                                                echo $getsecname;
-                                                echo'</strong>?</p>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="submit" name="deletesec" class="btn btn-success"><span class="fas fa-check"></span> Yes</button>
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times"></span> No</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>';
-
-
-                                                echo '<div id="editsec';
-                                                echo $getsecno;
-                                                echo'" class="modal fade" role="dialog">
-                                                                <div class="modal-dialog modal-lg">
-                                                                    <form method="post">
-                                                                        <div class="modal-content">
-
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Edit Section</h4>
-                                                                            </div>
-
-                                                                            <div class="modal-body">
-                                                                                <input type="hidden" name="editsec_id" value="';
-                                                echo $getsecno;
-                                                echo '">
-                                                                                <input type="text" class="form-control" name="editsecname" value="';
-                                                echo $getsecname;
-                                                echo '">
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="submit" name="editsec" class="btn btn-success"><span class="fas fa-check"></span> Save Changes</button>
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times"></span> No</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>';
-
-
-
-                                                echo '            <div id="deactivate';
-                                                echo $getsecno;
-                                                echo'" class="modal fade" role="dialog">
-                                                                <div class="modal-dialog modal-lg">
-                                                                    <form method="post">
-                                                                        <div class="modal-content">
-
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Deactivate Section</h4>
-                                                                            </div>
-
-                                                                            <div class="modal-body">
-                                                                                <input type="hidden" name="deactivate_id" value="';
-                                                echo $getsecno;
-                                                echo'">
-                                                                                <input type="hidden" name="deacname" value="';
-                                                echo $getsecname;
-                                                echo'">
-
-                                                                                <div class="alert alert-warning"><p>Are you sure you want to DEACTIVATE the section <strong>';
-                                                echo $getsecname;
-                                                echo'</strong>?</p>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="submit" name="deactivate" class="btn btn-success"><span class="fas fa-check"></span> Yes</button>
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times"></span> No</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>';
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Section</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                                <hr>
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    <label for="newSection">Add New Section: </label>
-
-                                    <input type="text" id="newSection" name="newSection" class="form-control" required><br>
-
-                                    <br>
-                                    <button type="submit" name = "addSection" class="btn btn-success float-right">Add</button>
-                                </form>
-
-                                <br>
-
                                 <h5 class="card-title">Update Schedule Link</h5>
                                 <hr>
                                 <form action="" method="post" enctype="multipart/form-data">
