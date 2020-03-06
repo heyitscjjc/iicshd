@@ -26,13 +26,13 @@ if (isset($_POST['updatedoc'])) {
     $docstatus = $_POST['edit_status'];
     $docuserno = $_POST['docuserno'];
     $doctitle = $_POST['edit_doc_title'];
-
-    $editquery = $conn->prepare("UPDATE documents SET docstatus=?, docdatechange=NOW() WHERE docno=?");
+    
+    $editquery = $conn->prepare("UPDATE documents SET docstatus='For release', docdatechange=NOW(), docdatesubmit=docdatesubmit WHERE docno=3");
     $editquery->bind_param("si", $docstatus, $edit_doc_no);
     $editquery->execute();
     $editquery->close();
 
-    $editquery2 = $conn->prepare("UPDATE doclogs SET docstatus=?, docdatechange=NOW() WHERE docno=?");
+    $editquery2 = $conn->prepare("UPDATE doclogs SET docstatus=?, docdatechange=NOW(), docdatesubmit=docdatesubmit WHERE docno=?");
     $editquery2->bind_param("si", $docstatus, $edit_doc_no);
     $editquery2->execute();
     $editquery2->close();
@@ -71,12 +71,12 @@ if (isset($_POST['updatedoc2'])) {
     $doctitle = $_POST['edit_doc_title2'];
 	$docISO = $_POST['docISO'];
 
-    $editquery = $conn->prepare("UPDATE documents SET docstatus=?, docdatechange=NOW(), docISO=? WHERE docno=?");
+    $editquery = $conn->prepare("UPDATE documents SET docstatus=?, docdatechange=NOW(), docISO=?, docdatesubmit=docdatesubmit WHERE docno=?");
     $editquery->bind_param("ssi", $docstatus, $docISO ,$edit_doc_no);
     $editquery->execute();
     $editquery->close();
 
-    $editquery2 = $conn->prepare("UPDATE doclogs SET docstatus=?, docdatechange=NOW() WHERE docno=?");
+    $editquery2 = $conn->prepare("UPDATE doclogs SET docstatus=?, docdatechange=NOW(), docdatesubmit=docdatesubmit WHERE docno=?");
     $editquery2->bind_param("si", $docstatus, $edit_doc_no);
     $editquery2->execute();
     $editquery2->close();
@@ -112,12 +112,12 @@ if (isset($_POST['receiveRel'])) {
     $docTitle = $_POST['docTitle'];
     $docstatus = "Received by Student";
 
-    $editquery = $conn->prepare("UPDATE documents SET docstatus=?, docdatechange=NOW() WHERE docno=?");
+    $editquery = $conn->prepare("UPDATE documents SET docstatus=?, docdatechange=NOW(), docdatesubmit=docdatesubmit WHERE docno=?");
     $editquery->bind_param("si", $docstatus, $recDoc);
     $editquery->execute();
     $editquery->close();
 
-    $editquery2 = $conn->prepare("UPDATE doclogs SET docstatus=?, docdatechange=NOW() WHERE docno=?");
+    $editquery2 = $conn->prepare("UPDATE doclogs SET docstatus=?, docdatechange=NOW(), docdatesubmit=docdatesubmit WHERE docno=?");
     $editquery2->bind_param("si", $docstatus, $recDoc);
     $editquery2->execute();
     $editquery2->close();

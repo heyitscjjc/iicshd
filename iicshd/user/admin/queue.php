@@ -241,7 +241,7 @@ if (isset($_POST['qNext'])) {
     $submitDoc = $conn->prepare("INSERT INTO documents VALUES (NULL, NOW(), ?, ?, ?, ?, NOW(),'0', ?, ?)");
     $submitDoc->bind_param("isssis", $qnumdone, $qtitle, $qdesc, $docstatus, $hidden, $docISO);
 
-    $submitSql2 = $conn->prepare("INSERT INTO doclogs VALUES (NULL, NOW(), ?, ?, ?, ?, '0', ?)");
+    $submitSql2 = $conn->prepare("INSERT INTO doclogs VALUES (NULL, NOW(), ?, ?, ?, ?, NOW(), ?)");
     $submitSql2->bind_param("isssi", $qnumdone, $qtitle, $qdesc, $docstatus, $hidden);
 
     if ($nextQuery == TRUE) {

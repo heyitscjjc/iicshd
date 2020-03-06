@@ -4,7 +4,6 @@
 session_start();
 require 'dbconn.php';
 require 'clean.php';
-date_default_timezone_set("Asia/Manila");
 $date = date("Y-m-d");
 $thisDate = date("Y-m-d");
 $date_time = date("Y-m-d h:i:sa");
