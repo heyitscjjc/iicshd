@@ -165,9 +165,6 @@ if (isset($_POST['updateSec'])) {
                                             <tr>
                                         </tbody>
                                     </table>
-                                    <div class="btn-div">
-                                        <button type="submit" name = "updateSec" class="btn btn-success float-right">Save Changes</button><br>
-                                    </div>
                                     <br>
                                 </div>
                             </form>

@@ -161,7 +161,7 @@ $(function() {
             empemail: {
                 required: true,
                 email: true,
-                facultyustedu: false
+                facultyustedu: true
             },
             emppass: {
                 required: true,

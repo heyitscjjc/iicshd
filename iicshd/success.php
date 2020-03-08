@@ -352,7 +352,7 @@ header("Location: index.php");
                                         }
                                         ?>
                                     </i></b> 
-                                Please check your <b>Spam</b> folder if you can't locate the email.
+                                Please check your <b>Spam</b> folder if you can't locate the email. It might take a minute or two for the email to show up.
                             </div>
                             <div class="alert alert-secondary">
                                 <p>Input the <b>Verification Code</b> below to confirm your credentials.</p>
