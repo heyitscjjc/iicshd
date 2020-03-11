@@ -9,6 +9,11 @@ body {
     vertical-align: text-bottom;
 }
 
+.h2 {
+    font-weight: 900;
+    font-size: 48px;
+}
+
 
 /*
  * Sidebar

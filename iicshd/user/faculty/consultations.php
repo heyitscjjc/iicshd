@@ -30,8 +30,9 @@ if (isset($_POST['updatedoc2'])) {
         $constart = "0";
         $conend = "0";
 
-        $editquery = $conn->prepare("UPDATE consultations SET constatus=?, conremarks = ?, constart = ?, conend = ?, condatemodified=NOW() WHERE conno=?");
-        $editquery->bind_param("ssssi", $docstatus, $conremarks, $constart, $conend, $edit_doc_no);
+        //$editquery = $conn->prepare("UPDATE consultations SET constatus=?, conremarks = ?, constart = NOW(), conend = NOW(), condatemodified=NOW() WHERE conno=?");
+        $editquery = $conn->prepare("UPDATE consultations SET constatus=?, conremarks = ?, constart = NULL, conend = NULL, condatemodified=NOW() WHERE conno=?");
+        $editquery->bind_param("ssi", $docstatus, $conremarks, $edit_doc_no);
         $editquery->execute();
         $editquery->close();
     } elseif ($docstatus == "Accepted") {

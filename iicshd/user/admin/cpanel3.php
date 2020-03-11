@@ -56,7 +56,9 @@ if (isset($_POST['toggleClear'])) {
                 $clearQuery = $conn->prepare("TRUNCATE TABLE queue");
                 $clearQuery->execute();
                 $clearQuery->close();
-
+                $clearQuery = $conn->prepare("UPDATE users SET inqueue = '0'");
+                $clearQuery->execute();
+                $clearQuery->close();
                 $_GET['clear'] = "success";
                 header("location: cpanel3.php?clear=success");
                 exit;
