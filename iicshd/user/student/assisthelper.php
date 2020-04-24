@@ -33,7 +33,7 @@
         try {
             $_SESSION['context'] = null;
             $style = "style='display:none;'";
-            $_REQUEST['query']="goodbye";
+            $_REQUEST['query']="exit";
             array_push($_SESSION['previousMessages'], "You: " .  "None");
             array_push($_SESSION['previousMessages'], "-END OF CONVERSATION-");
             $conversation = implode( "<p>", $_SESSION['previousMessages']);
@@ -205,6 +205,21 @@
         <link href="../../fa-5.5.0/css/fontawesome.css" rel="stylesheet">
         <link href="../../css/style.css" rel="stylesheet">
         <style>
+            @media 
+            only screen and (max-width: 760px),
+            (min-device-width: 768px) and (max-device-width: 1024px)  {
+                .w-50{
+                    width: 75%!important;
+                    
+                }
+                .btn.btn-signin{
+                    margin-top: 10px;
+                }
+                .delete{
+                    float: left!important;
+                }
+
+            }
             .header {
                 padding: 10px;
                 text-align: center;
@@ -222,6 +237,9 @@
                 color: white;
                 margin: 2px;
             } 
+            .currentMessage{
+                font-weight: 900;
+            }
         </style>
 
         <!-- Font Awesome JS -->
@@ -242,7 +260,7 @@
 
 <div class="container mt-5 p-5 w-50" style="border-radius: .25rem; background-color: white;">
     <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';">
-        <p style="text-align: right;"><button class="btn btn-lg btn-success btn-block btn-signin" name="btnDeleteConvo" style="width: 250px; float: right;">Delete conversation and start over</button></p><br><br>
+        <p style="text-align: right; padding-bottom: 5px;"><button class="btn btn-lg btn-success btn-block btn-signin delete" name="btnDeleteConvo" style="width: 250px; float: right;">Delete conversation and start over</button></p><br><br>
         <div class="p-3" style="background-color: white; border-radius: .25rem;">
         <?php
             if(is_array(@$_SESSION['previousMessages'])){
@@ -253,16 +271,19 @@
             }
             ?>
         </div>
-        <br><h3><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
+        <br><h3 class="currentMessage"><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
         <?php
-            if(strpos($_SESSION['repliedMessage'], "Anything else")){
+            if(strpos($_SESSION['repliedMessage'], "anything else") !== false || strpos($_SESSION['repliedMessage'], "Anything else") !== false){
                 $style = "style='display:none;'";
                 echo "<button class='btn btn-secondary' name='btnYes'>Yes, there's something else</button>";
                 echo "<button class='btn btn-secondary' name='btnNone'>None</button>";
             }
-            if(strpos($_SESSION['repliedMessage'], "ticket")){
+            if(strpos($_SESSION['repliedMessage'], "document")){
                 echo "<a href='queue.php#getQueue' target='_blank'> <button class='btn btn-secondary' name='btnGetTicket'>Open a ticket</button></a>";
                 echo "<button class='btn btn-secondary' name='btnYes'>Yes, I have already submitted one</button>";
+            }
+            if(strpos($_SESSION['repliedMessage'], "live agent" ) !== false || strpos($_SESSION['repliedMessage'], "queue") !== false){
+                echo "<a href='queue.php#getQueue' target='_blank'> <button class='btn btn-secondary' name='btnGetTicket'>Open a ticket</button></a>";
             }
             if(strpos($_SESSION['repliedMessage'], "track")){
                 echo "<button class='btn btn-secondary' name='btnDocs'>Visit Documents page</button>";

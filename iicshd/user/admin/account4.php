@@ -100,11 +100,12 @@ if (!isset($_SESSION['user_name'])) {
                                     <span class="fas fa-user"></span>
                                     Archived Posts
                                 </h5>
+                                <p>All posts deleted by the administrators and faculty can be seen in here.</p>
                             </div>
 
                             <div class="card-body">
 
-                                <table id="data_table" class="table table-striped table-responsive-lg">
+                                <table id="data_table" class="table table-striped table-responsive">
 
                                     <thead>
                                         <tr>
@@ -117,7 +118,7 @@ if (!isset($_SESSION['user_name'])) {
                                     <tbody>
 
                                         <?php
-                                        $exelogs = mysqli_query($conn, "SELECT * FROM announcements WHERE userno = '" . $_SESSION['userno'] . "' AND HIDDEN = '1'");
+                                        $exelogs = mysqli_query($conn, "SELECT * FROM announcements WHERE HIDDEN = '1'");
 
                                         if ($exelogs->num_rows > 0) {
                                             while ($row = $exelogs->fetch_assoc()) {

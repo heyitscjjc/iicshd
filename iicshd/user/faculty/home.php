@@ -89,7 +89,7 @@ if (isset($_POST['editpost'])) {
     $edit_ann_title = clean($_POST['edit_ann_title']);
     $edit_ann_no = $_POST['edit_ann_no'];
     $edit_ann_desc = $_POST['edit_ann_desc'];
-
+    $edit_dept = $_POST['editDept'];
 
 //    $oldcatval=$conn->prepare("SELECT * FROM propcategory WHERE PROPCATNO=?");
 //    $oldcatval->bind_param("i",$edit_id);
@@ -103,8 +103,8 @@ if (isset($_POST['editpost'])) {
 //
 //    $oldcatvalfinal= implode("**",array($oldpropcatno,$oldpropcat));
     //   $query="UPDATE propcategory SET PROPCAT='$edit_category_name' WHERE PROPCATNO='$edit_id'";
-    $editquery = $conn->prepare("UPDATE announcements SET anntitle=?, anndesc=?, anndate=NOW(), userno=? WHERE annno=?");
-    $editquery->bind_param("ssii", $edit_ann_title, $edit_ann_desc, $_SESSION['userno'], $edit_ann_no);
+    $editquery = $conn->prepare("UPDATE announcements SET anntitle=?, anndesc=?, anndate=NOW(), userno=?, deptno=? WHERE annno=?");
+    $editquery->bind_param("ssiii", $edit_ann_title, $edit_ann_desc, $_SESSION['userno'], $edit_dept, $edit_ann_no);
     $editquery->execute();
     $editquery->close();
 //
@@ -330,6 +330,132 @@ if (isset($_POST['deletepost'])) {
                                         <br>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn bg-dark text-white" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="fas fa-plus-circle"></span> My Announcements
+                                </button>
+                            </h5>
+                        </div>
+
+
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                <p style="font-size: 15px;"><strong>Note: </strong>You can manage each post by clicking the <span class="fas fa-edit"></span> button. 
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <?php
+                                    $announceSelect = "SELECT announcements.annno, announcements.anntitle, announcements.anndesc, announcements.anndate, announcements.userno, announcements.deptno, users.fname, users.mname, users.lname FROM announcements LEFT JOIN users ON users.userno = announcements.userno WHERE announcements.hidden = '0' AND announcements.userno = '" . $_SESSION['userno'] . "' ORDER BY announcements.annno DESC";
+                                    $result = $conn->query($announceSelect);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            $annno = $row['annno'];
+                                            $anntitle = $row['anntitle'];
+                                            $anndesc = $row['anndesc'];
+                                            $anndate = $row['anndate'];
+                                            $usercreated = ($row['fname'] . ' ' . $row['mname'] . ' ' . $row['lname']);
+                                            $department = $row['deptno'];
+                                            if($department == 0){
+                                                $departmentName = "IICS COMMUNITY";
+                                                $deptColor = "#b00f24";
+                                            }
+                                            else if($department == 1){
+                                                $departmentName = "COMPUTER SCIENCE";
+                                                $deptColor = "#3498db";
+                                            }
+                                            else if($department == 2){
+                                                $departmentName = "INFORMATION SYSTEMS";
+                                                $deptColor = "#7f8c8d";
+                                            }
+                                            else if($department == 3){
+                                                $departmentName = "INFORMATION TECHNOLOGY";
+                                                $deptColor = "#2ecc71";
+                                            }  
+                                            echo '                           
+                                                        <div class="col-md-4">
+                                                            <div class="card">
+                                                                <div class="card-header bg-dark text-white">
+                                                                    <h7>
+                                                                    <div style="float: right;" class="btn-group" role="group">
+                                                                        <a href="#edit' . $annno . '" data-toggle="modal" title="Edit Post"><button type="button" class="btn btn-outline-light btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></button></a>
+                                                                    </div>
+                                                                    </h7>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">' . $anntitle . '</h5>
+                                                                    <p class="card-text" style="font-size: 12px;">' . date("m/d/Y h:iA", strtotime($anndate)) . ' by ' . $usercreated . '</p> 
+                                                                    <p class="card-text" style="font-size: 15px;">' . $anndesc . '</p>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                        </div>
+                                                        <br>';
+
+                                            echo '<div id="edit' . $annno . '" class="modal fade" role="dialog">
+                                                        <form method="post">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <!-- Modal content-->
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+
+                                                                        <h4 class="modal-title">Edit Post</h4>
+                                                                    </div>
+
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <strong><h5>Title: </h5></strong>
+                                                                                    <span><input type="text" class="form-control" name="edit_ann_title" value="' . $anntitle . '"></span>
+                                                                                <br>
+                                                                                <strong><h5>Description: </h5></strong>
+                                                                                    <span><textarea rows="2" class="form-control" name="edit_ann_desc" required>' . $anndesc . '</textarea>
+                                                                                <input type="hidden" name="edit_ann_no" value="' . $annno . '">
+                                                                                <input type="hidden" name="delete_ann_no" value="' . $annno . '">
+                                                                            </div>
+                                                                        </div><br>
+                                                                        <div class="form-group">
+                                                                        <p>This is currently posted at ' . $departmentName . '</p>
+                                                                        <select required class="form-control" name="editDept">
+                                                                            <option class="hidden" value="" selected disabled>Department: <span style="color: red !important;">*</span></option>';
+                                                                            
+                                                                            $prof = mysqli_query($conn, "SELECT * from dept");
+                                                                            if ($prof->num_rows > 0) {
+                                                                                while ($row = $prof->fetch_assoc()) {
+                                                                                    $deptno = $row['deptno'];
+                                                                                    $deptname = $row['deptname'];
+                                                                                    echo "<option value='" . $deptno . "'>" . $deptname . "</option>";
+                                                                                }
+                                                                            } else {
+                                                                                echo"<option value=''></option>";
+                                                                            }
+                                                                         
+                                                                        echo '</select>
+                                                                    </div>
+                                                                        <br>
+                                                                        <div class="modal-footer">
+                                                                            <button style="float: right;" type="button" class="btn btn-secondary btn-m" data-dismiss="modal"><span class="fas fa-times"></span> Cancel</button> 
+                                                                            <button style="float: left;" type="submit" name="deletepost" class="btn btn-danger btn-m"><span class="fas fa-trash"></span> Delete Post</button>
+                                                                            <button style="float: right;" type="submit" name="editpost" class="btn btn-success btn-m"><span class="fas fa-save" ></span> Save Changes</button>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>';
+                                        }
+                                    } else {
+                                        echo "<h5>You haven't made any announcements yet.</h5>";
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
