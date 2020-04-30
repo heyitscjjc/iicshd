@@ -339,7 +339,7 @@ if (isset($_POST['receiveRel'])) {
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                             <div class="card-body"> 
 
-                                <table id="archive" class="table table-striped table-responsive table-lg">
+                                <table id="archive" class="table table-striped table-responsive-lg">
 
 
                                     <thead>
@@ -369,7 +369,9 @@ if (isset($_POST['receiveRel'])) {
                                                 $docdesc = $row['docdesc'];
                                                 $docstatus = $row['docstatus'];
                                                 $docdatechange = $row['docdatechange'];
+
                                                 echo "<tr>"
+												. "<td>" . $docISO . "</td>"
                                                 . "<td>" . $docid . "</td>"
                                                 . "<td>" . date("m/d/Y h:iA", strtotime($docdatesubmit)) . "</td>"
                                                 . "<td>" . date("m/d/Y h:iA", strtotime($docdatechange)) . "</td>"
@@ -632,7 +634,7 @@ $thisDate = date("m/d/Y");
             $('#archive').DataTable({
 
                 initComplete: function () {
-                    this.api().columns([1, 2, 3, 4, 5, 6, 7]).every(function () {
+                    this.api().columns().every(function () {
                         var column = this;
                         var select = $('<select><option value="">Show all</option></select>')
                                 .appendTo($(column.footer()).empty())
@@ -662,7 +664,7 @@ $thisDate = date("m/d/Y");
             $('#received').DataTable({
 
                 initComplete: function () {
-                    this.api().columns([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).every(function () {
+                    this.api().columns([1, 2, 3, 4, 5, 6, 7, 8]).every(function () {
                         var column = this;
                         var select = $('<select><option value="">Show all</option></select>')
                                 .appendTo($(column.footer()).empty())

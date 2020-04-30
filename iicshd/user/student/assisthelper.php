@@ -271,7 +271,7 @@
             }
             ?>
         </div>
-        <br><h3 class="currentMessage"><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
+        <br><h3 id="currentMessage" class="currentMessage"><span class="icon-utility-live-chat"></span><?php sendMessage(); ?></h3>
         <?php
             if(strpos($_SESSION['repliedMessage'], "anything else") !== false || strpos($_SESSION['repliedMessage'], "Anything else") !== false){
                 $style = "style='display:none;'";
@@ -373,6 +373,11 @@
                 }, 1000);
 
             });
+            function autoScroll() {
+                var elmnt = document.getElementById("currentMessage");
+                elmnt.scrollIntoView();
+            }
+            autoScroll();
         </script>
     </body>
 </html>
