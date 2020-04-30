@@ -52,6 +52,7 @@
             include '../../emails/emailChatTranscript.php';
             $emailBody = ob_get_clean();
             $mail->Body = $emailBody;
+            $mail->CharSet = 'UTF-8';
             $mail->send();
             $_SESSION['previousMessages'] = array();
             $_SESSION['context'] = null;
@@ -259,7 +260,7 @@
 
 
 <div class="container mt-5 p-5 w-50" style="border-radius: .25rem; background-color: white;">
-    <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';">
+    <form method="post" autocomplete="off" onkeydown="return event.key != 'Enter';" accept-charset="UTF-8">
         <p style="text-align: right; padding-bottom: 5px;"><button class="btn btn-lg btn-success btn-block btn-signin delete" name="btnDeleteConvo" style="width: 250px; float: right;">Delete conversation and start over</button></p><br><br>
         <div class="p-3" style="background-color: white; border-radius: .25rem;">
         <?php
