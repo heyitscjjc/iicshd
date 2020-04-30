@@ -16,6 +16,10 @@
     $mail->Port = 587;     
     $style = "style='display:float;'";
 
+    if(strpos($_SESSION['previousMessages'][0], "Bye") !== false){
+        $_SESSION['previousMessages'] = array();
+        $_SESSION['context'] = null;
+    }
     //CHATBOT COMMANDS
     function connectionError($errno, $errstr) {
         echo "We can't reach to the Virtual Helper at the moment. Try again later.";
